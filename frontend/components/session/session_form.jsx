@@ -24,7 +24,7 @@ class SessionForm extends React.Component {
 
   render() {
     return (
-      <div className="modal-overlay">
+      <div className="modal-session-overlay">
         <div className="modal">
           <h2>{this.props.formTitle}</h2>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { fetchProjects } from '../actions/project_actions';
@@ -48,4 +48,4 @@ class SideBar extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SideBar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SideBar));

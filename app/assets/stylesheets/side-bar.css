@@ -6,4 +6,24 @@
   color: white;
   padding: 5px;
   grid-area: 1 / 1 / 5 / 2;
+  padding: 0;
+}
+
+.side-bar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.side-bar ul li:not(:first-child) {
+  width: 100%;
+  margin: 5px 0;
+}
+
+.side-bar ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+.side-bar ul li:not(:first-child):hover {
+  background-color: #646f79;
 }
