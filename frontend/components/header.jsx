@@ -19,8 +19,8 @@ const mapDispatchToProps = dispatch => (
 
 const Header = ({ loggedIn, currentUser, logout }) => (
   loggedIn ?
-  <div>
-    <h1>Welcome, {currentUser.username}</h1>
+  <div className="TopNav">
+    <span>{currentUser.username}</span>
     <button onClick={logout}>Logout</button>
   </div> :
   <div>

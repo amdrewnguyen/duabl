@@ -24,8 +24,9 @@ class SessionForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="modal">
         <h2>{this.props.formTitle}</h2>
+
         <form onSubmit={this.handleSubmit}>
           <label>EMAIL ADDRESS</label><br></br>
           <input type="text" value={this.state.email}
