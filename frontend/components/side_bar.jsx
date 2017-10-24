@@ -3,6 +3,8 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { fetchProjects } from '../actions/project_actions';
+import NewProjectForm from './projects/project_form_container';
+import { openModal } from '../actions/ui_actions';
 
 const mapStateToProps = (state) => (
   {
@@ -15,6 +17,10 @@ const mapStateToProps = (state) => (
 const mapDispatchToProps = dispatch => (
   {
     fetchProjects: () => dispatch(fetchProjects()),
+    openCreateProjectModal:
+      () => dispatch(
+        openModal(NewProjectForm, {formType: "Create"})
+      ),
   }
 );
 
@@ -37,7 +43,10 @@ class SideBar extends React.Component {
       <div className="side-bar">
         <h1>duabl</h1>
         <ul className="project-list">
-          <li>PROJECTS</li>
+          <li>
+            PROJECTS
+            <a onClick={this.props.openCreateProjectModal}>+</a>
+          </li>
           {projectElems}
         </ul>
       </div>
