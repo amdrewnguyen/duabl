@@ -17,6 +17,8 @@ class User < ApplicationRecord
 
   after_initialize :ensure_session_token
 
+  attr_reader :password
+
   def self.find_by_credentials(email, password)
     user = User.find_by(email)
     user && user.is_password?(password) ? user : nil
