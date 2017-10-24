@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { fetchProjects } from '../actions/project_actions';
+
 const mapStateToProps = (state) => (
   {
     projects: Object.values(state.entities.projects),
@@ -12,28 +14,38 @@ const mapStateToProps = (state) => (
 
 const mapDispatchToProps = dispatch => (
   {
+    fetchProjects: () => dispatch(fetchProjects()),
   }
 );
 
-const SideBar = ({ projects, loggedIn }) => {
-  const projectElems = projects.map(
-    (project) => (
-      <li>
-        <Link to={`/${project.id}/list`}>{project.name}</Link>
-      </li>
-    )
-  );
-  return loggedIn ? (
-    <div className="side-bar">
-      <h1>duabl</h1>
-      <ul className="project-list">
-        <li>PROJECTS</li>
-      </ul>
-    </div>
-  ) : (
-    <div>
-    </div>
-  );
-};
+class SideBar extends React.Component {
+  componentDidMount() {
+    console.log("I've mounted.");
+    this.props.fetchProjects();
+  }
+
+  render() {
+    const { projects, loggedIn } = this.props;
+    const projectElems = projects.map(
+      (project) => (
+        <li key={project.id}>
+          <Link to={`/${project.id}/list`}>{project.name}</Link>
+        </li>
+      )
+    );
+    return loggedIn ? (
+      <div className="side-bar">
+        <h1>duabl</h1>
+        <ul className="project-list">
+          <li>PROJECTS</li>
+          {projectElems}
+        </ul>
+      </div>
+    ) : (
+      <div>
+      </div>
+    );
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

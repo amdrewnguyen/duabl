@@ -1,0 +1,45 @@
+html, body {
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  /*background-color: #edf1f2;*/
+}
+
+.app {
+  display: grid;
+  grid-template: 44px 66px 15px 1fr / 245px 20px 19fr 15px 13fr 20px;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/*.sidebar:hover {
+  transform: translateX(-260px);
+  width: 0px;
+}*/
+
+.top-bar {
+  grid-area: 1 / 2 / 2 / -1;
+  background-color: green;
+}
+
+.page-header {
+  grid-area: 2 / 2 / 3 / -1;
+  background-color: pink;
+}
+
+.main-view {
+  grid-area: 4 / 3 / 5 / 4;
+  background-color: gold;
+}
+
+.details-view {
+  grid-area: 4 / 5 / 5 / 6;
+  background-color: blue;
+}

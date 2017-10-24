@@ -1,0 +1,9 @@
+.side-bar {
+  /*min-height: 100%;*/
+  background-color: #222b37;
+  overflow-x: hidden;
+  transition: margin-left 250ms ease-out;
+  color: white;
+  padding: 5px;
+  grid-area: 1 / 1 / 5 / 2;
+}

@@ -33,42 +33,43 @@ export const receiveProjectErrors = (errors) => (
   }
 );
 
-export const fetchProjects = () => dispatch => (
-  ProjectAPI.fetchProjects()
+export const fetchProjects = () => dispatch => {
+  console.log("i've received the dispatch");
+  return ProjectAPI.fetchProjects()
     .then(
-      (projects) => receiveProjects(projects),
-      (errors) => receiveProjectErrors(errors)
-    )
-);
+      (projects) => dispatch(receiveProjects(projects)),
+      (errors) => dispatch(receiveProjectErrors(errors))
+    );
+};
 
 export const fetchProject = (projectId) => dispatch => (
   ProjectAPI.fetchProject(projectId)
     .then(
-      (project) => receiveProject(project),
-      (errors) => receiveProjectErrors(errors)
+      (project) => dispatch(receiveProject(project)),
+      (errors) => dispatch(receiveProjectErrors(errors))
     )
 );
 
 export const createProject = (project) => dispatch => (
   ProjectAPI.createProject(project)
     .then(
-      (newProject) => receiveProject(newProject),
-      (errors) => receiveProjectErrors(errors)
+      (newProject) => dispatch(receiveProject(newProject)),
+      (errors) => dispatch(receiveProjectErrors(errors))
     )
 );
 
 export const updateProject = (project) => dispatch => (
   ProjectAPI.updateProject(project)
     .then(
-      (newProject) => receiveProject(newProject),
-      (errors) => receiveProjectErrors(errors)
+      (newProject) => dispatch(receiveProject(newProject)),
+      (errors) => dispatch(receiveProjectErrors(errors))
     )
 );
 
 export const deleteProject = (projectId) => dispatch => (
   ProjectAPI.deleteProject(projectId)
     .then(
-      (project) => removeProject(project),
-      (errors) => receiveProjectErrors(errors)
+      (project) => dispatch(removeProject(project)),
+      (errors) => dispatch(receiveProjectErrors(errors))
     )
 );
