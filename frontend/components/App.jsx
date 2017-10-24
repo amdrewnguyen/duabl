@@ -3,13 +3,14 @@ import { Route } from 'react-router-dom';
 
 import SessionFormContainer from './session/session_form_container';
 import Header from './header';
+import SideBar from './side_bar';
 import { AuthRoute } from './route/route_util';
 
 const App = () => {
   return (
-    <div>
+    <div className="app">
       <Header />
-      <h1>duabl</h1>
+      <SideBar />
       <AuthRoute path="/login" component={SessionFormContainer} />
       <AuthRoute path="/signup" component={SessionFormContainer} />
     </div>
