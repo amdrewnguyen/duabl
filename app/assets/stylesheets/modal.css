@@ -1,0 +1,75 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  max-width: 100%;
+  height: 570px;
+  max-height: 100%;
+  background-color: white;
+  z-index: 1010;
+  border-radius: 10px;
+  padding: 40px 85px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid light-gray;
+}
+
+.modal form {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.modal form input[type="text"]{
+  width: 100%;
+  height: 3em;
+}
+
+.modal form input[type="password"]{
+  width: 100%;
+  height: 3em;
+}
+
+.modal form input[type="submit"] {
+  align-self: flex-end;
+  margin-top: 30px;
+  background-color: #14aaf5;
+  border-color: #14aaf5;
+  border-radius: 3px;
+  height: 3em;
+  width: 10em;
+  color: white;
+}
+
+.modal h2 {
+  font-size: 36px;
+  font-weight: 400;
+}
+
+.modal form label {
+  font-size: 12px;
+  margin-top: 30px;
+  margin-bottom: 5px;
+  align-self: flex-start;
+}
+
+.modal-overlay {
+  z-index: 1000;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #febbbb; /* Old browsers */
+  background: -moz-linear-gradient(top, #febbbb 0%, #fe9090 45%, #ff5c5c 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #febbbb 0%,#fe9090 45%,#ff5c5c 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #febbbb 0%,#fe9090 45%,#ff5c5c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#febbbb', endColorstr='#ff5c5c',GradientType=0 ); /* IE6-9 */
+}

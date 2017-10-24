@@ -24,21 +24,23 @@ class SessionForm extends React.Component {
 
   render() {
     return (
-      <div className="modal">
-        <h2>{this.props.formTitle}</h2>
+      <div className="modal-overlay">
+        <div className="modal">
+          <h2>{this.props.formTitle}</h2>
 
-        <form onSubmit={this.handleSubmit}>
-          <label>EMAIL ADDRESS</label><br></br>
-          <input type="text" value={this.state.email}
-                 onChange={this.update("email")}/>
-          <br></br>
-          <label>PASSWORD</label><br></br>
-          <input type="password" value={this.state.password}
-                 onChange={this.update("password")}/>
-          <br></br>
-          <input type="submit" value={this.props.formTitle}/>
-        </form>
-        <Link to={this.props.otherPath}>{this.props.otherTitle}</Link>
+          <form onSubmit={this.handleSubmit}>
+            <label>EMAIL ADDRESS</label><br></br>
+            <input type="text" value={this.state.email}
+                   onChange={this.update("email")}/>
+            <br></br>
+            <label>PASSWORD</label><br></br>
+            <input type="password" value={this.state.password}
+                   onChange={this.update("password")}/>
+            <br></br>
+            <input type="submit" value={this.props.formTitle}/>
+          </form>
+          <Link to={this.props.otherPath}>{this.props.otherTitle}</Link>
+        </div>
       </div>
     );
   }
