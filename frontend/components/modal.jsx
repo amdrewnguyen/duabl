@@ -22,9 +22,9 @@ class Modal extends React.Component {
   render() {
     const { modalOn, Component, options, closeModal } = this.props;
     return modalOn ? (
-      <div className="{options.overlayClass}"
+      <div className="modal-overlay {options.overlayClass}"
            onClick={closeModal}>
-        <Component {...options}/>
+        <Component {...options} closeModal={closeModal}/>
       </div>
     ) : (
       null

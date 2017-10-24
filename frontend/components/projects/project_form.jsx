@@ -12,6 +12,7 @@ class ProjectForm extends React.Component {
     );
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   update(field) {
@@ -20,14 +21,23 @@ class ProjectForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.action(this.state);
+    e.stopPropagation();
+    console.log(this.props.action);
+    this.props.action(this.state)
+      .then(
+        () => this.props.closeModal(),
+        () => console.log("error")
+      );
+  }
+
+  handleClick(e) {
+    e.stopPropagation();
   }
 
   render() {
     return (
-      <div className="modal-overlay">
-        <div className="modal">
-          <h2>{`${this.props.formTitle} Project`}</h2>
+        <div className="modal" onClick={this.handleClick}>
+          <h2>{`${this.props.formType} Project`}</h2>
 
           <form onSubmit={this.handleSubmit}>
             <label>PROJECT NAME</label><br></br>
@@ -38,10 +48,9 @@ class ProjectForm extends React.Component {
             <input type="text" value={this.state.description}
                    onChange={this.update("description")}/>
             <br></br>
-            <input type="submit" value={`${this.props.formTitle} Project`}/>
+            <input type="submit" value={`${this.props.formType} Project`}/>
           </form>
         </div>
-      </div>
     );
   }
 }

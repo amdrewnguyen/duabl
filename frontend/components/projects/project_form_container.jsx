@@ -22,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   const action = ownProps.formType === "Update" ? updateProject : createProject;
   return {
-    action: (user) => dispatch(action(user)),
+    action: (project) => dispatch(action(project)),
     fetchProject: (projectId) => dispatch(fetchProject(projectId)),
   };
 };

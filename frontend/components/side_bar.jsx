@@ -43,7 +43,7 @@ class SideBar extends React.Component {
       <div className="side-bar">
         <h1>duabl</h1>
         <ul className="project-list">
-          <li>
+          <li key={-1}>
             PROJECTS
             <a onClick={this.props.openCreateProjectModal}>+</a>
           </li>
