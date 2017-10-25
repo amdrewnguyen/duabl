@@ -19,11 +19,6 @@ body {
   padding: 0;
 }
 
-/*.sidebar:hover {
-  transform: translateX(-260px);
-  width: 0px;
-}*/
-
 .top-bar {
   grid-area: 1 / 2 / 2 / -1;
   background-color: #4CAF50;
@@ -32,20 +27,4 @@ body {
 .page-header {
   grid-area: 2 / 2 / 3 / -1;
   background-color: #C8E6C9;
-}
-
-.main-view {
-  grid-area: 3 / 2 / 5 / 7;
-  display: grid;
-  grid-template: 15px 1fr / 20px 19fr 15px 13fr 20px;
-}
-
-.task-list-view {
-  grid-area: 2 / 2 / 3 / 3;
-  background-color: #00b0ff;
-}
-
-.details-view {
-  grid-area: 2 / 4 / 3 / 5;
-  background-color: #4fc3f7;
 }

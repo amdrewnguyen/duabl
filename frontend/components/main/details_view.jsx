@@ -9,10 +9,10 @@ const mapStateToProps = (state, ownProps) => {
   const taskId = ownProps.match.params.taskId;
 
   if (taskId === 'list') {
-    return { task, taskId };
+    return { task, taskId, show: false};
   } else {
     task = state.entities.tasks[taskId];
-    return task ? { task, taskId } : { taskId };
+    return { task, taskId, show: (task ? true : false) };
   }
 };
 
@@ -49,17 +49,21 @@ class DetailsView extends React.Component {
 
   render() {
     return (
-        <div className="details-view">
-          {
-            this.state.loaded ? (
-              this.props.task.id + "\n" +
-              this.props.task.name
-            ) : (
-              null
-            )
-          }
-        </div>
-    );
+        this.props.show ? (
+          <div className="details-view">
+            {
+              this.state.loaded ? (
+                this.props.task.id + "\n" +
+                this.props.task.name
+              ) : (
+                null
+              )
+            }
+          </div>
+        ) : (
+          null
+        )
+      );
   }
 }
 

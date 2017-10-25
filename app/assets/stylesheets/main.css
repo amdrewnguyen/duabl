@@ -1,0 +1,25 @@
+.main-view {
+  grid-area: 3 / 2 / 5 / 7;
+  display: grid;
+  grid-template: 15px 1fr / 20px 19fr 15px 13fr 20px;
+}
+
+.task-list-view {
+  grid-area: 2 / 2 / 3 / 3;
+  background-color: #00b0ff;
+  transition: 500ms;
+}
+
+.task-list-view:only-child {
+  grid-area: 2 / 2 / 3 / 5;
+  background-color: #00b0ff;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  transition: 500ms;
+}
+
+.details-view {
+  grid-area: 2 / 4 / 3 / 5;
+  background-color: #4fc3f7;
+}

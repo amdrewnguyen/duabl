@@ -8,7 +8,7 @@ const SessionErrorsReducer = (state = [], action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_PROJECT_ERRORS:
-      return state.concat(action.errors);
+      return action.errors;
     case RECEIVE_PROJECTS:
     case RECEIVE_PROJECT:
     case REMOVE_PROJECT:
