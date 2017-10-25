@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Link, Route } from 'react-router-dom';
+
+import TaskListView from './task_list_view';
+import DetailsView from './details_view';
 
 const mapStateToProps = (state, ownProps) => (
   {
@@ -18,8 +21,8 @@ class MainView extends React.Component {
   render() {
     return (
       <div className="main-view">
-        <div className="task-list-view"></div>
-        <div className="details-view"></div>
+        <Route path="/:projectId" component={TaskListView} />
+        <Route path="/:projectId/:taskId" component={DetailsView} />
       </div>
     );
   }
