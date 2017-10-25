@@ -2,7 +2,11 @@ class Api::TasksController < ApplicationController
   before_action :require_logged_in, only: %i(index create update destroy)
 
   def index
-    @tasks = current_user.tasks
+    if params[:project_id]
+      @tasks = current_user.projects.find(params[:project_id]).tasks
+    else
+      @tasks = current_user.tasks
+    end
   end
 
   def create

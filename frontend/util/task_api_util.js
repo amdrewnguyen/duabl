@@ -7,6 +7,15 @@ export const fetchTasks = () => (
   )
 );
 
+export const fetchProjectTasks = (projectId) => (
+  $.ajax(
+    {
+      url: `api/projects/${projectId}/tasks`,
+      method: 'get',
+    }
+  )
+);
+
 export const fetchTask = (taskId) => (
   $.ajax(
     {

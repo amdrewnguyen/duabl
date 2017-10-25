@@ -34,8 +34,15 @@ export const receiveTaskErrors = (errors) => (
 );
 
 export const fetchTasks = () => dispatch => {
-  console.log("i've received the dispatch");
   return TaskAPI.fetchTasks()
+    .then(
+      (tasks) => dispatch(receiveTasks(tasks)),
+      (errors) => dispatch(receiveTaskErrors(errors))
+    );
+};
+
+export const fetchProjectTasks = (projectId) => dispatch => {
+  return TaskAPI.fetchProjectTasks(projectId)
     .then(
       (tasks) => dispatch(receiveTasks(tasks)),
       (errors) => dispatch(receiveTaskErrors(errors))
