@@ -10,18 +10,28 @@ class Api::TasksController < ApplicationController
     @task.owner_id = current_user.id
 
     if @task.save
-      render "api/projects/show"
+      render "api/tasks/show"
     else
       render json: @task.errors.full_messages, status: 422
     end
   end
 
   def update
-
+    @task = current_user.tasks.find(params[:idea])
+    if @task.update(taks_params)
+      render "api/tasks/show"
+    else
+      render json: @task.errors.full_messages, status: 422
+    end
   end
 
   def destroy
-
+    @task = current_user.tasks.find(params[:id])
+    if @task.destroy
+      render "api/tasks/show"
+    else
+      render json: @task.errors.full_messages, status: 422
+    end
   end
 
   private

@@ -3,7 +3,6 @@ class Api::ProjectsController < ApplicationController
 
   def index
     @projects = current_user.projects
-    puts @projects
   end
 
   def create
