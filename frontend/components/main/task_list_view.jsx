@@ -6,7 +6,8 @@ import { fetchProjectTasks } from '../../actions/task_actions';
 
 const mapStateToProps = (state, ownProps) => (
   {
-    
+    tasks: state.entities.projects[ownProps.match.params.projectId].taskIds
+            .map((taskId) => (state.entities.taks[taskId])),
   }
 );
 
