@@ -41,7 +41,7 @@ class SideBar extends React.Component {
     );
     return loggedIn ? (
       <div className="side-bar">
-        <h1>duabl</h1>
+        <h1><Link to="/">duabl</Link></h1>
         <ul className="project-list">
           <li key={-1}>
             PROJECTS

@@ -3,6 +3,8 @@ import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { fetchProjectTasks } from '../../actions/task_actions';
+import TaskListHeader from './task_list_view_header';
+import TaskListItem from './task_list_view_item';
 
 const mapStateToProps = (state, ownProps) => {
 
@@ -54,15 +56,12 @@ class TaskListView extends React.Component {
 
     if (this.state.loaded) {
       taskElements = this.props.tasks.map((task) => (
-        <li key={task.id}>
-          <Link to={`/${this.props.projectId}/${task.id}`}>
-            {task.name}
-          </Link>
-        </li>
+        <TaskListItem key={task.id} task={task} projectId={this.props.projectId}/>
       ));
     }
     return (
       <div className="task-list-view">
+        <TaskListHeader />
         <ul>
           {taskElements}
         </ul>

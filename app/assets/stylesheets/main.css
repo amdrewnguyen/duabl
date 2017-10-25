@@ -10,6 +10,10 @@
   transition: 1s;
 }
 
+.task-list-view ul {
+  /*list-style: none;*/
+}
+
 .task-list-view:only-child {
   grid-area: 2 / 2 / 3 / 5;
   background-color: #00b0ff;

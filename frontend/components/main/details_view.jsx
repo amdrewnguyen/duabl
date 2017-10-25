@@ -29,7 +29,7 @@ class DetailsView extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.task) {
+    if (!this.props.task && this.props.taskId !== 'list') {
       this.props.fetchTask(this.props.taskId)
         .then(
           () => this.setState({loaded: true})
