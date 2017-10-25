@@ -4,12 +4,20 @@ import { connect } from 'react-redux';
 
 import { fetchProjectTasks } from '../../actions/task_actions';
 
-const mapStateToProps = (state, ownProps) => (
-  {
-    tasks: state.entities.projects[ownProps.match.params.projectId].taskIds
-            .map((taskId) => (state.entities.taks[taskId])),
+const mapStateToProps = (state, ownProps) => {
+
+  let project = state.entities.projects[ownProps.match.params.projectId];
+  console.log(project);
+  let tasks = [];
+  if (project && state.entities.tasks) {
+
+    tasks = project.taskIds
+              .map((taskId) => (state.entities.tasks[taskId]));
   }
-);
+  return {
+    tasks,
+  };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => (
   {
@@ -20,19 +28,34 @@ const mapDispatchToProps = (dispatch, ownProps) => (
 class TaskListView extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {loaded: false};
   }
 
   componentDidMount() {
-
+    this.props.fetchProjectTasks(this.props.match.projectId).then(
+      () => this.setState({loaded: true})
+    );
   }
 
   render() {
+    let taskElements = [];
+
+    if (this.state.loaded) {
+      this.props.tasks.map((task) => (
+        <li key={task.id}>
+          {task.name}
+        </li>
+      ));
+    }
     return (
       <div className="task-list-view">
         Project id: {this.props.match.params.projectId}
+        <ul>
+          {taskElements}
+        </ul>
       </div>
     );
   }
 }
 
-export default TaskListView;
+export default connect(mapStateToProps, mapDispatchToProps)(TaskListView);
