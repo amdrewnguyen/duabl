@@ -4,7 +4,7 @@ import { RECEIVE_PROJECTS,
 import merge from 'lodash/merge';
 
 const ProjectsReducer = (state = {}, action) => {
-  console.log(action.type);
+  // console.log(action.type);
   Object.freeze(state);
   let newState;
   switch (action.type) {

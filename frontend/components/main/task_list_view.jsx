@@ -52,11 +52,15 @@ class TaskListView extends React.Component {
   }
 
   render() {
+    const { tasks, projectId, history } = this.props;
     let taskElements = [];
 
     if (this.state.loaded) {
-      taskElements = this.props.tasks.map((task) => (
-        <TaskListItem key={task.id} task={task} projectId={this.props.projectId}/>
+      taskElements = tasks.map((task) => (
+        <TaskListItem key={task.id}
+                      task={task}
+                      projectId={projectId}
+        />
       ));
     }
     return (

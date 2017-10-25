@@ -6,20 +6,67 @@
 
 .task-list-view {
   grid-area: 2 / 2 / 3 / 3;
-  background-color: #00b0ff;
+  background-color: white;
   transition: 1s;
-}
-
-.task-list-view ul {
-  /*list-style: none;*/
 }
 
 .task-list-view:only-child {
   grid-area: 2 / 2 / 3 / 5;
-  background-color: #00b0ff;
+  /*background-color: #00b0ff;*/
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
+}
+
+.task-list-view ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-list-header {
+  height: 50px;
+  background: white;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 1px 3px 0 lightgray;
+  border-bottom: 1px solid lightgray;
+}
+
+.task-list-item {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  height: 34px;
+  border-bottom: 1px solid lightgray;
+  /*grid-column-start: 2;
+  grid-column-end: 3;*/
+}
+
+.task-list-item:focus-within {
+  border-top: 1px solid #14aaf5;
+  border-bottom: 1px solid #14aaf5;
+}
+
+.task-list-item textarea {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 16px;
+  border: 0;
+  resize: none;
+  font-size: 13px;
+}
+
+.task-list-item textarea:focus {
+  border: none;
+  overflow: auto;
+  outline: none;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 
 .details-view {
