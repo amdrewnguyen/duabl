@@ -16,12 +16,13 @@ const mapStateToProps = (state, ownProps) => {
   }
   return {
     tasks,
+    projectId: ownProps.match.params.projectId,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => (
   {
-    fetchProjectTasks: (projectId) => dispatch(fetchProjectTasks()),
+    fetchProjectTasks: (projectId) => dispatch(fetchProjectTasks(projectId)),
   }
 );
 
@@ -32,16 +33,27 @@ class TaskListView extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchProjectTasks(this.props.match.projectId).then(
+    console.log("Project ID is: " + this.props.projectId);
+    
+    this.props.fetchProjectTasks(this.props.projectId).then(
       () => this.setState({loaded: true})
     );
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.match.params.projectId !== this.props.match.params.projectId) {
+      this.setState({loaded: false});
+      this.props.fetchProjectTasks(newProps.match.params.projectId).then(
+        () => this.setState({loaded: true})
+      );
+    }
   }
 
   render() {
     let taskElements = [];
 
     if (this.state.loaded) {
-      this.props.tasks.map((task) => (
+      taskElements = this.props.tasks.map((task) => (
         <li key={task.id}>
           {task.name}
         </li>
@@ -49,7 +61,6 @@ class TaskListView extends React.Component {
     }
     return (
       <div className="task-list-view">
-        Project id: {this.props.match.params.projectId}
         <ul>
           {taskElements}
         </ul>

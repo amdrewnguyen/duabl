@@ -3,7 +3,8 @@ class Api::TasksController < ApplicationController
 
   def index
     if params[:project_id]
-      @tasks = current_user.projects.find(params[:project_id]).tasks
+      project = current_user.projects.find(params[:project_id])
+      @tasks = project.tasks
     else
       @tasks = current_user.tasks
     end

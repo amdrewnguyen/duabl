@@ -4,8 +4,8 @@ import { RECEIVE_TASK_ERRORS,
          REMOVE_TASK } from '../actions/task_actions';
 import merge from 'lodash/merge';
 
-const TaskErrorsReducer = (state = { errors: [] }, action) => {
-  Object.freeze(state);
+const TaskErrorsReducer = (state = [], action) => {
+  // Object.freeze(state);
   switch (action.type) {
     case RECEIVE_TASK_ERRORS:
       return state.concat(action.errors);
