@@ -7,7 +7,7 @@
 .task-list-view {
   grid-area: 2 / 2 / 3 / 3;
   background-color: #00b0ff;
-  transition: 500ms;
+  transition: 1s;
 }
 
 .task-list-view:only-child {
@@ -16,7 +16,6 @@
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  transition: 500ms;
 }
 
 .details-view {
