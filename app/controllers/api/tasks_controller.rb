@@ -10,6 +10,10 @@ class Api::TasksController < ApplicationController
     end
   end
 
+  def show
+    @task = current_user.tasks.find(params[:id])
+  end
+
   def create
     @task = Task.new(task_params)
     @task.owner_id = current_user.id

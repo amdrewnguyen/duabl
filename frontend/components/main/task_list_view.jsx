@@ -34,7 +34,7 @@ class TaskListView extends React.Component {
 
   componentDidMount() {
     console.log("Project ID is: " + this.props.projectId);
-    
+
     this.props.fetchProjectTasks(this.props.projectId).then(
       () => this.setState({loaded: true})
     );
@@ -55,7 +55,9 @@ class TaskListView extends React.Component {
     if (this.state.loaded) {
       taskElements = this.props.tasks.map((task) => (
         <li key={task.id}>
-          {task.name}
+          <Link to={`/${this.props.projectId}/${task.id}`}>
+            {task.name}
+          </Link>
         </li>
       ));
     }

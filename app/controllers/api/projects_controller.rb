@@ -5,6 +5,10 @@ class Api::ProjectsController < ApplicationController
     @projects = current_user.projects
   end
 
+  def show
+    @project = current_user.projects.find(params[:id])
+  end
+
   def create
     @project = Project.new(project_params)
     @project.owner_id = current_user.id
