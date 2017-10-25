@@ -4,17 +4,17 @@ import { RECEIVE_PROJECT_ERRORS,
          REMOVE_PROJECT } from '../actions/project_actions';
 import merge from 'lodash/merge';
 
-const SessionErrorsReducer = (state = { errors: [] }, action) => {
+const SessionErrorsReducer = (state = [], action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_PROJECT_ERRORS:
-      return { errors: action.errors };
+      return state.concat(action.errors);
     case RECEIVE_PROJECTS:
     case RECEIVE_PROJECT:
     case REMOVE_PROJECT:
-      return { errors: [] };
+      return [];
     default:
-      return merge({}, state);
+      return state;
   }
 };
 

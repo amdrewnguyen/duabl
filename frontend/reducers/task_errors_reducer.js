@@ -8,13 +8,13 @@ const TaskErrorsReducer = (state = { errors: [] }, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_TASK_ERRORS:
-      return { errors: action.errors };
+      return state.concat(action.errors);
     case RECEIVE_TASKS:
     case RECEIVE_TASK:
     case REMOVE_TASK:
-      return { errors: [] };
+      return [];
     default:
-      return merge({}, state);
+      return state;
   }
 };
 
