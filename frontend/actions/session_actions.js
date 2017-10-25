@@ -21,7 +21,7 @@ export const login = user => dispatch => (
   SessionAPI.login(user)
     .then(
       (currentUser) => dispatch(receiveCurrentUser(currentUser)),
-      (errors) => dispatch(receiveErrors(errors))
+      (errors) => dispatch(receiveErrors(errors.responseJSON))
     )
 );
 
@@ -29,7 +29,7 @@ export const signup = user => dispatch => (
   SessionAPI.signup(user)
     .then(
       (currentUser) => dispatch(receiveCurrentUser(currentUser)),
-      (errors) => dispatch(receiveErrors(errors))
+      (errors) => dispatch(receiveErrors(errors.responseJSON))
     )
 );
 
@@ -37,6 +37,6 @@ export const logout = () => dispatch => (
   SessionAPI.logout()
     .then(
       () => dispatch(receiveCurrentUser(null)),
-      (errors) => dispatch(receiveErrors(errors))
+      (errors) => dispatch(receiveErrors(errors.responseJSON))
     )
 );

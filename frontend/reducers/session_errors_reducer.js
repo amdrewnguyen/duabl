@@ -4,15 +4,14 @@ import {
 } from '../actions/session_actions';
 import merge from 'lodash/merge';
 
-const SessionErrorsReducer = (state = { errors: [] }, action) => {
-  Object.freeze(state);
+const SessionErrorsReducer = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
-      return { errors: [] };
+      return [];
     case RECEIVE_ERRORS:
-      return merge({}, state, { errors: action.errors });
+      return state.concat(action.errors);
     default:
-      return merge({}, state);
+      return state;
   }
 };
 
