@@ -38,6 +38,12 @@ class SessionForm extends React.Component {
                    onChange={this.update("password")}/>
             <br></br>
             <input type="submit" value={this.props.formTitle}/>
+            {this.props.errors.length > 0 ? (
+              <p>{this.props.errors}</p>
+            ) : (
+              null
+            )
+            }
           </form>
           <Link to={this.props.otherPath}>{this.props.otherTitle}</Link>
         </div>
