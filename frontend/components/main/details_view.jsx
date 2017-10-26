@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { fetchTask, updateTask } from '../../actions/task_actions';
 import DetailsHeader from './details_view_header';
+import DoneToggle from '../widgets/done_toggle';
+
 
 const mapStateToProps = (state, ownProps) => {
   let task = null;
@@ -27,7 +29,9 @@ const mapDispatchToProps = (dispatch, ownProps) => (
 class DetailsView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loaded: false };
+    this.state = { loaded: false, task: this.props.task };
+    this.saveTimerId = null;
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -40,6 +44,7 @@ class DetailsView extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
+    this.setState({task: newProps.task});
     if (newProps.taskId !== this.props.taskId) {
       this.setState({loaded: false});
       this.props.fetchTask(newProps.taskId)
@@ -49,19 +54,36 @@ class DetailsView extends React.Component {
     }
   }
 
+  handleChange(e) {
+    const newTask = Object.assign({}, this.state.task, {name: e.currentTarget.value});
+    this.setState({ task: newTask });
+    if (this.saveTimerId) clearTimeout(this.saveTimerId);
+
+    this.saveTimerId = setTimeout(
+      () => {
+        this.props.updateTask(this.state.task);
+        this.saveTimerId = null;
+      },
+      1500
+    );
+  }
+
   render() {
     return (
         this.props.show ? (
           <div className="details-view">
             <DetailsHeader task={this.props.task} updateTask={this.props.updateTask}/>
-            {
-              this.state.loaded ? (
-                this.props.task.id + "\n" +
-                this.props.task.name
-              ) : (
-                null
-              )
-            }
+            <div className="details-name">
+              <DoneToggle task={this.props.task} updateTask={this.props.updateTask}/>
+                <textarea
+                  value={this.state.task.name}
+                  rows="1"
+                  onChange={this.handleChange}
+                />
+            </div>
+            <textarea className="details-description"
+                      value={this.props.task.description}
+                      placeholder="Description"/>
           </div>
         ) : (
           null

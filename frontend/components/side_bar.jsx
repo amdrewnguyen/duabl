@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => (
 
 class SideBar extends React.Component {
   componentDidMount() {
-    console.log("I've mounted.");
+    // console.log("I've mounted.");
     this.props.fetchProjects();
   }
 
@@ -44,7 +44,7 @@ class SideBar extends React.Component {
         <h1><Link to="/">duabl</Link></h1>
         <ul className="project-list">
           <li key={-1}>
-            PROJECTS
+            PROJECTS 
             <a onClick={this.props.openCreateProjectModal}>( + )</a>
           </li>
           {projectElems}

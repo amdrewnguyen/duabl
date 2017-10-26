@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter, Link, Redirect } from 'react-router-dom';
+import DoneToggle from '../widgets/done_toggle';
 
 class TaskListItem extends React.Component {
   constructor(props) {
@@ -8,6 +9,10 @@ class TaskListItem extends React.Component {
     this.saveTimerId = null;
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.setState(newProps.task);
   }
 
   handleClick(e) {
@@ -33,6 +38,7 @@ class TaskListItem extends React.Component {
     const task = this.state;
     return (
       <li className="task-list-item" onClick={this.handleClick}>
+        <DoneToggle task={this.props.task} updateTask={this.props.updateTask} />
         <textarea
           value={task.name}
           rows="1"
