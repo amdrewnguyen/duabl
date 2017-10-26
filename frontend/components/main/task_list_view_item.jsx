@@ -8,7 +8,6 @@ class TaskListItem extends React.Component {
     this.saveTimerId = null;
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.dbSync = this.dbSync.bind(this);
   }
 
   handleClick(e) {
@@ -22,16 +21,11 @@ class TaskListItem extends React.Component {
 
     this.saveTimerId = setTimeout(
       () => {
-        console.log(this.state);
         this.props.updateTask(this.state);
         this.saveTimerId = null;
       },
-      1000
+      1500
     );
-  }
-
-  dbSync() {
-
   }
 
   render() {

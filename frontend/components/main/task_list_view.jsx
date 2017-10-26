@@ -2,14 +2,16 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { fetchProjectTasks, updateTask } from '../../actions/task_actions';
+import { fetchProjectTasks,
+         updateTask,
+         createTask } from '../../actions/task_actions';
+import { fetchProject } from '../../actions/project_actions';
 import TaskListHeader from './task_list_view_header';
 import TaskListItem from './task_list_view_item';
 
 const mapStateToProps = (state, ownProps) => {
-
   let project = state.entities.projects[ownProps.match.params.projectId];
-  console.log(project);
+  // console.log(project);
   let tasks = [];
   if (project && state.entities.tasks) {
     tasks = project.taskIds
@@ -24,7 +26,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => (
   {
     fetchProjectTasks: (projectId) => dispatch(fetchProjectTasks(projectId)),
+    fetchProject: (projectId) => dispatch(fetchProject(projectId)),
     updateTask: (task) => dispatch(updateTask(task)),
+    createTask: (task) => dispatch(createTask(task)),
   }
 );
 
@@ -32,13 +36,22 @@ class TaskListView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {loaded: false};
+    this.addNewTask = this.addNewTask.bind(this);
   }
 
   componentDidMount() {
     // console.log("Project ID is: " + this.props.projectId);
-    this.props.fetchProjectTasks(this.props.projectId).then(
-      () => this.setState({loaded: true})
-    );
+    if(!this.props.project) {
+      this.props.fetchProject(this.props.projectId)
+        .then(
+          () => {
+            this.props.fetchProjectTasks(this.props.projectId)
+              .then(
+                () => this.setState({loaded: true})
+              );
+            }
+        );
+    }
   }
 
   componentWillReceiveProps(newProps) {
@@ -50,7 +63,12 @@ class TaskListView extends React.Component {
     }
   }
 
-
+  // TODO: a function that adds a task to the component that creates a
+  //       new task on the back end.
+  addNewTask() {
+    const newBlankTask = {name: "", project_id: this.props.projectId};
+    this.props.createTask(newBlankTask);
+  }
 
   render() {
     const { tasks, projectId, history, updateTask } = this.props;
@@ -67,7 +85,7 @@ class TaskListView extends React.Component {
     }
     return (
       <div className="task-list-view">
-        <TaskListHeader />
+        <TaskListHeader addNewTask={this.addNewTask}/>
         <ul>
           {taskElements}
         </ul>

@@ -36,7 +36,7 @@ export const createTask = (task) => (
 );
 
 export const updateTask = (task) => {
-  console.log(task);
+  // console.log(task);
   return $.ajax(
     {
       url: `api/tasks/${task.id}`,

@@ -16,7 +16,7 @@
 #
 
 class Task < ApplicationRecord
-  validates :name, :owner_id, presence: true
+  validates :project_id, :owner_id, presence: true
 
   belongs_to :owner,
     class_name: "User",
