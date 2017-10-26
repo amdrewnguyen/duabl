@@ -70,4 +70,4 @@ class DetailsView extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailsView);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DetailsView));

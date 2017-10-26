@@ -6,10 +6,6 @@ html, body {
   font-family: 'Roboto', sans-serif;
 }
 
-body {
-  /*background-color: #edf1f2;*/
-}
-
 .app {
   display: grid;
   grid-template-rows: 44px 1fr;
@@ -27,6 +23,8 @@ body {
   align-items: center;
   justify-content: flex-end;
   padding: 0 30px;
+  border-bottom: 1px solid #e0e6e8;
+  background-color: white;
 }
 
 .main-view {

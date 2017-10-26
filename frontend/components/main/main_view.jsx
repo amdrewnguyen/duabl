@@ -7,11 +7,15 @@ import TaskListView from './task_list_view';
 import DetailsView from './details_view';
 import { updateTask } from '../../actions/task_actions';
 
-const mapStateToProps = (state, ownProps) => (
-  {
-
-  }
-);
+const mapStateToProps = (state, ownProps) => {
+  const projectId = ownProps.match.params.projectId;
+  const taskId = ownProps.match.params.taskId;
+  return {
+    project: state.entities.projects[projectId],
+    projectId,
+    taskId
+  };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => (
   {
@@ -19,14 +23,25 @@ const mapDispatchToProps = (dispatch, ownProps) => (
 );
 
 class MainView extends React.Component {
+  constructor(props) {
+    super(props);
 
+  }
 
   render() {
+    const { projectId, taskId, project } = this.props;
+
     return (
       <div className="main-view">
-        <PageHeader />
-        <Route path="/:projectId" component={TaskListView} />
-        <Route path="/:projectId/:taskId" component={DetailsView} />
+        <PageHeader project={project} />
+        <TaskListView />
+        {
+          taskId !== "list" ? (
+            <DetailsView />
+          ) : (
+            null
+          )
+        }
       </div>
     );
   }

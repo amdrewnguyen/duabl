@@ -15,7 +15,7 @@ const App = () => {
       <AuthRoute path="/signup" component={SessionFormContainer} />
       <TopBar />
       <SideBar />
-      <MainView />
+      <Route path="/:projectId/:taskId" component={MainView} />
       <Modal />
     </div>
   );

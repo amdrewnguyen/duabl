@@ -45,10 +45,12 @@ class TaskListView extends React.Component {
       this.props.fetchProject(this.props.projectId)
         .then(
           () => {
-            this.props.fetchProjectTasks(this.props.projectId)
-              .then(
-                () => this.setState({loaded: true})
-              );
+            if (this.props.projectId !== "list") {
+              this.props.fetchProjectTasks(this.props.projectId)
+                .then(
+                  () => this.setState({loaded: true})
+                );
+              }
             }
         );
     }
@@ -94,4 +96,4 @@ class TaskListView extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskListView);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskListView));
