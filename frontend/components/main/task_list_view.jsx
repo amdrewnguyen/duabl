@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { fetchProjectTasks } from '../../actions/task_actions';
+import { fetchProjectTasks, updateTask } from '../../actions/task_actions';
 import TaskListHeader from './task_list_view_header';
 import TaskListItem from './task_list_view_item';
 
@@ -12,7 +12,6 @@ const mapStateToProps = (state, ownProps) => {
   console.log(project);
   let tasks = [];
   if (project && state.entities.tasks) {
-
     tasks = project.taskIds
               .map((taskId) => (state.entities.tasks[taskId]));
   }
@@ -25,6 +24,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => (
   {
     fetchProjectTasks: (projectId) => dispatch(fetchProjectTasks(projectId)),
+    updateTask: (task) => dispatch(updateTask(task)),
   }
 );
 
@@ -35,8 +35,7 @@ class TaskListView extends React.Component {
   }
 
   componentDidMount() {
-    console.log("Project ID is: " + this.props.projectId);
-
+    // console.log("Project ID is: " + this.props.projectId);
     this.props.fetchProjectTasks(this.props.projectId).then(
       () => this.setState({loaded: true})
     );
@@ -51,8 +50,10 @@ class TaskListView extends React.Component {
     }
   }
 
+
+
   render() {
-    const { tasks, projectId, history } = this.props;
+    const { tasks, projectId, history, updateTask } = this.props;
     let taskElements = [];
 
     if (this.state.loaded) {
@@ -60,6 +61,7 @@ class TaskListView extends React.Component {
         <TaskListItem key={task.id}
                       task={task}
                       projectId={projectId}
+                      updateTask={updateTask}
         />
       ));
     }

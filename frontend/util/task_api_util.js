@@ -35,15 +35,16 @@ export const createTask = (task) => (
   )
 );
 
-export const updateTask = (task) => (
-  $.ajax(
+export const updateTask = (task) => {
+  console.log(task);
+  return $.ajax(
     {
       url: `api/tasks/${task.id}`,
       method: 'patch',
       data: { task },
     }
-  )
-);
+  );
+};
 
 export const deleteTask = (taskId) => (
   $.ajax(

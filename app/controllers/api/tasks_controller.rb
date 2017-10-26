@@ -26,8 +26,8 @@ class Api::TasksController < ApplicationController
   end
 
   def update
-    @task = current_user.tasks.find(params[:idea])
-    if @task.update(taks_params)
+    @task = current_user.tasks.find(params[:id])
+    if @task.update(task_params)
       render "api/tasks/show"
     else
       render json: @task.errors.full_messages, status: 422

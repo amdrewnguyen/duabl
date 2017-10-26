@@ -5,7 +5,10 @@ class TaskListItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = Object.assign({}, this.props.task);
+    this.saveTimerId = null;
     this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.dbSync = this.dbSync.bind(this);
   }
 
   handleClick(e) {
@@ -15,10 +18,25 @@ class TaskListItem extends React.Component {
 
   handleChange(e) {
     this.setState({name: e.currentTarget.value});
+    if (this.saveTimerId) clearTimeout(this.saveTimerId);
+
+    this.saveTimerId = setTimeout(
+      () => {
+        console.log(this.state);
+        this.props.updateTask(this.state);
+        this.saveTimerId = null;
+      },
+      1000
+    );
+  }
+
+  dbSync() {
+
   }
 
   render() {
-    const {task, projectId} = this.props;
+    const { projectId } = this.props;
+    const task = this.state;
     return (
       <li className="task-list-item" onClick={this.handleClick}>
         <textarea

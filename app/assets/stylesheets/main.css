@@ -71,5 +71,16 @@
 
 .details-view {
   grid-area: 2 / 4 / 3 / 5;
-  background-color: #4fc3f7;
+  background-color: white;
+}
+
+.details-header {
+  height: 50px;
+  background: white;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 1px 3px 0 lightgray;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  align-items: center;
+  
 }
