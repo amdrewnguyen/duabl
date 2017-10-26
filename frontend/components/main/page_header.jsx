@@ -1,10 +1,11 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 
 class PageHeader extends React.Component {
   render() {
     return (
-      <div className="page-header">page header here</div>
+      <div className="page-header">
+      </div>
     );
   }
 }

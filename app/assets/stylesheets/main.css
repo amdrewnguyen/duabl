@@ -1,17 +1,19 @@
-.main-view {
-  grid-area: 3 / 2 / 5 / 7;
-  display: grid;
-  grid-template: 15px 1fr / 20px 19fr 15px 13fr 20px;
+.page-header {
+  grid-area: 1 / 1 / 2 / -1;
+  background-color: #C8E6C9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .task-list-view {
-  grid-area: 2 / 2 / 3 / 3;
+  grid-area: 3 / 2 / 4 / 3;
   background-color: white;
   transition: 1s;
 }
 
 .task-list-view:only-child {
-  grid-area: 2 / 2 / 3 / 5;
+  grid-area: 3 / 2 / 3 / 5;
   /*background-color: #00b0ff;*/
   width: 100%;
   max-width: 1000px;
@@ -30,6 +32,26 @@
   border-radius: 3px 3px 0 0;
   box-shadow: 0 1px 3px 0 lightgray;
   border-bottom: 1px solid lightgray;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+}
+
+.task-list-header button {
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0.4em 0.5em;
+  border-radius: 4px;
+  background-color: white;
+  border: 1px solid #0DA8F2;
+  color: #0DA8F2;
+  transition: 0.2s;
+}
+
+.task-list-header button:hover {
+  box-shadow: 0 0 0 3px #0DA8F2;
+
 }
 
 .task-list-item {
@@ -70,7 +92,7 @@
 }
 
 .details-view {
-  grid-area: 2 / 4 / 3 / 5;
+  grid-area: 3 / 4 / 4 / 5;
   background-color: white;
 }
 
@@ -82,5 +104,4 @@
   border-bottom: 1px solid lightgray;
   display: flex;
   align-items: center;
-  
 }
