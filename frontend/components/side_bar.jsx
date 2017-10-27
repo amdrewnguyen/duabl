@@ -11,6 +11,7 @@ const mapStateToProps = (state) => (
     projects: Object.values(state.entities.projects.items),
     loggedIn: Boolean(state.session.currentUser),
     currentUser: state.session.currentUser,
+    selectedProjId: state.ui.projectId,
   }
 );
 
@@ -35,11 +36,17 @@ class SideBar extends React.Component {
     }
   }
 
+  handleClick(projectId) {
+    return (e) => {
+      this.props.history.push(`/${projectId}/list`);
+    };
+  }
+
   render() {
-    const { projects, loggedIn } = this.props;
+    const { projects, loggedIn, selectedProjId } = this.props;
     const projectElems = projects.map(
       (project) => (
-        <li key={project.id}>
+        <li onClick={this.handleClick(project.id)} key={project.id} className={parseInt(selectedProjId) === project.id ? "selected-proj" : "not-selected-proj"}>
           <Link to={`/${project.id}/list`}>{project.name}</Link>
         </li>
       )

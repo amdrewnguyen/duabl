@@ -9,6 +9,21 @@
   padding: 0;
 }
 
+.side-bar h1 {
+  margin-left: 20px;
+  font-size: 30px;
+}
+
+.side-bar h1 > a {
+  text-decoration: none;
+  color: white;
+}
+
+.side-bar h1 > a:hover {
+  background-color: white;
+  color: black;
+}
+
 .side-bar ul {
   list-style: none;
   padding: 0;
@@ -16,7 +31,18 @@
 
 .side-bar ul li:not(:first-child) {
   width: 100%;
-  margin: 5px 0 5px 10px;
+  margin: 5px 0;
+  padding: 5px 0px 5px 15px;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.selected-proj {
+  background-color: #008ce3;
+}
+
+.selected-proj:hover {
+  background-color: #14aaf5;
 }
 
 .side-bar ul li a {
@@ -24,6 +50,6 @@
   color: white;
 }
 
-.side-bar ul li:not(:first-child):hover {
+.not-selected-proj:hover {
   background-color: #646f79;
 }

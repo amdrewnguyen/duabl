@@ -6,6 +6,8 @@ import PageHeader from './page_header';
 import TaskListView from './task_list_view';
 import DetailsView from './details_view';
 import { updateTask } from '../../actions/task_actions';
+import { receivePath } from '../../actions/ui_actions';
+
 
 const mapStateToProps = (state, ownProps) => {
   const projectId = ownProps.match.params.projectId;
@@ -19,6 +21,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => (
   {
+    receivePath: (params) => dispatch(receivePath(params)),
   }
 );
 
@@ -26,6 +29,22 @@ class MainView extends React.Component {
   constructor(props) {
     super(props);
 
+  }
+
+  componentDidMount() {
+    console.log(this.props.match.params);
+
+    this.props.receivePath(this.props.match.params);
+
+  }
+
+
+  componentWillReceiveProps(newProps) {
+    if (this.props.match.params.projectId !== newProps.match.params.projectId ||
+      this.props.match.params.taskId !== newProps.match.params.taskId) {
+        console.log(newProps.match.params);
+        this.props.receivePath(newProps.match.params);
+      }
   }
 
   render() {
