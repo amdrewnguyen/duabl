@@ -2,6 +2,8 @@ import * as TaskAPI from '../util/task_api_util';
 
 export const RECEIVE_TASKS = 'RECEIVE_TASKS';
 export const RECEIVE_TASK = 'RECEIVE_TASK';
+export const REQUEST_TASKS = 'REQUEST_TASKS';
+export const REQUEST_TASK = 'REQUEST_TASK';
 export const REMOVE_TASK = 'REMOVE_TASK';
 export const RECEIVE_TASK_ERRORS = 'RECEIVE_TASK_ERRORS';
 
@@ -16,6 +18,26 @@ export const receiveTask = (task) => (
   {
     type: RECEIVE_TASK,
     task,
+  }
+);
+
+export const requestTasks = () => (
+  {
+    type: REQUEST_TASKS,
+  }
+);
+
+export const requestProjectTasks = (projectId) => (
+  {
+    type: REQUEST_TASKS,
+    projectId,
+  }
+);
+
+export const requestTask = (taskId) => (
+  {
+    type: REQUEST_TASK,
+    taskId,
   }
 );
 
@@ -34,6 +56,7 @@ export const receiveTaskErrors = (errors) => (
 );
 
 export const fetchTasks = () => dispatch => {
+  // dispatch(requestTasks());
   return TaskAPI.fetchTasks()
     .then(
       (tasks) => dispatch(receiveTasks(tasks)),
@@ -42,6 +65,7 @@ export const fetchTasks = () => dispatch => {
 };
 
 export const fetchProjectTasks = (projectId) => dispatch => {
+  dispatch(requestProjectTasks(projectId));
   return TaskAPI.fetchProjectTasks(projectId)
     .then(
       (tasks) => dispatch(receiveTasks(tasks)),

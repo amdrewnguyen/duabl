@@ -26,6 +26,17 @@ class User < ApplicationRecord
   has_many :tasks,
     foreign_key: :owner_id
 
+  has_many :memberships,
+    class_name: "TeamMembership",
+    foreign_key: :user_id
+
+  has_many :teams,
+    through: :memberships
+
+  has_many :teams_led,
+    class_name: "Team",
+    foreign_key: :owner_id
+
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
     user && user.is_password?(password) ? user : nil

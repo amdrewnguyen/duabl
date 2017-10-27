@@ -8,7 +8,7 @@ import { openModal } from '../actions/ui_actions';
 
 const mapStateToProps = (state) => (
   {
-    projects: Object.values(state.entities.projects),
+    projects: Object.values(state.entities.projects.items),
     loggedIn: Boolean(state.session.currentUser),
     currentUser: state.session.currentUser,
   }
@@ -26,8 +26,13 @@ const mapDispatchToProps = dispatch => (
 
 class SideBar extends React.Component {
   componentDidMount() {
-    // console.log("I've mounted.");
     this.props.fetchProjects();
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (!this.props.currentUser && newProps.currentUser) {
+      this.props.fetchProjects();
+    }
   }
 
   render() {
@@ -44,7 +49,7 @@ class SideBar extends React.Component {
         <h1><Link to="/">duabl</Link></h1>
         <ul className="project-list">
           <li key={-1}>
-            PROJECTS 
+            PROJECTS
             <a onClick={this.props.openCreateProjectModal}>( + )</a>
           </li>
           {projectElems}

@@ -10,7 +10,7 @@ import ProjectForm from './project_form';
 const mapStateToProps = (state, ownProps) => {
   return ownProps.formType === "Update" ? (
     {
-      project: state.entities.projects[ownProps.projectId],
+      project: state.entities.projects.items[ownProps.projectId],
     }
   ) : (
     {

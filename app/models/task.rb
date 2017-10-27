@@ -3,7 +3,7 @@
 # Table name: tasks
 #
 #  id           :integer          not null, primary key
-#  name         :string           not null
+#  name         :string
 #  assignee_id  :integer
 #  completed    :boolean          default(FALSE)
 #  completed_at :datetime
@@ -13,6 +13,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  owner_id     :integer          not null
+#  project_id   :integer          not null
 #
 
 class Task < ApplicationRecord

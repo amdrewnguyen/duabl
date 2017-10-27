@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => {
   const projectId = ownProps.match.params.projectId;
   const taskId = ownProps.match.params.taskId;
   return {
-    project: state.entities.projects[projectId],
+    project: state.entities.projects.items[projectId],
     projectId,
     taskId
   };

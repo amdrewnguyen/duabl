@@ -10,7 +10,7 @@ import TaskListHeader from './task_list_view_header';
 import TaskListItem from './task_list_view_item';
 
 const mapStateToProps = (state, ownProps) => {
-  let project = state.entities.projects[ownProps.match.params.projectId];
+  let project = state.entities.projects.items[ownProps.match.params.projectId];
   // console.log(project);
   let tasks = [];
   if (project && state.entities.tasks) {
