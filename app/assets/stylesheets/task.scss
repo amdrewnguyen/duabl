@@ -1,0 +1,121 @@
+html, body {
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  /*background-color: #edf1f2;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.task-buttons {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 1px 3px 0 lightgray;
+  border-bottom: 1px solid lightgray;
+  background-color: white;
+  padding: 6px 6px 6px 30px;
+  width: 100%;
+}
+
+.task-buttons .fa-times {
+  align-self: flex-start;
+  margin-left: auto;
+  color: #AFB7BD;
+  transition: 200ms;
+}
+
+.task-buttons .fa-times:hover {
+  color: #0DA8F2;
+}
+
+.task-buttons > ul {
+  list-style: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.task-buttons > ul > li {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #AFB7BD;
+  border-radius: 50%;
+  font-size: 16px;
+  color: #AFB7BD;
+  transition: 0.5s;
+}
+
+
+.task-buttons ul li:not(:first-of-type) {
+  margin-left: 5px;
+}
+
+.task-buttons ul li:hover {
+  color: #0DA8F2;
+  border-color: #0DA8F2;
+  box-shadow: 0 0 0px 3px #0DA8F2;
+}
+
+.assign-btn, .due-date-btn {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  color: #AFB7BD;
+  padding: 2px;
+  transition: .5s;
+  box-shadow: none;
+  border-radius: 17px;
+  transition: 500ms;
+  width: auto;
+  margin-right: 5px;
+}
+
+
+.assign-btn {
+}
+
+.user-icon, .due-date-icon {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  border: 1px dashed #AFB7BD;
+  transition: 500ms;
+}
+
+.assign-btn p, .due-date-btn p {
+  margin: 0 10px 0 5px;
+  font-size: 13px;
+}
+
+.assign-btn:hover, .due-date-btn:hover {
+  color: #0DA8F2;
+  border-color: #0DA8F2;
+  box-shadow: 0 0 0px 3px #0DA8F2;
+}
+
+.assign-btn:hover div, .due-date-btn:hover div {
+  color: #0DA8F2;
+  border-color: #0DA8F2;
+  border-style: solid;
+}

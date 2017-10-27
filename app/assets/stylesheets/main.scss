@@ -14,8 +14,8 @@
   transition: 1s;
 }
 
-.task-list-view:only-child {
-  grid-area: 3 / 2 / 3 / 5;
+.task-list-view:last-of-type {
+  grid-area: 3 / 2 / 4 / 5;
   /*background-color: #00b0ff;*/
   width: 100%;
   max-width: 1000px;
@@ -112,10 +112,14 @@
 .details-name textarea {
   display: inline;
   font-size: 24px;
+  // border: 1px solid black;
   border: none;
+  margin-right: 10px;
   background-color: transparent;
   resize: none;
+  height: auto;
   outline: none;
+  width: 100%;
 }
 
 .details-name {

@@ -33,7 +33,7 @@ tasks = []
 
 projects.each do |proj|
   (3 + rand(5)).times do
-    tasks.push(Task.create(name: Faker::Dune.unique.quote, owner_id: only_user.id, project_id: proj.id))
+    tasks.push(Task.create(name: Faker::Dune.unique.quote, owner_id: proj.owner_id, project_id: proj.id))
   end
 end
 

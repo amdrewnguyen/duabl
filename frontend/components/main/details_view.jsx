@@ -77,7 +77,6 @@ class DetailsView extends React.Component {
               <DoneToggle task={this.props.task} updateTask={this.props.updateTask}/>
                 <textarea
                   value={this.state.task.name}
-                  rows="1"
                   onChange={this.handleChange}
                 />
             </div>

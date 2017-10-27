@@ -1,0 +1,25 @@
+.dropdown-menu {
+  display: block;
+  border: 1px solid #E0E6E8;
+  border-radius: 4px;
+  background-color: white;
+  width: 200px;
+  padding: 3px 0;
+  box-shadow: 0 5px 10px 0 rgba(0,0,0,0.1);
+}
+
+.dropdown-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-menu ul li {
+  padding: 10px;
+  font-size: 13px;
+}
+
+.dropdown-menu ul li:hover {
+  background-color: #0DA8F2;
+  color: white;
+}
