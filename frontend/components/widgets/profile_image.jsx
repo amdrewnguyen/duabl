@@ -6,7 +6,7 @@ const ProfileImage = ({ user,onClick }) => {
     const names = user.name.split(" ");
     initials = `${names[0][0]}${names[1][0]}`.toUpperCase();
   } else {
-    return null;
+    initials = "";
   }
 
   return user.imageUrl ? (
