@@ -20,3 +20,11 @@ export const logout = () => (
     method: 'delete',
   })
 );
+
+export const updateUser = (user) => (
+  $.ajax({
+    url: `/api/users/${user.id}`,
+    method: 'patch',
+    data: { user },
+  })
+);

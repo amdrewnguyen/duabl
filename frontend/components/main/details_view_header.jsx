@@ -38,7 +38,6 @@ class DetailsHeader extends React.Component {
         <ul>
           <li onClick={this.createSubtask.bind(this)}><FontAwesome name="list" aria-hidden="true" /></li>
           <li onClick={this.handleDeleteTask.bind(this)}><FontAwesome name="trash" aria-hidden="true" /></li>
-          <li>AN</li>
         </ul>
         <FontAwesome onClick={this.onClose.bind(this)} name="times" aria-hidden="true" />
       </div>

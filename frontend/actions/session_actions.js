@@ -40,3 +40,11 @@ export const logout = () => dispatch => (
       (errors) => dispatch(receiveErrors(errors.responseJSON))
     )
 );
+
+export const updateUser = (user) => dispatch => (
+  SessionAPI.updateUser(user)
+    .then(
+      (currentUser) => dispatch(receiveCurrentUser(currentUser)),
+      (errors) => dispatch(receiveErrors(errors.responseJSON))
+    )
+);

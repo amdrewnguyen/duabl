@@ -29,14 +29,18 @@ const mapDispatchToProps = (dispatch, ownProps) => (
 class MainView extends React.Component {
   constructor(props) {
     super(props);
-
+    this.state = {loaded: false};
   }
 
   componentDidMount() {
     console.log(this.props.match.params);
 
     this.props.receivePath(this.props.match.params);
-    this.props.fetchTasks();
+
+    this.props.fetchTasks()
+      .then(
+        () => this.setState({loaded: true})
+      );
   }
 
 
@@ -50,20 +54,23 @@ class MainView extends React.Component {
 
   render() {
     const { projectId, taskId, project } = this.props;
-
-    return (
-      <div className="main-view">
-        <PageHeader project={project} />
-        <TaskListView />
-        {
-          taskId !== "list" ? (
-            <DetailsView />
-          ) : (
-            null
-          )
-        }
-      </div>
-    );
+    if (this.state.loaded) {
+      return (
+        <div className="main-view">
+          <PageHeader project={project} />
+          <TaskListView />
+          {
+            taskId !== "list" ? (
+              <DetailsView />
+            ) : (
+              null
+            )
+          }
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 }
 

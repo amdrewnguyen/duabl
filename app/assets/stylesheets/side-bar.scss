@@ -30,11 +30,14 @@
 }
 
 .side-bar ul li:not(:first-child) {
-  width: 100%;
+  width: calc(100% - 15px);
   margin: 5px 0;
   padding: 5px 0px 5px 15px;
   font-weight: 300;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .selected-proj {
@@ -50,6 +53,19 @@
   color: white;
 }
 
+.side-bar ul li span {
+  color: #222b37;
+  margin-right: 5px;
+}
+
+.side-bar ul li:hover span {
+  color: white;
+}
+
 .not-selected-proj:hover {
   background-color: #646f79;
+}
+
+.selected-proj span {
+  color: #008ce3;
 }

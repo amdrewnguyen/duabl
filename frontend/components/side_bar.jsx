@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import FontAwesome from 'react-fontawesome';
 
 import { fetchProjects } from '../actions/project_actions';
 import NewProjectForm from './projects/project_form_container';
@@ -22,6 +23,7 @@ const mapDispatchToProps = dispatch => (
       () => dispatch(
         openModal(NewProjectForm, {formType: "Create"})
       ),
+    openEditModal: (projectId) => dispatch(openModal(NewProjectForm, {formType: "Update", projectId})),
   }
 );
 
@@ -48,6 +50,9 @@ class SideBar extends React.Component {
       (project) => (
         <li onClick={this.handleClick(project.id)} key={project.id} className={parseInt(selectedProjId) === project.id ? "selected-proj" : "not-selected-proj"}>
           <Link to={`/${project.id}/list`}>{project.name}</Link>
+          <FontAwesome onClick={() => {
+              this.props.openEditModal(project.id);
+            }} name="pencil" aria-hidden="true" />
         </li>
       )
     );

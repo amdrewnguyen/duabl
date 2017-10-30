@@ -14,8 +14,11 @@ const mapStateToProps = (state, ownProps) => {
   // console.log(project);
   let tasks = [];
   if (project && state.entities.tasks) {
-    tasks = project.taskIds
-              .map((taskId) => (state.entities.tasks[taskId]));
+    tasks = project.taskIds.filter((id) => (!state.entities.tasks[id].parent_id)).map(
+      (taskId) => {
+        return state.entities.tasks[taskId];
+      }
+    );
   }
   return {
     tasks,
