@@ -37,6 +37,9 @@ class User < ApplicationRecord
     class_name: "Team",
     foreign_key: :owner_id
 
+  has_attached_file :image, default_url: "missing.png"
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
     user && user.is_password?(password) ? user : nil
