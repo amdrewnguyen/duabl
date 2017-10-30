@@ -4,10 +4,11 @@ import merge from 'lodash/merge';
 class UserForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = merge({}, props.currentUser);
+    this.state = merge({imageUrl: "", imageFile: null}, props.currentUser);
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleFile = this.handleFile.bind(this);
   }
 
   update(field) {
@@ -17,8 +18,15 @@ class UserForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
-    console.log(this.props.action);
-    this.props.updateUser(this.state)
+    const file = this.state.imageFile;
+
+    const formData = new FormData();
+    formData.append("user[name]", this.state.name);
+    // our backend can't handle a null image, so why even
+    if (file) formData.append("user[image]", file);
+    console.log(formData.getAll("user"));
+
+    this.props.updateUser(formData)
       .then(
         () => this.props.closeModal(),
         () => console.log("error")
@@ -29,6 +37,20 @@ class UserForm extends React.Component {
     e.stopPropagation();
   }
 
+  handleFile(e) {
+    const reader = new FileReader();
+    const file = e.currentTarget.files[0];
+
+    reader.onloadend = () =>
+      this.setState({ imageUrl: reader.result, imageFile: file});
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      this.setState({ imageUrl: "", imageFile: null });
+    }
+  }
+
   render() {
     return (
         <div className="modal" onClick={this.handleClick}>
@@ -36,9 +58,18 @@ class UserForm extends React.Component {
 
           <form onSubmit={this.handleSubmit}>
             <div>
-             <label for="file">Add a profile photo</label>
-             <input type="file" id="file" name="image" />
+             <label htmlFor="file">Add a profile photo</label>
+             <input onChange={this.handleFile} type="file" id="file" name="image" />
             </div>
+            {
+              this.state.imageFile ? (
+                <div className="profile-image">
+                  <img src={this.state.imageUrl}></img>
+                </div>
+              ) : (
+                null
+              )
+            }
             <label>NAME</label><br></br>
             <input type="text" value={this.state.name}
                    onChange={this.update("name")}/>

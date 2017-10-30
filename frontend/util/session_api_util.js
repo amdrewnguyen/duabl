@@ -21,10 +21,13 @@ export const logout = () => (
   })
 );
 
-export const updateUser = (user) => (
+export const updateUser = (formData) => (
   $.ajax({
-    url: `/api/users/${user.id}`,
+    url: `/api/users/${11}`,
     method: 'patch',
-    data: { user },
+    processData: false,
+    contentType: false,
+    dataType: 'json',
+    data: formData,
   })
 );

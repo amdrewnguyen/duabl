@@ -35,3 +35,20 @@
   border-color: #84F5E4;
   background-color: #84F5E4;
 }
+
+.profile-image {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.profile-image img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+}

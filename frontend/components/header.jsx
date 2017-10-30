@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { logout, updateUser } from '../actions/session_actions';
 import { openModal } from '../actions/ui_actions';
 import UserForm from './user/user_form';
+import ProfileImage from './widgets/profile_image';
 
 const mapStateToProps = (state) => (
   {
@@ -17,18 +18,16 @@ const mapDispatchToProps = (dispatch, ownProps) => (
   {
     logout: () => dispatch(logout()),
     updateUser: (user) => dispatch(updateUser(user)),
-    openUserForm: () => dispatch(openModal(UserForm)),
+    openUserForm: (currentUser,updateUser) => dispatch(openModal(UserForm, {currentUser,updateUser})),
   }
 );
 
-const Header = ({ openUserForm, loggedIn, currentUser, logout }) => {
+const Header = ({ updateUser, openUserForm, loggedIn, currentUser, logout }) => {
   if (loggedIn) {
-    const names = currentUser.name.split(" ");
-    const initials = `${names[0][0]}${names[1][0]}`.toUpperCase();
     return (
       <div className="top-bar">
         <button onClick={logout}>Logout</button>
-        <div onClick={openUserForm}>{initials}</div>
+        <ProfileImage user={currentUser} onClick={() => (openUserForm(currentUser, updateUser))} />
       </div>
     );
   } else {
