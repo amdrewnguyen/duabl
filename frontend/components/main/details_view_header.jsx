@@ -10,6 +10,22 @@ class DetailsHeader extends React.Component {
     this.props.history.push(`/${projectId}/list`);
   }
 
+  createSubtask(e) {
+    const newSubtask = {
+      project_id: this.props.match.params.projectId,
+      parent_id: this.props.match.params.taskId,
+      name: "",
+    };
+    this.props.createTask(newSubtask);
+  }
+
+  handleDeleteTask(e) {
+    this.props.deleteTask(this.props.task.id)
+      .then(
+        () => this.props.history.push(`/${this.props.match.params.projectId}/list`)
+    );
+  }
+
   render() {
     return (
       <div className="task-buttons">
@@ -20,8 +36,8 @@ class DetailsHeader extends React.Component {
           <div className="due-date-icon"><FontAwesome name="calendar" aria-hidden="true" /></div><p>Due Date</p>
         </div>
         <ul>
-          <li><FontAwesome name="list" aria-hidden="true" /></li>
-          <li><FontAwesome name="trash" aria-hidden="true" /></li>
+          <li onClick={this.createSubtask.bind(this)}><FontAwesome name="list" aria-hidden="true" /></li>
+          <li onClick={this.handleDeleteTask.bind(this)}><FontAwesome name="trash" aria-hidden="true" /></li>
           <li>AN</li>
         </ul>
         <FontAwesome onClick={this.onClose.bind(this)} name="times" aria-hidden="true" />

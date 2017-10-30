@@ -1,7 +1,37 @@
-.done-toggle {
-  display: block;
+.toggle-done {
+  height: 2em;
+  width: 2em;
   padding: 0;
-  margin: 0;
-  font-size: 24px;
-  color: green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #B8C0C5;
+  color: #B8C0C5;
+  border-radius: 50%;
+  transition: 300ms;
+}
+
+.toggle-done:hover {
+  color: #51F7DA;
+  border-color: #51F7DA;
+  box-shadow: 0 0 0px 3px #51F7DA;
+}
+
+.toggle-not-done {
+  height: 2em;
+  width: 2em;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #25E8D2;
+  background-color: #25E8D2;
+  color: white;
+  border-radius: 50%;
+  transition: 300ms;
+}
+
+.toggle-not-done:hover {
+  border-color: #84F5E4;
+  background-color: #84F5E4;
 }

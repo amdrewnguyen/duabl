@@ -24,4 +24,12 @@ class Task < ApplicationRecord
     foreign_key: :owner_id
 
   belongs_to :project
+
+  has_many :subtasks,
+    class_name: "Task",
+    foreign_key: :parent_id
+
+  belongs_to :parent_task,
+    class_name: "Task",
+    foreign_key: :parent_id
 end

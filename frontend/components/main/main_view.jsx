@@ -5,7 +5,7 @@ import { withRouter, Link, Route } from 'react-router-dom';
 import PageHeader from './page_header';
 import TaskListView from './task_list_view';
 import DetailsView from './details_view';
-import { updateTask } from '../../actions/task_actions';
+import { updateTask, fetchTasks } from '../../actions/task_actions';
 import { receivePath } from '../../actions/ui_actions';
 
 
@@ -22,6 +22,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => (
   {
     receivePath: (params) => dispatch(receivePath(params)),
+    fetchTasks: () => dispatch(fetchTasks()),
   }
 );
 
@@ -35,7 +36,7 @@ class MainView extends React.Component {
     console.log(this.props.match.params);
 
     this.props.receivePath(this.props.match.params);
-
+    this.props.fetchTasks();
   }
 
 

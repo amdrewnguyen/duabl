@@ -1,10 +1,14 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { fetchTask, updateTask } from '../../actions/task_actions';
+import { fetchTask,
+         updateTask,
+         createTask,
+         deleteTask } from '../../actions/task_actions';
 import DetailsHeader from './details_view_header';
 import DoneToggle from '../widgets/done_toggle';
+import SubtaskList from './subtask_list';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -23,6 +27,8 @@ const mapDispatchToProps = (dispatch, ownProps) => (
   {
     fetchTask: (taskId) => dispatch(fetchTask(taskId)),
     updateTask: (task) => dispatch(updateTask(task)),
+    createTask: (task) => dispatch(createTask(task)),
+    deleteTask: (taskId) => dispatch(deleteTask(taskId)),
   }
 );
 
@@ -72,7 +78,10 @@ class DetailsView extends React.Component {
     return (
         this.props.show ? (
           <div className="details-view">
-            <DetailsHeader task={this.props.task} updateTask={this.props.updateTask}/>
+            <DetailsHeader task={this.props.task}
+                           updateTask={this.props.updateTask}
+                           createTask={this.props.createTask}
+                           deleteTask={this.props.deleteTask} />
             <div className="details-name">
               <DoneToggle task={this.props.task} updateTask={this.props.updateTask}/>
                 <textarea
@@ -83,6 +92,7 @@ class DetailsView extends React.Component {
             <textarea className="details-description"
                       value={this.props.task.description}
                       placeholder="Description"/>
+                    <SubtaskList taskId={this.props.taskId} />
           </div>
         ) : (
           null

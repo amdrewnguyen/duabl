@@ -8,6 +8,7 @@ import { RECEIVE_TASKS,
         REMOVE_TASK } from '../actions/task_actions';
 import merge from 'lodash/merge';
 import uniq from 'lodash/uniq';
+import remove from 'lodash/remove';
 
 const defaultState = {
   isFetching: false,
@@ -46,13 +47,17 @@ const ProjectsReducer = (state = defaultState, action) => {
       delete newState[action.projectId];
       return newState;
     case RECEIVE_TASK:
-      if (state.items[action.task.projectId]) {
+      if (action.task && state.items[action.task.projectId]) {
         newState = merge({}, state);
         const newTaskIds = newState.items[action.task.projectId].taskIds.concat([action.task.id]);
         newState.items[action.task.projectId].taskIds = uniq(newTaskIds);
         return newState;
       }
       return merge({}, state);
+    case REMOVE_TASK:
+      newState = merge({}, state);
+      remove(newState.items[action.projectId].taskIds, (n) => (n == action.taskId));
+      return newState;
     case REQUEST_PROJECTS:
       return merge({}, state, {
         isFetching: true,

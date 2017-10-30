@@ -6,3 +6,4 @@ json.name task.name
 json.completed task.completed
 json.due_on task.due_on
 json.due_at task.due_at
+json.subtaskIds task.subtasks.map(&:id)

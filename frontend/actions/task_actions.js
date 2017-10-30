@@ -45,6 +45,7 @@ export const removeTask = (task) => (
   {
     type: RECEIVE_TASK,
     taskId: task.id,
+    projectId: task.projectId,
   }
 );
 
