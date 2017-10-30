@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProfileImage = ({ user,onClick }) => {
+const ProfileImage = ({ user, onClick }) => {
   let initials;
   if (user.name) {
     const names = user.name.split(" ");

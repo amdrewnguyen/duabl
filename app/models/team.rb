@@ -12,7 +12,8 @@
 class Team < ApplicationRecord
   has_many :memberships,
     class_name: "TeamMembership",
-    foreign_key: :team_id
+    foreign_key: :team_id,
+    dependent: :destroy
 
   has_many :members,
     through: :memberships

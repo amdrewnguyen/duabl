@@ -6,16 +6,30 @@ import PageHeader from './page_header';
 import TaskListView from './task_list_view';
 import DetailsView from './details_view';
 import { updateTask, fetchTasks } from '../../actions/task_actions';
+import { fetchProject } from '../../actions/project_actions';
 import { receivePath } from '../../actions/ui_actions';
 
 
 const mapStateToProps = (state, ownProps) => {
   const projectId = ownProps.match.params.projectId;
   const taskId = ownProps.match.params.taskId;
+  const { isFetching,
+          project,
+        } = state.entities.projects.items[projectId] || {
+          isFetching: true,
+          project: null
+        };
+  let tasks = [];
+  if (!isFetching) {
+    tasks = state.entities.projects.items[projectId].taskIds.map(
+      (tId) => state.entities.projects.items[tId]
+    );
+  }
   return {
-    project: state.entities.projects.items[projectId],
     projectId,
-    taskId
+    taskId,
+    project,
+    tasks,
   };
 };
 
@@ -23,24 +37,29 @@ const mapDispatchToProps = (dispatch, ownProps) => (
   {
     receivePath: (params) => dispatch(receivePath(params)),
     fetchTasks: () => dispatch(fetchTasks()),
+    fetchProject: (projectId) => dispatch(fetchProject(projectId)),
   }
 );
 
 class MainView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {loaded: false};
+    this.state = Object.assign({}, props, {loaded: false});
   }
 
   componentDidMount() {
     console.log(this.props.match.params);
 
     this.props.receivePath(this.props.match.params);
-
-    this.props.fetchTasks()
+    this.props.fetchProject(this.props.projectId)
       .then(
-        () => this.setState({loaded: true})
-      );
+        () => {
+          this.props.fetchTasks()
+            .then(
+              () => this.setState({loaded: true})
+            );
+          }
+        );
   }
 
 
