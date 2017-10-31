@@ -23,7 +23,7 @@ class DetailsHeader extends React.Component {
     this.props.deleteTask(this.props.task.id)
       .then(
         () => this.props.history.push(`/${this.props.match.params.projectId}/list`)
-    );
+      );
   }
 
   render() {
@@ -37,7 +37,7 @@ class DetailsHeader extends React.Component {
         </div>
         <ul>
           <li onClick={this.createSubtask.bind(this)}><FontAwesome name="list" aria-hidden="true" /></li>
-          <li onClick={this.handleDeleteTask.bind(this)}><FontAwesome name="trash" aria-hidden="true" /></li>
+          <li onClick={() => this.props.deleteTask()}><FontAwesome name="trash" aria-hidden="true" /></li>
         </ul>
         <FontAwesome onClick={this.onClose.bind(this)} name="times" aria-hidden="true" />
       </div>

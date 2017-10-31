@@ -37,6 +37,7 @@ class DetailsView extends React.Component {
     this.state = {loaded: false, task: props.task};
     this.saveTimerId = null;
     this.updateField = this.updateField.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -76,17 +77,27 @@ class DetailsView extends React.Component {
     };
   }
 
+  handleDelete(e) {
+    this.props.deleteTask(this.props.taskId)
+      .then(
+        () => {
+          let task = {name: "", description: ""};
+          this.props.history.push(`/${this.props.projectId}/list`);
+        }
+      );
+  }
+
   render() {
     if (this.state.taskId === "list") return null;
-    if (this.state.loaded) {
+    if (this.state.loaded && this.state.task) {
       return (
         <div className="details-view">
-          <DetailsHeader task={this.props.task}
+          <DetailsHeader task={this.state.task}
                          updateTask={this.props.updateTask}
                          createTask={this.props.createTask}
-                         deleteTask={this.props.deleteTask} />
+                         deleteTask={this.handleDelete} />
           <div className="details-name">
-            <DoneToggle task={this.props.task} updateTask={this.props.updateTask}/>
+            <DoneToggle task={this.state.task} updateTask={this.props.updateTask}/>
             <textarea
               value={this.state.task.name || ""}
               onChange={this.updateField("name")}
@@ -105,4 +116,4 @@ class DetailsView extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailsView);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DetailsView));
