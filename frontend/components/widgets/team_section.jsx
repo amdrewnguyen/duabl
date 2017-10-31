@@ -38,9 +38,20 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 class TeamSection extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {expanded: false, members: this.props.members, projects: this.props.projects};
+    this.state = {expanded: startExpanded, members: this.props.members, projects: this.props.projects};
+    let startExpanded = this.state.projects.some((project) => project.id === this.props.selectedProjId);
     this.toggleDetails = this.toggleDetails.bind(this);
+    this.checkExpanded = this.checkExpanded.bind(this);
+  }
+
+  checkExpanded() {
+    if(this.state.projects.some((project) => (project.id == this.props.selectedProjId))) {
+      this.setState({expanded: true});
+    }
+  }
+
+  componentDidMount() {
+    this.checkExpanded();
   }
 
   componentWillReceiveProps(newProps) {
@@ -49,6 +60,7 @@ class TeamSection extends React.Component {
     }
     if (newProps.projects !== this.props.projects) {
       this.setState({projects: newProps.projects});
+      this.checkExpanded();
     }
   }
 

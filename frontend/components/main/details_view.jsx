@@ -9,7 +9,7 @@ import { fetchTask,
 import DetailsHeader from './details_view_header';
 import DoneToggle from '../widgets/done_toggle';
 import SubtaskList from './subtask_list';
-import { receivePath } from '../../actions/ui_actions';
+import { receivePath, updateSelectedTask } from '../../actions/ui_actions';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -17,6 +17,10 @@ const mapStateToProps = (state, ownProps) => {
     task: state.entities.tasks[ownProps.taskId],
     projectId: state.ui.projectId,
     taskId: ownProps.taskId,
+    selectedTaskId: state.ui.selectedTaskId,
+    selectedTaskName: state.ui.selectedTaskName,
+    selectedTask: state.ui.selectedTask,
+    selected: Boolean(ownProps.taskId === state.ui.selectedTaskId),
   };
 };
 
@@ -27,24 +31,25 @@ const mapDispatchToProps = (dispatch, ownProps) => (
     createTask: (task) => dispatch(createTask(task)),
     deleteTask: (taskId) => dispatch(deleteTask(taskId)),
     receivePath: (params) => dispatch(receivePath(params)),
-
+    updateSelectedTask: (value) => dispatch(updateSelectedTask(value)),
   }
 );
 
 class DetailsView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {loaded: false, task: props.task};
+    this.state = {loaded: false, task: props.task, selectedTaskName: props.selectedTaskName};
     this.saveTimerId = null;
     this.updateField = this.updateField.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleChangeLinked = this.handleChangeLinked.bind(this);
   }
 
   componentDidMount() {
     if (!this.props.task && this.props.taskId !== 'list') {
       this.props.fetchTask(this.props.taskId)
         .then(
-          () => this.setState({task: this.props.task, loaded: true})
+          () => this.setState({task: this.props.task, loaded: true, selectedTaskName: this.props.selectedTaskName})
         );
     }
   }
@@ -59,6 +64,9 @@ class DetailsView extends React.Component {
     } else if (newProps.task !== this.props.task) {
       this.setState({task: newProps.task, taskId: newProps.taskId, loaded: true});
     }
+    // if (newProps.selectedTaskName !== this.props.selectedTaskName) {
+    //   this.setState({selectedTaskName: newProps.selectedTaskName});
+    // }
   }
 
   updateField(field) {
@@ -75,6 +83,19 @@ class DetailsView extends React.Component {
         1500
       );
     };
+  }
+
+  handleChangeLinked(e) {
+    this.props.updateSelectedTask(e.currentTarget.value);
+    if (this.saveTimerId) clearTimeout(this.saveTimerId);
+
+    this.saveTimerId = setTimeout(
+      () => {
+        this.props.updateTask(Object.assign({}, this.state, {name: this.state.selectedTaskName}));
+        this.saveTimerId = null;
+      },
+      1500
+    );
   }
 
   handleDelete(e) {

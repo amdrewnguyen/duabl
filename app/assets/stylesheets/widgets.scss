@@ -1,6 +1,4 @@
 .toggle-done {
-  height: 2em;
-  width: 2em;
   padding: 0;
   display: flex;
   align-items: center;
@@ -9,6 +7,20 @@
   color: #B8C0C5;
   border-radius: 50%;
   transition: 300ms;
+}
+
+.details-name > .toggle-done, .details-name > .toggle-not-done {
+  height: 1.5em;
+  width: 1.5em;
+  font-size: 16px;
+  margin: 0 0.5em;
+}
+
+.task-list-item > .toggle-done, .task-list-item > .toggle-not-done {
+  font-size: 13px;
+  height: 1.5em;
+  width: 1.5em;
+  margin: 0 0.5em;
 }
 
 .toggle-done:hover {
@@ -37,9 +49,9 @@
 }
 
 .profile-image {
-  width: 24px;
-  height: 24px;
-  font-size: 13px;
+  width: 30px;
+  height: 30px;
+  font-size: 11px;
   font-weight: 300;
   margin: 0;
   padding: 0;

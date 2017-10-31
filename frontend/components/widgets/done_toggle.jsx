@@ -1,11 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import merge from 'lodash/merge';
+import FontAwesome from 'react-fontawesome';
 
 class DoneToggle extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-  onChange(e) {
+  handleClick(e) {
     e.preventDefault();
     this.props.updateTask(
       Object.assign(
@@ -18,7 +23,9 @@ class DoneToggle extends React.Component {
 
   render() {
     return (
-      <input type="checkbox" onChange={this.onChange.bind(this)} className="done-toggle" checked={this.props.task.completed}/>
+      <div onClick={this.handleClick} className={this.props.task.completed ? "toggle-done" : "toggle-not-done"}>
+        <FontAwesome name="check" aria-hidden="true"/>
+      </div>
     );
   }
 }

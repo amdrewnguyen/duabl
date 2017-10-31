@@ -3,17 +3,23 @@ import { withRouter, Link, Redirect } from 'react-router-dom';
 import DoneToggle from '../widgets/done_toggle';
 import {connect} from 'react-redux';
 
-import { receivePath } from '../../actions/ui_actions';
+import { receivePath, selectTask, updateSelectedTask } from '../../actions/ui_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
 
+    selectedTaskId: state.ui.selectedTaskId,
+    selectedTaskName: state.ui.selectedTaskName,
+    selectedTask: state.ui.selectedTask,
+    selected: Boolean(ownProps.task.id === state.ui.selectedTaskId),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     receivePath: (params) => dispatch(receivePath(params)),
+    selectTask: (task) => dispatch(selectTask(task)),
+    updateSelectedTask: (value) => dispatch(updateSelectedTask(value)),
   };
 };
 
@@ -24,6 +30,10 @@ class TaskListItem extends React.Component {
     this.saveTimerId = null;
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleChangeLinked = this.handleChangeLinked.bind(this);
+  }
+
+  componentDidMount() {
   }
 
   componentWillReceiveProps(newProps) {
@@ -34,6 +44,7 @@ class TaskListItem extends React.Component {
 
   handleClick(e) {
     const { projectId, task } = this.props;
+    this.props.selectTask(task);
     this.props.history.push(`/${projectId}/${task.id}`);
   }
 
@@ -50,16 +61,29 @@ class TaskListItem extends React.Component {
     );
   }
 
+  handleChangeLinked(e) {
+    this.props.updateSelectedTask(e.currentTarget.value);
+    if (this.saveTimerId) clearTimeout(this.saveTimerId);
+
+    this.saveTimerId = setTimeout(
+      () => {
+        this.props.updateTask(Object.assign({}, this.state, {name: this.state.selectedTaskName}));
+        this.saveTimerId = null;
+      },
+      1500
+    );
+  }
+
   render() {
-    let { projectId } = this.props;
+    let { projectId, selected } = this.props;
     const task = this.state;
     return (
       <li className="task-list-item" onClick={this.handleClick}>
         <DoneToggle task={this.props.task} updateTask={this.props.updateTask} />
         <textarea
-          value={task.name}
+          value={ task.name}
           rows="1"
-          onChange={this.handleChange}
+          onChange={ this.handleChange}
         />
       </li>
     );

@@ -14,7 +14,7 @@ import { getTasks } from '../../util/selectors';
 
 const mapStateToProps = (state, ownProps) => {
   let project = state.entities.projects.items[ownProps.projectId];
-  let tasks = [];
+  let tasks;
   if (project && state.entities.tasks) {
     tasks = getTasks(state.entities.tasks, project);
   }
@@ -32,7 +32,6 @@ const mapDispatchToProps = (dispatch, ownProps) => (
     updateTask: (task) => dispatch(updateTask(task)),
     createTask: (task) => dispatch(createTask(task)),
     receivePath: (params) => dispatch(receivePath(params)),
-
   }
 );
 
@@ -80,7 +79,8 @@ class TaskListView extends React.Component {
   }
 
   render() {
-    const { tasks, projectId, updateTask } = this.props;
+    const { projectId, updateTask } = this.props;
+    let tasks = this.state.tasks;
     let taskElements = [];
 
     if (this.state.loaded) {

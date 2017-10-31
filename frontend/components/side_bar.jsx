@@ -60,7 +60,7 @@ class SideBar extends React.Component {
         <FontAwesome name="times close-button"
                      aria-hidden="true"
                      onClick={() => this.props.closeSidebar()} />
-        <h1><Link to="/">duabl</Link></h1>
+        <h1><Link to="/"><FontAwesome name="list-alt" aria-hidden="true" /> duabl</Link></h1>
         <ul className="team-list">
           {teamSections}
         </ul>
