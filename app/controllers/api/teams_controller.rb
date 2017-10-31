@@ -13,7 +13,7 @@ class Api::TeamsController < ApplicationController
     @team = Task.new(team_params)
     @team.owner_id = current_user.id
 
-    if current_user.append(@team)
+    if current_user.teams.append(@team)
       render "api/teams/show"
     else
       render json: @team.errors.full_messages, status: 422

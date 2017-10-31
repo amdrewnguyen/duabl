@@ -32,5 +32,6 @@ class Task < ApplicationRecord
 
   belongs_to :parent_task,
     class_name: "Task",
-    foreign_key: :parent_id
+    foreign_key: :parent_id,
+    optional: true
 end

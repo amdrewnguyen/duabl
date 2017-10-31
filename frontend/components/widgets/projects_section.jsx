@@ -1,7 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import FontAwesome from 'react-fontawesome';
 
 class ProjectsSection extends React.Component {
+  handleClick(projectId) {
+    return (e) => {
+      this.props.history.push(`/${projectId}/list`);
+    };
+  }
+
   render() {
     const { projects, loggedIn, selectedProjId } = this.props;
     const projectElems = projects.map(

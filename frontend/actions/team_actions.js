@@ -7,10 +7,11 @@ export const REQUEST_TEAM = 'REQUEST_TEAM';
 export const REMOVE_TEAM = 'REMOVE_TEAM';
 export const RECEIVE_TEAM_ERRORS = 'RECEIVE_TEAM_ERRORS';
 
-export const receiveTeams = (teams) => (
+export const receiveTeams = (payload) => (
   {
     type: RECEIVE_TEAMS,
-    teams,
+    teams: payload.teams,
+    users: payload.users,
   }
 );
 

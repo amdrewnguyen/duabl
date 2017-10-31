@@ -44,6 +44,10 @@
   position: relative;
   overflow: hidden;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: green;
 }
 
 .profile-image img {
@@ -51,4 +55,18 @@
   margin: 0 auto;
   height: 100%;
   width: auto;
+}
+
+.member-pics {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.member-pics li {
+  margin: 0 3px;
+  padding: 0;
 }

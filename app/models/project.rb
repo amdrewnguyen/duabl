@@ -19,4 +19,6 @@ class Project < ApplicationRecord
              foreign_key: :owner_id
 
   has_many :tasks
+
+  belongs_to :team
 end

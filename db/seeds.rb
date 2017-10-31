@@ -7,11 +7,19 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 
-only_user = User.new(email: 'a@a.com', password: 'aaaaaa')
-only_other_user = User.new(email: 'demo', password: 'demooo')
+team_names = %w(Design Managers Sales)
 
-only_user.save
-only_other_user.save
+only_user = User.create(email: 'a@a.com', password: 'aaaaaa', name: "Drew Nguyen")
+only_other_user = User.create(email: 'demo', password: 'demooo', name: "Demodave")
+
+teams = []
+
+team_names.each do |team_name|
+  team = Team.create(owner_id: only_user.id, name: team_name)
+  only_user.teams.append(team)
+  only_other_user.teams.append(team)
+  teams << team
+end
 
 project_names = ["full stack", "test project", "build a spaceship",
   "make my bed", "take over the world", "get groceries"]
@@ -19,21 +27,23 @@ project_names = ["full stack", "test project", "build a spaceship",
 projects = []
 
 project_names.each do |name|
-  projects.push(Project.create(name: name, owner_id: only_user.id))
-  projects.push(Project.create(name: name, owner_id: only_other_user.id))
+  projects.push(Project.create(name: name, owner_id: only_user.id, team_id: teams.sample.id))
 end
 
-verbs = %w(scold charge unlock cough trace
-           fasten guess claim joke license search challenge taste trick
-           connect arrange avoid tap nest curve crush greet peep turn
-           memorise change follow sc coil launch wave
-           stain suit jump)
+
 
 tasks = []
-
+puts projects.length
 projects.each do |proj|
   (3 + rand(5)).times do
-    tasks.push(Task.create(name: Faker::Dune.unique.quote, owner_id: proj.owner_id, project_id: proj.id))
+    task = Task.new(name: Faker::Dune.unique.quote, owner_id: proj.owner_id, project_id: proj.id)
+    puts task
+    if task.save
+      puts "task saved"
+    else
+      puts task.errors.full_messages
+    end
+    tasks.push(task)
   end
 end
 

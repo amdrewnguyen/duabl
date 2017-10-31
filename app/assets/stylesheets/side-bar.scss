@@ -24,12 +24,12 @@
   color: black;
 }
 
-.side-bar ul {
+.side-bar > ul {
   list-style: none;
   padding: 0;
 }
 
-.side-bar ul li:not(:first-child) {
+.side-bar > ul li:not(:first-child) {
   width: calc(100% - 15px);
   margin: 5px 0;
   padding: 5px 0px 5px 15px;
@@ -68,4 +68,16 @@
 
 .selected-proj span {
   color: #008ce3;
+}
+
+.team-section {
+  list-style: none;
+}
+
+.team-section h3 {
+  margin: 5px 0 5px 5px;
+}
+
+.team-details {
+  margin: 0 10px;
 }

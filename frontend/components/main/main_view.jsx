@@ -19,17 +19,12 @@ const mapStateToProps = (state, ownProps) => {
           isFetching: true,
           project: null
         };
-  let tasks = [];
-  if (!isFetching) {
-    tasks = state.entities.projects.items[projectId].taskIds.map(
-      (tId) => state.entities.projects.items[tId]
-    );
-  }
+
   return {
     projectId,
     taskId,
+    isFetching,
     project,
-    tasks,
   };
 };
 

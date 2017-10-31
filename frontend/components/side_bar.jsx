@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 
 import { fetchProjects } from '../actions/project_actions';
+import { fetchTeams } from '../actions/team_actions';
 import NewProjectForm from './projects/project_form_container';
 import { openModal } from '../actions/ui_actions';
+import TeamSection from './widgets/team_section';
 
 const mapStateToProps = (state) => (
   {
@@ -13,12 +15,14 @@ const mapStateToProps = (state) => (
     loggedIn: Boolean(state.session.currentUser),
     currentUser: state.session.currentUser,
     selectedProjId: state.ui.projectId,
+    teams: Object.values(state.entities.teams),
   }
 );
 
 const mapDispatchToProps = dispatch => (
   {
     fetchProjects: () => dispatch(fetchProjects()),
+    fetchTeams: () => dispatch(fetchTeams()),
     openCreateProjectModal:
       () => dispatch(
         openModal(NewProjectForm, {formType: "Create"})
@@ -30,6 +34,7 @@ const mapDispatchToProps = dispatch => (
 class SideBar extends React.Component {
   componentDidMount() {
     this.props.fetchProjects();
+    this.props.fetchTeams();
   }
 
   componentWillReceiveProps(newProps) {
@@ -66,6 +71,7 @@ class SideBar extends React.Component {
           </li>
           {projectElems}
         </ul>
+        <TeamSection teamId={1}/>
       </div>
     ) : (
       <div>

@@ -1,21 +1,13 @@
 import React from 'react';
 
 const ProfileImage = ({ user, onClick }) => {
-  let initials;
-  if (user.name) {
-    const names = user.name.split(" ");
-    initials = `${names[0][0]}${names[1][0]}`.toUpperCase();
-  } else {
-    initials = "";
-  }
-
-  return user.imageUrl ? (
+  return (user.imageUrl !== "missing.png") ? (
     <div onClick={onClick} className="profile-image">
       <img src={user.imageUrl}></img>
     </div>
   ) : (
     <div onClick={onClick} className="profile-image">
-      {initials}
+      {user.initials}
     </div>
   );
 };
