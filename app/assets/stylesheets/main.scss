@@ -156,3 +156,21 @@
   display: flex;
   align-items: center;
 }
+
+.subtask-list {
+  margin: 0;
+  padding: 0;
+}
+
+.subtask-list > li {
+  margin: 0;
+  padding: 0 20px 0 0;
+}
+
+.subtask-list > li a {
+  color: #e0e6e8;
+}
+
+.subtask-list > li a:hover {
+  color: #32c1ff;
+}

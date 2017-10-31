@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     openCreateProjectModal:
       () => dispatch(
-        openModal(NewProjectForm, {formType: "Create"})
+        openModal(NewProjectForm, {formType: "Create", teamId: ownProps.teamId})
       ),
     openEditModal: (projectId) => dispatch(openModal(NewProjectForm, {formType: "Update", projectId})),
 
@@ -47,7 +47,7 @@ class TeamSection extends React.Component {
     if (newProps.members.length !== this.props.members.length) {
       this.setState({members: newProps.members});
     }
-    if (newProps.projects.length !== this.props.projects.length) {
+    if (newProps.projects !== this.props.projects) {
       this.setState({projects: newProps.projects});
     }
   }
@@ -72,7 +72,9 @@ class TeamSection extends React.Component {
                                  projects={this.state.projects}
                                  openEditModal={this.props.openEditModal}
                                  loggedIn={this.props.loggedIn}
-                                 selectedProjId={this.props.selectedProjId}/>
+                                 selectedProjId={this.props.selectedProjId}
+                                 teamId={this.props.team.id}
+                                 team={this.props.team}/>
               </div>
             ) : (
               null

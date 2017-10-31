@@ -4,7 +4,7 @@ import merge from 'lodash/merge';
 class ProjectForm extends React.Component {
   constructor(props) {
     super(props);
-    const blankState = {name: "", description: ""};
+    const blankState = {name: "", description: "", team_id: props.teamId};
     this.state = (props.formType === "Update") ? (
       merge({}, blankState, props.project)
     ) : (

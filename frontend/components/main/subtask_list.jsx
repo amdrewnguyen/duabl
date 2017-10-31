@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import SubtaskListItem from './subtask_list_view_item';
-import { getSubtasks, updateTask } from '../../util/selectors';
+import { getSubtasks } from '../../util/selectors';
+import { updateTask } from '../../actions/task_actions';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -32,7 +33,7 @@ class SubtaskList extends React.Component {
                       />
       ));
       return (
-        <ul>
+        <ul className="subtask-list">
           {subtaskElements}
         </ul>
       );

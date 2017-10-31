@@ -29,8 +29,8 @@ const mapDispatchToProps = dispatch => (
 
 class SideBar extends React.Component {
   componentDidMount() {
-    this.props.fetchProjects();
     this.props.fetchTeams();
+    // this.props.fetchProjects();
   }
 
   componentWillReceiveProps(newProps) {

@@ -8,20 +8,20 @@ import { fetchProjectTasks,
 import { fetchProject } from '../../actions/project_actions';
 import TaskListHeader from './task_list_view_header';
 import TaskListItem from './task_list_view_item';
+import { receivePath } from '../../actions/ui_actions';
+import { getTasks } from '../../util/selectors';
+
 
 const mapStateToProps = (state, ownProps) => {
-  let project = state.entities.projects.items[ownProps.match.params.projectId];
+  let project = state.entities.projects.items[ownProps.projectId];
   let tasks = [];
   if (project && state.entities.tasks) {
-    tasks = project.taskIds.filter((id) => (!state.entities.tasks[id].parentId)).map(
-      (taskId) => {
-        return state.entities.tasks[taskId];
-      }
-    );
+    tasks = getTasks(state.entities.tasks, project);
   }
   return {
     tasks,
-    projectId: ownProps.match.params.projectId,
+    projectId: ownProps.projectId,
+    taskId: state.ui.taskId,
   };
 };
 
@@ -31,32 +31,46 @@ const mapDispatchToProps = (dispatch, ownProps) => (
     fetchProject: (projectId) => dispatch(fetchProject(projectId)),
     updateTask: (task) => dispatch(updateTask(task)),
     createTask: (task) => dispatch(createTask(task)),
+    receivePath: (params) => dispatch(receivePath(params)),
+
   }
 );
 
 class TaskListView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loaded: false };
+    this.state = { tasks: props.tasks, loaded: false };
     this.addNewTask = this.addNewTask.bind(this);
   }
 
   componentDidMount() {
-    // console.log("Project ID is: " + this.props.projectId);
+    console.log("Project ID is: " + this.props.projectId);
     if(!this.props.project) {
-      this.props.fetchProject(this.props.match.params.projectId)
+      this.props.fetchProject(this.props.projectId)
         .then(
-          () => this.setState({loaded: true})
+          () => {
+            this.props.fetchProjectTasks(this.props.projectId)
+              .then(
+                () => this.setState({tasks: this.props.tasks, loaded: true})
+              );
+          }
         );
     }
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.match.params.projectId !== this.props.match.params.projectId) {
+
+    if (newProps.projectId !== this.props.projectId) {
       this.setState({loaded: false});
-      this.props.fetchProjectTasks(newProps.match.params.projectId).then(
-        () => this.setState({loaded: true})
-      );
+      this.props.fetchProject(newProps.projectId)
+        .then(
+          () => {
+            this.props.fetchProjectTasks(newProps.projectId)
+              .then(
+                () => this.setState({tasks: this.props.tasks, loaded: true})
+              );
+          }
+        );
     }
   }
 
@@ -66,7 +80,7 @@ class TaskListView extends React.Component {
   }
 
   render() {
-    const { tasks, projectId, history, updateTask } = this.props;
+    const { tasks, projectId, updateTask } = this.props;
     let taskElements = [];
 
     if (this.state.loaded) {
@@ -91,4 +105,4 @@ class TaskListView extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskListView);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskListView));

@@ -1,23 +1,40 @@
 import React from 'react';
 import { withRouter, Link, Redirect } from 'react-router-dom';
 import DoneToggle from '../widgets/done_toggle';
+import {connect} from 'react-redux';
+
+import { receivePath } from '../../actions/ui_actions';
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    receivePath: (params) => dispatch(receivePath(params)),
+  };
+};
 
 class TaskListItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, this.props.task);
+    this.state = Object.assign({}, props.task);
     this.saveTimerId = null;
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState(newProps.task);
+    if(this.props.task.id !== newProps.task.id) {
+      this.setState(newProps.task);
+    }
   }
 
   handleClick(e) {
-    const { history, projectId, task } = this.props;
-    history.push(`/${projectId}/${task.id}`);
+    const { projectId, task } = this.props;
+    this.props.history.push(`/${projectId}/${task.id}`);
   }
 
   handleChange(e) {
@@ -34,7 +51,7 @@ class TaskListItem extends React.Component {
   }
 
   render() {
-    const { projectId } = this.props;
+    let { projectId } = this.props;
     const task = this.state;
     return (
       <li className="task-list-item" onClick={this.handleClick}>
@@ -49,4 +66,4 @@ class TaskListItem extends React.Component {
   }
 }
 
-export default withRouter(TaskListItem);
+export default withRouter(connect(null, mapDispatchToProps)(TaskListItem));

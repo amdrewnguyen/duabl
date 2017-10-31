@@ -9,18 +9,15 @@ import { fetchTask,
 import DetailsHeader from './details_view_header';
 import DoneToggle from '../widgets/done_toggle';
 import SubtaskList from './subtask_list';
+import { receivePath } from '../../actions/ui_actions';
 
 
 const mapStateToProps = (state, ownProps) => {
-  let task = null;
-  const taskId = ownProps.match.params.taskId;
-
-  if (taskId === 'list') {
-    return { task, taskId, show: false};
-  } else {
-    task = state.entities.tasks[taskId];
-    return { task, taskId, show: (task ? true : false) };
-  }
+  return {
+    task: state.entities.tasks[ownProps.taskId],
+    projectId: state.ui.projectId,
+    taskId: ownProps.taskId,
+  };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => (
@@ -29,20 +26,22 @@ const mapDispatchToProps = (dispatch, ownProps) => (
     updateTask: (task) => dispatch(updateTask(task)),
     createTask: (task) => dispatch(createTask(task)),
     deleteTask: (taskId) => dispatch(deleteTask(taskId)),
+    receivePath: (params) => dispatch(receivePath(params)),
+
   }
 );
 
 class DetailsView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loaded: false, task: this.props.task, taskId: this.props.taskId };
+    this.state = {loaded: false, task: props.task};
     this.saveTimerId = null;
     this.updateField = this.updateField.bind(this);
   }
 
   componentDidMount() {
-    if (!this.props.task && this.props.match.params.taskId !== 'list') {
-      this.props.fetchTask(this.props.match.params.taskId)
+    if (!this.props.task && this.props.taskId !== 'list') {
+      this.props.fetchTask(this.props.taskId)
         .then(
           () => this.setState({task: this.props.task, loaded: true})
         );
@@ -50,13 +49,14 @@ class DetailsView extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState({task: newProps.task, taskId: newProps.match.params.taskId});
-    if (newProps.match.params.taskId !== "list" && newProps.match.params.taskId !== this.props.match.params.taskId) {
-      this.setState({loaded: false, taskId: newProps.match.params.taskId});
-      this.props.fetchTask(newProps.match.params.taskId)
+    if ((newProps.taskId !== "list") && (newProps.taskId !== this.props.taskId)) {
+      // this.setState({loaded: false});
+      this.props.fetchTask(newProps.taskId)
         .then(
           () => this.setState({task: this.props.task, taskId: this.props.taskId, loaded: true})
         );
+    } else if (newProps.task !== this.props.task) {
+      this.setState({task: newProps.task, taskId: newProps.taskId, loaded: true});
     }
   }
 
@@ -77,31 +77,31 @@ class DetailsView extends React.Component {
   }
 
   render() {
-    if (this.props.taskId === "list") return null;
-    return (
-      (this.state.task) ? (
-          <div className="details-view">
-            <DetailsHeader task={this.props.task}
-                           updateTask={this.props.updateTask}
-                           createTask={this.props.createTask}
-                           deleteTask={this.props.deleteTask} />
-            <div className="details-name">
-              <DoneToggle task={this.props.task} updateTask={this.props.updateTask}/>
-              <textarea
-                value={this.state.task.name || ""}
-                onChange={this.updateField("name")}
-              />
-            </div>
-            <textarea className="details-description"
-                      value={this.state.task.description || ""}
-                      placeholder="Description"
-                      onChange={this.updateField("description")} />
-            <SubtaskList taskId={this.props.taskId} />
+    if (this.state.taskId === "list") return null;
+    if (this.state.loaded) {
+      return (
+        <div className="details-view">
+          <DetailsHeader task={this.props.task}
+                         updateTask={this.props.updateTask}
+                         createTask={this.props.createTask}
+                         deleteTask={this.props.deleteTask} />
+          <div className="details-name">
+            <DoneToggle task={this.props.task} updateTask={this.props.updateTask}/>
+            <textarea
+              value={this.state.task.name || ""}
+              onChange={this.updateField("name")}
+            />
           </div>
-        ) : (
-          null
-        )
+          <textarea className="details-description"
+                    value={this.state.task.description || ""}
+                    placeholder="Description"
+                    onChange={this.updateField("description")} />
+          <SubtaskList taskId={this.props.taskId} />
+        </div>
       );
+    } else {
+      return null;
+    }
   }
 }
 

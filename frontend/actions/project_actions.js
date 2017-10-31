@@ -31,6 +31,7 @@ export const receiveProject = (project) => (
   {
     type: RECEIVE_PROJECT,
     project,
+    teamId: project.teamId,
   }
 );
 
