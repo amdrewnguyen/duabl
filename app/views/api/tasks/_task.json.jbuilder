@@ -1,6 +1,7 @@
 json.id task.id
 json.ownerId task.owner_id
 json.projectId task.project_id
+json.parentId task.parent_id
 json.assigneeId task.assignee_id
 json.name task.name
 json.completed task.completed

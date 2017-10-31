@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
           project,
         } = state.entities.projects.items[projectId] || {
           isFetching: true,
-          project: null
+          project: {},
         };
 
   return {
@@ -43,7 +43,7 @@ class MainView extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.match.params);
+    // console.log(this.props.match.params);
 
     this.props.receivePath(this.props.match.params);
     this.props.fetchProject(this.props.projectId)
@@ -51,7 +51,7 @@ class MainView extends React.Component {
         () => {
           this.props.fetchTasks()
             .then(
-              () => this.setState({loaded: true})
+              () => this.setState({project: this.props.project, loaded: true})
             );
           }
         );
@@ -67,19 +67,13 @@ class MainView extends React.Component {
   }
 
   render() {
-    const { projectId, taskId, project } = this.props;
+    const { projectId, taskId } = this.props;
     if (this.state.loaded) {
       return (
         <div className="main-view">
-          <PageHeader project={project} />
-          <TaskListView />
-          {
-            taskId !== "list" ? (
-              <DetailsView />
-            ) : (
-              null
-            )
-          }
+          <PageHeader projectId={projectId} />
+          <TaskListView projectId={projectId}/>
+          <DetailsView taskId={taskId}/>
         </div>
       );
     } else {

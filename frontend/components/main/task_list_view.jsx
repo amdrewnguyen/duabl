@@ -10,11 +10,10 @@ import TaskListHeader from './task_list_view_header';
 import TaskListItem from './task_list_view_item';
 
 const mapStateToProps = (state, ownProps) => {
-  let project = state.entities.projects.items[ownProps.match.params.projectId];
-  // console.log(project);
+  let project = state.entities.projects.items[ownProps.projectId];
   let tasks = [];
   if (project && state.entities.tasks) {
-    tasks = project.taskIds.filter((id) => (!state.entities.tasks[id].parent_id)).map(
+    tasks = project.taskIds.filter((id) => (!state.entities.tasks[id].parentId)).map(
       (taskId) => {
         return state.entities.tasks[taskId];
       }
@@ -22,7 +21,7 @@ const mapStateToProps = (state, ownProps) => {
   }
   return {
     tasks,
-    projectId: ownProps.match.params.projectId,
+    projectId: ownProps.projectId,
   };
 };
 
@@ -38,7 +37,7 @@ const mapDispatchToProps = (dispatch, ownProps) => (
 class TaskListView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {loaded: false};
+    this.state = { loaded: false };
     this.addNewTask = this.addNewTask.bind(this);
   }
 
@@ -68,8 +67,6 @@ class TaskListView extends React.Component {
     }
   }
 
-  // TODO: a function that adds a task to the component that creates a
-  //       new task on the back end.
   addNewTask() {
     const newBlankTask = {name: "", project_id: this.props.projectId};
     this.props.createTask(newBlankTask);
@@ -87,15 +84,17 @@ class TaskListView extends React.Component {
                       updateTask={updateTask}
         />
       ));
+      return (
+        <div className="task-list-view">
+          <TaskListHeader addNewTask={this.addNewTask}/>
+          <ul>
+            {taskElements}
+          </ul>
+        </div>
+      );
+    } else {
+      return null;
     }
-    return (
-      <div className="task-list-view">
-        <TaskListHeader addNewTask={this.addNewTask}/>
-        <ul>
-          {taskElements}
-        </ul>
-      </div>
-    );
   }
 }
 

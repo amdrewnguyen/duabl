@@ -53,11 +53,20 @@ class SideBar extends React.Component {
     const { projects, loggedIn, selectedProjId } = this.props;
     const projectElems = projects.map(
       (project) => (
-        <li onClick={this.handleClick(project.id)} key={project.id} className={parseInt(selectedProjId) === project.id ? "selected-proj" : "not-selected-proj"}>
-          <Link to={`/${project.id}/list`}>{project.name}</Link>
-          <FontAwesome onClick={() => {
-              this.props.openEditModal(project.id);
-            }} name="pencil" aria-hidden="true" />
+        <li onClick={this.handleClick(project.id)}
+            key={project.id}
+            className={parseInt(selectedProjId) === project.id ?
+              "selected-proj" : "not-selected-proj"}>
+          <Link to={`/${project.id}/list`}>
+            {project.name}
+          </Link>
+          <FontAwesome
+              onClick={
+                () => this.props.openEditModal(project.id)
+              }
+              name="pencil"
+              aria-hidden="true"
+          />
         </li>
       )
     );

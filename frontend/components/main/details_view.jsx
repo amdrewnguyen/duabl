@@ -13,7 +13,7 @@ import SubtaskList from './subtask_list';
 
 const mapStateToProps = (state, ownProps) => {
   let task = null;
-  const taskId = ownProps.match.params.taskId;
+  const taskId = ownProps.taskId;
 
   if (taskId === 'list') {
     return { task, taskId, show: false};
@@ -75,6 +75,7 @@ class DetailsView extends React.Component {
   }
 
   render() {
+    if (this.props.taskId === "list") return null;
     return (
         this.props.show ? (
           <div className="details-view">
