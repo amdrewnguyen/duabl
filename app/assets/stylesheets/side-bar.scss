@@ -2,11 +2,18 @@
   /*min-height: 100%;*/
   background-color: #222b37;
   overflow-x: hidden;
-  transition: margin-left 250ms ease-out;
+  transition: 250ms ease-out;
   color: white;
   padding: 5px;
   grid-area: 1 / 1 / 6 / 2;
   padding: 0;
+  position: relative;
+}
+
+.side-bar > .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .side-bar h1 {
@@ -29,15 +36,54 @@
   padding: 0;
 }
 
-.side-bar > ul li:not(:first-child) {
-  width: calc(100% - 15px);
-  margin: 5px 0;
-  padding: 5px 0px 5px 15px;
+.project-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.project-list > li:first-child {
+  color: #9ca6af;
+  font-size: 11px;
+  font-weight: 500;
+  margin: 15px 0 5px 5px;
+  display: flex;
+  justify-content: space-between;
+  text-rendering: optimizeLegibility;
+}
+
+.project-list > li:first-child a {
+  color: #9ca6af;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid #9ca6af;
+  padding: 0;
+  width: 15px;
+  height: 15px;
+}
+
+
+.project-list > li:not(:first-child) {
+  width: calc(100%);
+  margin: 0;
+  padding: 0 10px 0 12px;
   font-weight: 300;
+  font-size: 13px;
+  line-height: 28px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+
+.project-list > li:not(:first-child) a {
+  text-decoration: none;
+  color: white;
 }
 
 .selected-proj {
@@ -48,14 +94,10 @@
   background-color: #14aaf5;
 }
 
-.side-bar ul li a {
-  text-decoration: none;
-  color: white;
-}
 
 .side-bar ul li span {
   color: #222b37;
-  margin-right: 5px;
+  margin-right: 12px;
 }
 
 .side-bar ul li:hover span {
@@ -66,18 +108,27 @@
   background-color: #646f79;
 }
 
-.selected-proj span {
+.selected-proj > span {
   color: #008ce3;
 }
 
 .team-section {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .team-section h3 {
   margin: 5px 0 5px 5px;
+  font-size: 16px;
+}
+
+.team-section h3 > span {
+  width: 0.75em;
+  margin: 5px 0 5px 5px;
+  font-size: 16px;
 }
 
 .team-details {
-  margin: 0 10px;
+  margin: 0 10px 0 0;
 }

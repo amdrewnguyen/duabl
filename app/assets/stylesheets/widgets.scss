@@ -37,8 +37,10 @@
 }
 
 .profile-image {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
+  font-size: 13px;
+  font-weight: 300;
   margin: 0;
   padding: 0;
   position: relative;
@@ -48,6 +50,12 @@
   justify-content: center;
   align-items: center;
   background-color: green;
+}
+
+.member-pics > li:last-of-type > .profile-image {
+  background-color: #222b37;
+  border-color: #9ca6af;
+  color: #9ca6af;
 }
 
 .profile-image img {
@@ -61,12 +69,12 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 0;
-  margin: 0;
+  padding: 0 0 0 12px;
+  margin: 5px 0;
   list-style: none;
 }
 
-.member-pics li {
-  margin: 0 3px;
+.member-pics > li {
+  margin: 0 1px;
   padding: 0;
 }

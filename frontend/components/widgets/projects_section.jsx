@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 
 class ProjectsSection extends React.Component {
@@ -22,17 +22,15 @@ class ProjectsSection extends React.Component {
       )
     );
     return (
-      <div className="side-bar">
         <ul className="project-list">
           <li key={-1}>
             PROJECTS
-            <a onClick={this.props.openCreateProjectModal}>( + )</a>
+            <a onClick={this.props.openCreateProjectModal}> + </a>
           </li>
           {projectElems}
         </ul>
-      </div>
     );
   }
 }
 
-export default ProjectsSection;
+export default withRouter(ProjectsSection);

@@ -12,6 +12,7 @@ export const receiveTeams = (payload) => (
     type: RECEIVE_TEAMS,
     teams: payload.teams,
     users: payload.users,
+    projects: payload.projects,
   }
 );
 

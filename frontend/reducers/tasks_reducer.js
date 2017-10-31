@@ -16,7 +16,7 @@ const TasksReducer = (state = {}, action) => {
     case RECEIVE_TASK:
       newState = merge({}, state);
       if (action.task.parentId !== null) {
-        let newSubtaskIds = newState[action.task.parentId].subtaskIds.concat([action.task.id]);
+        let newSubtaskIds = uniq(newState[action.task.parentId].subtaskIds.concat([action.task.id]));
         newState[action.task.parentId].subtaskIds = newSubtaskIds;
       }
       if (action.task) {

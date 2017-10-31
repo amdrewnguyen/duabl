@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import TaskListItem from './task_list_view_item';
+import SubtaskListItem from './subtask_list_view_item';
 import { getSubtasks, updateTask } from '../../util/selectors';
 
 
@@ -20,12 +20,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 class SubtaskList extends React.Component {
-  
+
   render() {
     if(this.props.subtasks.length) {
-      console.log("We have subtasks!");
-      const subtaskElements = this.props.subtasks.map((subtask) => (
-        <TaskListItem task={subtask}
+      // console.log("We have subtasks!");
+      let subtaskElements = this.props.subtasks.map((subtask) => (
+        <SubtaskListItem task={subtask}
                       key={subtask.id}
                       projectId={this.props.projectId}
                       updateTask={this.props.updateTask}

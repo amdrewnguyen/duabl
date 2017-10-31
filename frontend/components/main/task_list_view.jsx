@@ -10,7 +10,7 @@ import TaskListHeader from './task_list_view_header';
 import TaskListItem from './task_list_view_item';
 
 const mapStateToProps = (state, ownProps) => {
-  let project = state.entities.projects.items[ownProps.projectId];
+  let project = state.entities.projects.items[ownProps.match.params.projectId];
   let tasks = [];
   if (project && state.entities.tasks) {
     tasks = project.taskIds.filter((id) => (!state.entities.tasks[id].parentId)).map(
@@ -21,7 +21,7 @@ const mapStateToProps = (state, ownProps) => {
   }
   return {
     tasks,
-    projectId: ownProps.projectId,
+    projectId: ownProps.match.params.projectId,
   };
 };
 
@@ -44,16 +44,9 @@ class TaskListView extends React.Component {
   componentDidMount() {
     // console.log("Project ID is: " + this.props.projectId);
     if(!this.props.project) {
-      this.props.fetchProject(this.props.projectId)
+      this.props.fetchProject(this.props.match.params.projectId)
         .then(
-          () => {
-            if (this.props.projectId !== "list") {
-              this.props.fetchProjectTasks(this.props.projectId)
-                .then(
-                  () => this.setState({loaded: true})
-                );
-              }
-            }
+          () => this.setState({loaded: true})
         );
     }
   }
@@ -98,4 +91,4 @@ class TaskListView extends React.Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TaskListView));
+export default connect(mapStateToProps, mapDispatchToProps)(TaskListView);

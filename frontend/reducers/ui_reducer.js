@@ -1,5 +1,7 @@
 import { OPEN_MODAL,
          CLOSE_MODAL,
+         OPEN_SIDEBAR,
+         CLOSE_SIDEBAR,
          RECEIVE_PATH } from '../actions/ui_actions';
 import merge from 'lodash/merge';
 
@@ -8,6 +10,7 @@ const modalOffState = {
   options: {},
   projectId: null,
   taskId: null,
+  sidebarOpen: true,
 };
 
 const UIReducer = (state = modalOffState, action) => {
@@ -33,6 +36,10 @@ const UIReducer = (state = modalOffState, action) => {
           taskId: action.taskId === "list" ? null : action.taskId,
         }
       );
+    case OPEN_SIDEBAR:
+      return merge({}, state, {sidebarOpen: true});
+    case CLOSE_SIDEBAR:
+      return merge({}, state, {sidebarOpen: false});
     default:
       return merge({}, state);
   }

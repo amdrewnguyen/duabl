@@ -6,6 +6,7 @@ import { RECEIVE_PROJECTS,
 import { RECEIVE_TASKS,
         RECEIVE_TASK,
         REMOVE_TASK } from '../actions/task_actions';
+import { RECEIVE_TEAMS } from '../actions/team_actions';
 import merge from 'lodash/merge';
 import uniq from 'lodash/uniq';
 import remove from 'lodash/remove';
@@ -72,6 +73,8 @@ const ProjectsReducer = (state = defaultState, action) => {
           }
         }
       });
+    case RECEIVE_TEAMS:
+      return merge({}, state, action.projects);
     default:
       return merge({}, state);
   }

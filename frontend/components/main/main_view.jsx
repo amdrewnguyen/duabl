@@ -61,19 +61,18 @@ class MainView extends React.Component {
   componentWillReceiveProps(newProps) {
     if (this.props.match.params.projectId !== newProps.match.params.projectId ||
       this.props.match.params.taskId !== newProps.match.params.taskId) {
-        console.log(newProps.match.params);
         this.props.receivePath(newProps.match.params);
       }
   }
 
   render() {
-    const { projectId, taskId } = this.props;
+    let { projectId, taskId } = this.props;
     if (this.state.loaded) {
       return (
         <div className="main-view">
           <PageHeader projectId={projectId} />
-          <TaskListView projectId={projectId}/>
-          <DetailsView taskId={taskId}/>
+          <Route path="/:projectId/:taskId" component={TaskListView} />
+          <Route path="/:projectId/:taskId" component={DetailsView} />
         </div>
       );
     } else {
