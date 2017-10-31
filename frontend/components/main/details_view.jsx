@@ -51,7 +51,7 @@ class DetailsView extends React.Component {
 
   componentWillReceiveProps(newProps) {
     this.setState({task: newProps.task});
-    if (newProps.taskId !== this.props.taskId) {
+    if (newProps.taskId !== "list" && newProps.taskId !== this.props.taskId) {
       this.setState({loaded: false});
       this.props.fetchTask(newProps.taskId)
         .then(
@@ -93,7 +93,7 @@ class DetailsView extends React.Component {
             <textarea className="details-description"
                       value={this.props.task.description}
                       placeholder="Description"/>
-                    <SubtaskList taskId={this.props.taskId} />
+            <SubtaskList taskId={this.props.taskId} />
           </div>
         ) : (
           null

@@ -1,5 +1,5 @@
-export const getSubtasks = (state, taskId) => {
-  return state.entities.tasks[taskId].subtaskIds.map((subtaskId) => (
-    state.entities.tasks[subtaskId]
+export const getSubtasks = (tasks, taskId) => {
+  return tasks[taskId].subtaskIds.map((subtaskId) => (
+    tasks[subtaskId]
   ));
 };

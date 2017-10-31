@@ -8,7 +8,7 @@ import { getSubtasks, updateTask } from '../../util/selectors';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    subtasks: getSubtasks(state, ownProps.taskId),
+    subtasks: getSubtasks(state.entities.tasks, ownProps.taskId),
     projectId: ownProps.match.params.projectId,
   };
 };
@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 class SubtaskList extends React.Component {
-
+  
   render() {
     if(this.props.subtasks.length) {
       console.log("We have subtasks!");

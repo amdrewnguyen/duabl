@@ -43,7 +43,7 @@ export const requestTask = (taskId) => (
 
 export const removeTask = (task) => (
   {
-    type: RECEIVE_TASK,
+    type: REMOVE_TASK,
     taskId: task.id,
     projectId: task.projectId,
   }
