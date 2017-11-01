@@ -5,8 +5,7 @@ import enhanceWithClickOutside from 'react-click-outside';
 
 import { updateTask } from '../../../actions/task_actions';
 import { selectTaskTeamMembers, selectAssignee } from '../../../util/selectors';
-
-// has taskId, updateTask, 230px x 320px
+import ProfileImage from '../profile_image';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -118,9 +117,15 @@ class Assigner extends React.Component {
     return (
       <div onClick={(e) => this.toggleDropdownMenu()}
            className={`assign-btn ${dropdownOpen ? "active" : "inactive"} ${assignee ? "assigned" : "unassigned"}`}>
-        <div className="user-icon">
-          <FontAwesome name="user-o" aria-hidden="true"/>
-        </div>
+        {
+          assignee ? (
+            <ProfileImage user={assignee} />
+          ) : (
+            <div className="user-icon">
+              <FontAwesome name="user-o" aria-hidden="true"/>
+            </div>
+          )
+        }
         {
           dropdownOpen ?
           <input type="text" value={inputVal}

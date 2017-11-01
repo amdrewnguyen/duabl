@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProfileImage = ({ user, onClick }) => {
+const ProfileImage = ({ user, onClick, size }) => {
   return (user.imageUrl !== "missing.png") ? (
     <div onClick={onClick} className="profile-image">
       <img src={user.imageUrl}></img>
