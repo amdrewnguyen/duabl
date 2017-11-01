@@ -1,7 +1,7 @@
 .side-bar {
   /*min-height: 100%;*/
   background-color: #222b37;
-  overflow-x: hidden;
+  // overflow-x: hidden;
   transition: 250ms ease-out;
   color: white;
   padding: 5px;
@@ -69,7 +69,7 @@
 
 
 .project-list > li:not(:first-child) {
-  width: calc(100%);
+  width: calc(100% - 12px);
   margin: 0;
   padding: 0 10px 0 12px;
   font-weight: 300;
@@ -79,6 +79,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 
@@ -89,6 +90,7 @@
 
 .selected-proj {
   background-color: #008ce3;
+  color: #008ce3;
 }
 
 .selected-proj:hover {
@@ -109,7 +111,7 @@
   background-color: #646f79;
 }
 
-.selected-proj > span {
+.selected-proj > .project-menu {
   color: #008ce3;
 }
 
@@ -122,14 +124,25 @@
 .team-section h3 {
   margin: 5px 0 5px 5px;
   font-size: 16px;
+  color: #9ca6af;
 }
 
 .team-section h3 > span {
   width: 0.75em;
   margin: 5px 0 5px 5px;
   font-size: 16px;
+
 }
 
 .team-details {
   margin: 0 10px 0 0;
+}
+
+.close-button {
+  color: #9ca6af;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: white;
 }

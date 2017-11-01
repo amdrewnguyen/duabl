@@ -27,14 +27,14 @@ body {
   width: 100%;
 }
 
-.task-buttons .fa-times {
+.task-buttons > .fa-times {
   align-self: flex-start;
   margin-left: auto;
   color: #AFB7BD;
   transition: 200ms;
 }
 
-.task-buttons .fa-times:hover {
+.task-buttons > .fa-times:hover {
   color: #0DA8F2;
 }
 
@@ -62,35 +62,17 @@ body {
 }
 
 
-.task-buttons ul li:not(:first-of-type) {
+.task-buttons > ul li:not(:first-of-type) {
   margin-left: 5px;
 }
 
-.task-buttons ul li:hover {
+.task-buttons > ul li:hover {
   color: #0DA8F2;
   border-color: #0DA8F2;
   box-shadow: 0 0 0px 3px #0DA8F2;
 }
 
-.assign-btn, .due-date-btn {
-  display: flex;
-  align-items: center;
-  background-color: white;
-  color: #AFB7BD;
-  padding: 2px;
-  transition: .5s;
-  box-shadow: none;
-  border-radius: 17px;
-  transition: 500ms;
-  width: auto;
-  margin-right: 5px;
-}
-
-
-.assign-btn {
-}
-
-.user-icon, .due-date-icon {
+.user-icon {
   padding: 0;
   margin: 0;
   display: flex;
@@ -101,21 +83,4 @@ body {
   width: 30px;
   border: 1px dashed #AFB7BD;
   transition: 500ms;
-}
-
-.assign-btn p, .due-date-btn p {
-  margin: 0 10px 0 5px;
-  font-size: 13px;
-}
-
-.assign-btn:hover, .due-date-btn:hover {
-  color: #0DA8F2;
-  border-color: #0DA8F2;
-  box-shadow: 0 0 0px 3px #0DA8F2;
-}
-
-.assign-btn:hover div, .due-date-btn:hover div {
-  color: #0DA8F2;
-  border-color: #0DA8F2;
-  border-style: solid;
 }

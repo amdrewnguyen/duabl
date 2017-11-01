@@ -64,9 +64,6 @@ class DetailsView extends React.Component {
     } else if (newProps.task !== this.props.task) {
       this.setState({task: newProps.task, taskId: newProps.taskId, loaded: true});
     }
-    // if (newProps.selectedTaskName !== this.props.selectedTaskName) {
-    //   this.setState({selectedTaskName: newProps.selectedTaskName});
-    // }
   }
 
   updateField(field) {

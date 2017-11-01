@@ -23,7 +23,9 @@ class Task < ApplicationRecord
     class_name: "User",
     foreign_key: :owner_id
 
-  belongs_to :project
+  belongs_to :project,
+    class_name: "Project",
+    foreign_key: :project_id
 
   has_many :subtasks,
     class_name: "Task",

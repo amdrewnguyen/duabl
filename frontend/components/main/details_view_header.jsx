@@ -2,6 +2,8 @@ import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import { Link, withRouter } from 'react-router-dom';
 
+import Assigner from '../widgets/assigner/assigner';
+import DatePicker from '../widgets/date_picker/date_picker';
 
 class DetailsHeader extends React.Component {
 
@@ -29,12 +31,8 @@ class DetailsHeader extends React.Component {
   render() {
     return (
       <div className="task-buttons">
-        <div className="assign-btn">
-          <div className="user-icon"><FontAwesome name="user-o" aria-hidden="true"/></div><p>Unassigned</p>
-        </div>
-        <div className="due-date-btn">
-          <div className="due-date-icon"><FontAwesome name="calendar" aria-hidden="true" /></div><p>Due Date</p>
-        </div>
+        <Assigner task={this.props.task} />
+        <DatePicker task={this.props.task} />
         <ul>
           <li onClick={this.createSubtask.bind(this)}><FontAwesome name="list" aria-hidden="true" /></li>
           <li onClick={() => this.props.deleteTask()}><FontAwesome name="trash" aria-hidden="true" /></li>

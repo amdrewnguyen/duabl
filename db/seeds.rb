@@ -12,6 +12,15 @@ team_names = %w(Design Managers Sales)
 only_user = User.create(email: 'a@a.com', password: 'aaaaaa', name: "Drew Nguyen")
 only_other_user = User.create(email: 'demo', password: 'demooo', name: "Demodave")
 
+users = []
+
+5.times do
+  new_name = Faker::Name.unique.first_name + " " + Faker::Name.unique.last_name
+  users.push(User.create(email: Faker::Internet.email, 
+                         password: 'aaaaaa',
+                         name: new_name))
+end
+
 teams = []
 
 team_names.each do |team_name|

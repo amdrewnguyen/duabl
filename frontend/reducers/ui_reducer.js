@@ -1,5 +1,7 @@
 import { OPEN_MODAL,
          CLOSE_MODAL,
+         OPEN_DROPDOWN,
+         CLOSE_DROPDOWN,
          OPEN_SIDEBAR,
          CLOSE_SIDEBAR,
          SELECT_TASK,
@@ -12,6 +14,9 @@ const modalOffState = {
   modal: null,
   options: {},
   sidebarOpen: true,
+  dropdownOpen: false,
+  dropdown: null,
+  dropdownToggle: null,
   projectId: null,
   selectedTaskId: null,
   selectedTask: null,
@@ -34,6 +39,22 @@ const UIReducer = (state = modalOffState, action) => {
       );
     case CLOSE_MODAL:
       return merge({}, state, {modal: null, options: {}});
+    case OPEN_DROPDOWN:
+      return merge(
+        {},
+        state,
+        {
+          dropdownOpen: true,
+          dropdown: action.component,
+          dropdownToggle: action.callback,
+        }
+      );
+    case CLOSE_DROPDOWN:
+      return merge({}, state, {
+        dropdownOpen: false,
+        dropdown: null,
+        dropdownToggle: null,
+      });
     case RECEIVE_PATH:
       return merge({}, state,
         {

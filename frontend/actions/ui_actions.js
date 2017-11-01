@@ -1,5 +1,7 @@
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
+export const OPEN_DROPDOWN = 'OPEN_DROPDOWN';
+export const CLOSE_DROPDOWN = 'CLOSE_DROPDOWN';
 export const CLOSE_SIDEBAR = 'CLOSE_SIDEBAR';
 export const OPEN_SIDEBAR = 'OPEN_SIDEBAR';
 export const RECEIVE_PATH = 'RECEIVE_PATH';
@@ -18,6 +20,20 @@ export const openModal = (component, options) => (
     type: OPEN_MODAL,
     component,
     options,
+  }
+);
+
+export const closeDropdown = () => (
+  {
+    type: CLOSE_DROPDOWN,
+  }
+);
+
+export const openDropdown = (component, callback) => (
+  {
+    type: OPEN_DROPDOWN,
+    component,
+    callback,
   }
 );
 

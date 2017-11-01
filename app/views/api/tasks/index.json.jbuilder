@@ -2,6 +2,7 @@
   json.set! task.id do
     json.extract! task, :id, :name, :completed, :description
     json.parentId task.parent_id
+    json.teamId task.project.team.id
     json.assigneeId task.assignee_id
     json.ownerId task.owner_id
     json.projectId task.project_id

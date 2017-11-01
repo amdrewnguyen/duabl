@@ -2,11 +2,13 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
+import enhanceWithClickOutside from 'react-click-outside';
+
 
 import { getTeamProjects } from '../../util/selectors';
 import { fetchTeams } from '../../actions/team_actions';
 import { fetchProjects } from '../../actions/project_actions';
-
+import ProjectDropdown from './project_dropdown';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -63,8 +65,6 @@ class ProjectsSection extends React.Component {
     };
   }
 
-
-
   render() {
     const { projects, loggedIn, selectedProjId } = this.state;
     if (projects) {
@@ -72,9 +72,7 @@ class ProjectsSection extends React.Component {
         (project) => (
           <li onClick={this.handleClick(project.id)} key={project.id} className={parseInt(selectedProjId) === project.id ? "selected-proj" : "not-selected-proj"}>
             <Link to={`/${project.id}/list`}>{project.name}</Link>
-            <FontAwesome onClick={() => {
-                this.props.openEditModal(project.id);
-              }} name="pencil" aria-hidden="true" />
+            <ProjectDropdown openEditModal={this.props.openEditModal} project={project}/>
           </li>
         )
       );

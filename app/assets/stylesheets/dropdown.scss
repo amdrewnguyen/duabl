@@ -1,7 +1,6 @@
 .dropdown-menu {
   display: block;
   position: absolute;
-  top: 30px;
   border: 1px solid #E0E6E8;
   border-radius: 4px;
   background-color: white;
@@ -10,6 +9,12 @@
   box-shadow: 0 5px 10px 0 rgba(0,0,0,0.1);
   z-index: 1;
 }
+
+.project-menu > .dropdown-menu {
+  position: absolute;
+  z-index: 1000;
+}
+
 
 .dropdown-menu-list {
   list-style: none;

@@ -29,6 +29,12 @@ html, body {
   position: relative;
 }
 
+.profile-image + .dropdown-menu {
+  position: absolute;
+  bottom: -80px;
+  right: 25px;
+}
+
 .close-sidebar {
   position: absolute;
   top: 0;
@@ -64,5 +70,5 @@ html, body {
   grid-area: 2 / 2 / 3 / 3;
   display: grid;
   grid-template-rows: 66px 15px 1fr;
-  grid-template-columns: 20px 19fr 15px 13fr 20px;
+  grid-template-columns: 20px 17fr 15px 13fr 20px;
 }

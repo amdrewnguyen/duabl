@@ -1,0 +1,147 @@
+.search-dropdown {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  // border: 1px solid #E0E6E8;
+  border-radius: 4px;
+  background-color: white;
+  width: 100%;
+  // box-shadow: 0 5px 10px 0 rgba(0,0,0,0.1);
+  z-index: 1;
+}
+
+.search-matches {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.assign-btn {
+  display: flex;
+  position: relative;
+  align-items: center;
+  background-color: white;
+  color: #AFB7BD;
+  padding: 2px;
+  transition: .5s;
+  box-shadow: none;
+  border-radius: 17px;
+  transition: 500ms;
+  width: auto;
+  margin-right: 5px;
+}
+
+.assign-btn.active {
+  z-index: 3;
+  color: #d5dce0;
+  border: 1px solid #d5dce0;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 2px 10px;
+  transition: 500ms;
+  width: auto;
+  // margin-right: 5px;
+}
+
+.assign-btn.active > input[type='text'] {
+  margin-left: 10px;
+  height: 16px;
+  border: 0;
+  resize: none;
+  font-size: 13px;
+
+}
+
+.assign-btn > p {
+  margin: 0 10px 0 5px;
+  font-size: 13px;
+}
+
+.assign-btn.inactive:hover {
+  color: #0DA8F2;
+  border-color: #0DA8F2;
+  box-shadow: 0 0 0px 3px #0DA8F2;
+}
+
+.assign-btn.inactive:hover > div {
+  color: #0DA8F2;
+  // border-color: #0DA8F2;
+  // border-style: solid;
+}
+
+.match-tile {
+  margin: 0;
+  padding: 5px 15px 5px 15px;
+  border-left: 1px solid #d5dce0;
+  border-right: 1px solid #d5dce0;
+  border-bottom: 1px solid #d5dce0;
+  width: calc(100% + 30px);
+  overflow-x: hidden;
+  color: #848f99;
+  background-color: white;
+}
+
+li:first-of-type > .match-tile {
+  border-top: 1px solid #d5dce0;
+
+}
+
+.match-name {
+  margin: 0;
+  font-size: 14px;
+}
+
+.match-email {
+  margin: 0;
+  font-size: 12px;
+}
+
+.assignee {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  font-size: 13;
+  color: #646f79;
+}
+
+.assignee > p:first-of-type {
+  margin: 0 5px;
+}
+
+.clear-assignee-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-size: 8px;
+  height: 1.5em;
+  width: 1.5em;
+  padding: 0.1em;
+  border-radius: 50%;
+  background-color: white;
+  color: white;
+}
+
+.clear-assignee-btn > .fa-times {
+  margin: 0;
+}
+
+.assign-btn:hover .clear-assignee-btn {
+  background-color: #d5dce0;
+  color: white;
+}
+
+.assign-btn:hover .assignee {
+  background-color: white;
+  color: #d5dce0;
+  border: none;
+}
+
+.assign-btn:hover .clear-assignee-btn:hover {
+  background-color: #32c1ff;
+}
