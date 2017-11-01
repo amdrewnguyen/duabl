@@ -52,20 +52,6 @@ html, body {
   background-color: #edf1f2;
 }
 
-.profile-image {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  margin: 0;
-  padding: 0;
-  background: purple;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  border: 1px solid black;
-}
-
 .main-view {
   grid-area: 2 / 2 / 3 / 3;
   display: grid;

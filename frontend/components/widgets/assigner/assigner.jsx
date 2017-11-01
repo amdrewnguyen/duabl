@@ -89,10 +89,12 @@ class Assigner extends React.Component {
   selectName(user) {
     return (e) => {
       this.props.updateTask(Object.assign({}, this.state.task, {assignee_id: user.id}));
+      this.setState({inputVal: ""});
     };
   }
 
   clearAssignee(e) {
+    e.stopPropagation();
     let newTask = Object.assign({}, this.state.task, {assignee_id: null});
     this.props.updateTask(newTask);
   }

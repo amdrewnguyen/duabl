@@ -12,17 +12,17 @@ class ProjectsSection extends React.Component {
     const userElements = this.props.members.map((member) =>
       (
         <li key={member.id}>
-          <ProfileImage user={member} onClick={(e)=>{}} />
+          <ProfileImage user={member} onClick={(e)=>{}} size={24} />
         </li>
       )
     );
     return (
-      <ul className="member-pics">
-        {userElements}
-        <li key={-1}>
-          <div className="profile-image">+</div>
-        </li>
-      </ul>
+      <div className="members-section">
+        <ul className="member-pics">
+          {userElements}
+        </ul>
+        <div className="add-team-member-btn">+</div>
+      </div>
     );
   }
 }

@@ -49,8 +49,6 @@
 }
 
 .profile-image {
-  width: 30px;
-  height: 30px;
   font-size: 11px;
   font-weight: 300;
   margin: 0;
@@ -61,13 +59,33 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
   background-color: green;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
 }
 
-.member-pics > li:last-of-type > .profile-image {
-  background-color: #222b37;
-  border-color: #9ca6af;
+.add-team-member-btn {
+  height: 22px;
+  width: 22px;
+  margin: 0 10px 0 0;
+  padding: 0;
+  border: 1px solid #9ca6af;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: transparent;
   color: #9ca6af;
+
+  transition: 200ms;
+}
+
+.add-team-member-btn:hover {
+  box-shadow: 0 0 0 3px #fff;
+  border-color: transparent;
+  color: white;
 }
 
 .profile-image img {
@@ -86,7 +104,16 @@
   list-style: none;
 }
 
-.member-pics > li {
-  margin: 0 1px;
+.members-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.member-pics > li:not(:last-of-type) {
+  margin-right: 6px;
   padding: 0;
 }
