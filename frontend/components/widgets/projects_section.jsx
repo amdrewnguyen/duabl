@@ -72,9 +72,9 @@ class ProjectsSection extends React.Component {
        const projectElems = projects.map(
         (project) => {
           let borderStyle = {
-            "border-left-color": project.color,
-            "border-left-style": "solid",
-            "border-left-width": "3px",
+            "borderLeftColor": project.color,
+            "borderLeftStyle": "solid",
+            "borderLeftWidth": "3px",
           };
           return (
             <li onClick={this.handleClick(project.id)}

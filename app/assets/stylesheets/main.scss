@@ -33,6 +33,23 @@
   padding: 0;
 }
 
+.mock-list-button {
+  width: 100%;
+}
+
+.mock-task-list-item {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: white;
+  height: 34px;
+  border-bottom: 1px solid lightgray;
+}
+
+.mock-task-list-item:first-of-type {
+  cursor: pointer;
+}
+
 .task-list-view ul input[type="checkbox"] {
   list-style: none;
   margin: 0 15px;

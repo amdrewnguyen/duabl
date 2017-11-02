@@ -144,7 +144,8 @@ class DetailsView extends React.Component {
           <div className="details-name">
             <DoneToggle task={this.state.task} updateTask={this.props.updateTask}/>
             <textarea
-              value={this.state.task.name}
+              value={this.state.task.name ?
+                this.state.task.name : ""}
               onChange={this.handleNameChange}
               rows={this.state.nameRows}
               placeholder={"Write a task name"}
@@ -165,7 +166,8 @@ class DetailsView extends React.Component {
             />
           </div>
           <textarea className="details-description"
-                    value={this.state.task.description}
+                    value={this.state.task.description ?
+                      this.state.task.description : ""}
                     placeholder="Description"
                     rows={this.state.descriptionRows}
                     onChange={this.updateField("description")}

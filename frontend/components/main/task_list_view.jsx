@@ -8,6 +8,7 @@ import { fetchProjectTasks,
 import { fetchProject } from '../../actions/project_actions';
 import TaskListHeader from './task_list_view_header';
 import TaskListItem from './task_list_view_item';
+import ListButton from './list_button';
 import { receivePath } from '../../actions/ui_actions';
 import { getProjectTasks } from '../../util/selectors';
 
@@ -89,9 +90,9 @@ class TaskListView extends React.Component {
           }
         );
     }
-    // if (newProps.taskId !== this.props.taskId) {
-    //   this.setState({tasks: newProps.tasks});
-    // }
+    if (newProps.tasks.length !== this.props.tasks.length) {
+      this.setState({tasks: newProps.tasks});
+    }
   }
 
   addNewTask() {
@@ -134,6 +135,7 @@ class TaskListView extends React.Component {
         <ul>
           {taskElements}
         </ul>
+        <ListButton action={this.addNewTask} numTasks={this.state.tasks.length} />
       </div>
     );
 
