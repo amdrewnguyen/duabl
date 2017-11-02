@@ -89,9 +89,9 @@ class TaskListView extends React.Component {
           }
         );
     }
-    if (newProps.tasks !== this.props.tasks) {
-      this.setState({tasks: newProps.tasks});
-    }
+    // if (newProps.taskId !== this.props.taskId) {
+    //   this.setState({tasks: newProps.tasks});
+    // }
   }
 
   addNewTask() {

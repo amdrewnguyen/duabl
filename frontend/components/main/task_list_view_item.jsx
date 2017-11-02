@@ -62,7 +62,9 @@ class TaskListItem extends React.Component {
     }
   }
 
-  
+  componentWillUnmount() {
+    console.log("ListItem unmounting!");
+  }
 
   handleClick(e) {
     const { projectId, task } = this.props;
@@ -79,7 +81,7 @@ class TaskListItem extends React.Component {
         this.props.updateTask(this.state);
         this.saveTimerId = null;
       },
-      1500
+      1000
     );
   }
 

@@ -68,12 +68,11 @@ class DetailsView extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.updateTaskListName !== this.props.updateTaskListName) {
-      this.setState({updateTaskListName: newProps.updateTaskListName});
-    }
-
     if ((newProps.taskId !== "list") && (newProps.taskId !== this.props.taskId)) {
-      // this.setState({loaded: false});
+      if (this.saveTimerId) {
+        this.saveTimerId = null;
+        this.props.updateTask(this.state.task);
+      }
       this.props.fetchTask(newProps.taskId)
         .then(
           () => this.setState({task: this.props.task, taskId: this.props.taskId, loaded: true})
@@ -81,6 +80,10 @@ class DetailsView extends React.Component {
     } else if (newProps.task !== this.props.task) {
       this.setState({task: newProps.task, taskId: newProps.taskId, loaded: true});
     }
+  }
+
+  componentWillUnmount() {
+    console.log("Details unmounting!");
   }
 
   updateField(field) {
@@ -94,7 +97,7 @@ class DetailsView extends React.Component {
           this.props.updateTask(this.state.task);
           this.saveTimerId = null;
         },
-        1500
+        1000
       );
     };
   }
@@ -110,7 +113,7 @@ class DetailsView extends React.Component {
           this.props.updateTask(this.state.task);
           this.saveTimerId = null;
         },
-        1500
+        1000
       );
   }
 

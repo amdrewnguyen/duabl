@@ -29,7 +29,7 @@ class SubtaskListItem extends React.Component {
         this.props.updateTask(this.state);
         this.saveTimerId = null;
       },
-      1500
+      1000
     );
   }
 
