@@ -30,26 +30,46 @@ class TaskListItem extends React.Component {
     this.saveTimerId = null;
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleChangeLinked = this.handleChangeLinked.bind(this);
+    this.updateName = this.updateName.bind(this);
+    if (!isNaN(parseInt(props.task.id))) {
+      this.props.registerItemCallback(
+        parseInt(props.task.id),
+        (val) => { this.updateName(val); }
+      );
+    }
   }
 
   componentDidMount() {
+    if (this.props.sendItemUpdateCallback) {
+      this.setState({sendItemUpdateCallback: this.props.sendItemUpdateCallback});
+    }
+
+    if (!isNaN(parseInt(this.props.task.id))) {
+      this.props.registerItemCallback(parseInt(this.props.task.id), this.updateName);
+    }
   }
 
   componentWillReceiveProps(newProps) {
-    if(this.props.task.id !== newProps.task.id) {
+    if(this.props.task !== newProps.task) {
       this.setState(newProps.task);
+    }
+
+    if ((newProps.task.id !== this.props.task.id) && (!isNaN(parseInt(newProps.task.id)))) {
+      this.props.registerItemCallback(
+        parseInt(newProps.task.id),
+        (val) => { this.updateName(val); }
+      );
     }
   }
 
   handleClick(e) {
     const { projectId, task } = this.props;
-    this.props.selectTask(task);
     this.props.history.push(`/${projectId}/${task.id}`);
   }
 
   handleChange(e) {
     this.setState({name: e.currentTarget.value});
+    this.props.updateDetailsName(e.currentTarget.value);
     if (this.saveTimerId) clearTimeout(this.saveTimerId);
 
     this.saveTimerId = setTimeout(
@@ -61,18 +81,10 @@ class TaskListItem extends React.Component {
     );
   }
 
-  handleChangeLinked(e) {
-    this.props.updateSelectedTask(e.currentTarget.value);
-    if (this.saveTimerId) clearTimeout(this.saveTimerId);
-
-    this.saveTimerId = setTimeout(
-      () => {
-        this.props.updateTask(Object.assign({}, this.state, {name: this.state.selectedTaskName}));
-        this.saveTimerId = null;
-      },
-      1500
-    );
+  updateName(value) {
+    this.setState({name: value});
   }
+
 
   render() {
     let { projectId, selected } = this.props;
@@ -81,9 +93,9 @@ class TaskListItem extends React.Component {
       <li className="task-list-item" onClick={this.handleClick}>
         <DoneToggle task={this.props.task} updateTask={this.props.updateTask} />
         <textarea
-          value={ task.name}
+          value={task.name}
           rows="1"
-          onChange={ this.handleChange}
+          onChange={this.handleChange}
         />
       </li>
     );

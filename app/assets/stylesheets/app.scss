@@ -15,6 +15,7 @@ html, body {
   margin: 0;
   padding: 0;
   transition: 250ms ease-out;
+  // overflow: hidden;
 }
 
 .top-bar {
@@ -57,4 +58,5 @@ html, body {
   display: grid;
   grid-template-rows: 66px 15px 1fr;
   grid-template-columns: 20px 17fr 15px 13fr 20px;
+  overflow-y: hidden;
 }

@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch, ownProps) => (
 class MainView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, props, {loaded: false});
+    this.state = Object.assign({}, props, {loaded: false, updateDetailsName: null, updateTaskListName: null});
   }
 
   componentDidMount() {
@@ -76,14 +76,38 @@ class MainView extends React.Component {
     }
   }
 
+  setUpdateTaskListName(cb) {
+    this.setState({updateTaskListName: cb});
+  }
+
+  setUpdateDetailsName(cb) {
+    this.setState({updateDetailsName: cb});
+  }
+
+  updateDetailsName(value) {
+    if (this.state.updateDetailsName) {
+      this.state.updateDetailsName(value);
+    }
+  }
+
+  updateTaskListName(key, value) {
+    if (this.state.updateTaskListName) {
+      this.state.updateTaskListName(key, value);
+    }
+  }
+
   render() {
     let { projectId, taskId } = this.state;
     if (this.state.loaded) {
       return (
         <div className="main-view">
           <PageHeader projectId={projectId} />
-          <TaskListView projectId={projectId} />
-          <DetailsView taskId={taskId} />
+          <TaskListView projectId={projectId}
+                        sendUpdateTaskListName={this.setUpdateTaskListName.bind(this)}
+                        updateDetailsName={this.updateDetailsName.bind(this)}/>
+          <DetailsView taskId={taskId}
+                       sendUpdateDetailsName={this.setUpdateDetailsName.bind(this)}
+                       updateTaskListName={this.updateTaskListName.bind(this)}/>
         </div>
       );
     } else {

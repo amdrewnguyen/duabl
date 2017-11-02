@@ -9,19 +9,21 @@ import { fetchProject } from '../../actions/project_actions';
 import TaskListHeader from './task_list_view_header';
 import TaskListItem from './task_list_view_item';
 import { receivePath } from '../../actions/ui_actions';
-import { getTasks } from '../../util/selectors';
+import { getProjectTasks } from '../../util/selectors';
 
 
 const mapStateToProps = (state, ownProps) => {
-  let project = state.entities.projects.items[ownProps.projectId];
-  let tasks;
-  if (project && state.entities.tasks) {
-    tasks = getTasks(state.entities.tasks, project);
-  }
+  const { projectId, taskId } = ownProps.match.params;
+  const stateProjects = state.entities.projects.items;
+  const stateTasks = state.entities.tasks;
+  let project = state.entities.projects.items[projectId];
+  let tasks = getProjectTasks(stateProjects, stateTasks, projectId);
+
   return {
+    project,
     tasks,
-    projectId: ownProps.projectId,
-    taskId: state.ui.taskId,
+    projectId,
+    taskId,
   };
 };
 
@@ -38,20 +40,31 @@ const mapDispatchToProps = (dispatch, ownProps) => (
 class TaskListView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { tasks: props.tasks, loaded: false };
+    this.state = {
+      tasks: props.tasks,
+      loaded: (props.project && props.tasks),
+      project: props.project,
+      callbacks: {},
+    };
     this.addNewTask = this.addNewTask.bind(this);
+    props.sendUpdateTaskListName(this.updateItemName.bind(this));
+
   }
 
   componentDidMount() {
-    console.log("Project ID is: " + this.props.projectId);
+    // console.log("Project ID is: " + this.props.projectId);
+    this.props.sendUpdateTaskListName(this.updateItemName.bind(this));
+
     if(!this.props.project) {
       this.props.fetchProject(this.props.projectId)
         .then(
           () => {
-            this.props.fetchProjectTasks(this.props.projectId)
-              .then(
-                () => this.setState({tasks: this.props.tasks, loaded: true})
-              );
+            this.setState({ project: this.props.project });
+
+              this.props.fetchProjectTasks(this.props.projectId)
+                .then(
+                  () => this.setState({tasks: this.props.tasks, loaded: true})
+                );
           }
         );
     }
@@ -60,16 +73,24 @@ class TaskListView extends React.Component {
   componentWillReceiveProps(newProps) {
 
     if (newProps.projectId !== this.props.projectId) {
-      this.setState({loaded: false});
       this.props.fetchProject(newProps.projectId)
         .then(
           () => {
-            this.props.fetchProjectTasks(newProps.projectId)
+            this.props.fetchProjectTasks(this.props.projectId)
               .then(
-                () => this.setState({tasks: this.props.tasks, loaded: true})
+                () => {
+                  this.setState({
+                    project: this.props.project,
+                    tasks: this.props.tasks,
+                    loaded: true
+                  });
+                }
               );
           }
         );
+    }
+    if (newProps.tasks !== this.props.tasks) {
+      this.setState({tasks: newProps.tasks});
     }
   }
 
@@ -78,30 +99,44 @@ class TaskListView extends React.Component {
     this.props.createTask(newBlankTask);
   }
 
+  updateItemName(key, value) {
+    this.state.callbacks[parseInt(key)](value);
+  }
+
+  registerItemCallback(key, cb) {
+    const callbacks = this.state.callbacks;
+    callbacks[key] = cb;
+    this.setState({callbacks,});
+  }
+
   render() {
     const { projectId, updateTask } = this.props;
-    let tasks = this.state.tasks;
-    let taskElements = [];
-
-    if (this.state.loaded) {
-      taskElements = tasks.map((task) => (
-        <TaskListItem key={task.id}
-                      task={task}
-                      projectId={projectId}
-                      updateTask={updateTask}
-        />
-      ));
-      return (
-        <div className="task-list-view">
-          <TaskListHeader addNewTask={this.addNewTask}/>
-          <ul>
-            {taskElements}
-          </ul>
-        </div>
+    let { project, tasks, loaded } = this.state;
+    let taskElements = null;
+    if (this.state.tasks) {
+      taskElements = tasks.map(
+        (task) => {
+          return (
+            <TaskListItem key={task.id}
+                        task={task}
+                        projectId={projectId}
+                        updateTask={updateTask}
+                        updateDetailsName={this.props.updateDetailsName}
+                        registerItemCallback={(key, cb) => this.registerItemCallback(key, cb)}
+            />
+          );
+        }
       );
-    } else {
-      return null;
     }
+    return (
+      <div className="task-list-view">
+        <TaskListHeader addNewTask={this.addNewTask}/>
+        <ul>
+          {taskElements}
+        </ul>
+      </div>
+    );
+
   }
 }
 

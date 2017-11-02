@@ -61,6 +61,7 @@ class ProjectsSection extends React.Component {
 
   handleClick(projectId) {
     return (e) => {
+      e.stopPropagation();
       this.props.history.push(`/${projectId}/list`);
     };
   }

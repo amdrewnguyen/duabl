@@ -14,8 +14,8 @@ import { receivePath, updateSelectedTask } from '../../actions/ui_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    task: state.entities.tasks[ownProps.taskId],
-    projectId: state.ui.projectId,
+    task: state.entities.tasks[ownProps.match.params.taskId],
+    projectId: ownProps.match.params.taskId,
     taskId: ownProps.taskId,
     selectedTaskId: state.ui.selectedTaskId,
     selectedTaskName: state.ui.selectedTaskName,
@@ -38,11 +38,22 @@ const mapDispatchToProps = (dispatch, ownProps) => (
 class DetailsView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {loaded: false, task: props.task, selectedTaskName: props.selectedTaskName};
+    this.state = {
+      loaded: false,
+      task: Object.assign({}, {name: "", description: ""}, props.task),
+      nameRows: 1,
+      descriptionRows: 2,
+      selectedTaskName: props.selectedTaskName,
+      updateTaskListName: props.updateTaskListName,
+    };
+
     this.saveTimerId = null;
     this.updateField = this.updateField.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-    this.handleChangeLinked = this.handleChangeLinked.bind(this);
+    this.updateName = this.updateName.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+
+    props.sendUpdateDetailsName(this.updateName);
   }
 
   componentDidMount() {
@@ -52,9 +63,15 @@ class DetailsView extends React.Component {
           () => this.setState({task: this.props.task, loaded: true, selectedTaskName: this.props.selectedTaskName})
         );
     }
+    this.setState({updateTaskListName: this.props.updateTaskListName});
+    this.props.sendUpdateDetailsName(this.updateName);
   }
 
   componentWillReceiveProps(newProps) {
+    if (newProps.updateTaskListName !== this.props.updateTaskListName) {
+      this.setState({updateTaskListName: newProps.updateTaskListName});
+    }
+
     if ((newProps.taskId !== "list") && (newProps.taskId !== this.props.taskId)) {
       // this.setState({loaded: false});
       this.props.fetchTask(newProps.taskId)
@@ -82,17 +99,25 @@ class DetailsView extends React.Component {
     };
   }
 
-  handleChangeLinked(e) {
-    this.props.updateSelectedTask(e.currentTarget.value);
-    if (this.saveTimerId) clearTimeout(this.saveTimerId);
+  handleNameChange(e) {
+      const newTask = Object.assign({}, this.state.task, {name: e.currentTarget.value});
+      this.setState({ task: newTask });
+      debugger
+      this.props.updateTaskListName(newTask.id, e.currentTarget.value);
+      if (this.saveTimerId) clearTimeout(this.saveTimerId);
 
-    this.saveTimerId = setTimeout(
-      () => {
-        this.props.updateTask(Object.assign({}, this.state, {name: this.state.selectedTaskName}));
-        this.saveTimerId = null;
-      },
-      1500
-    );
+      this.saveTimerId = setTimeout(
+        () => {
+          this.props.updateTask(this.state.task);
+          this.saveTimerId = null;
+        },
+        1500
+      );
+  }
+
+  updateName(value) {
+    const newTask = Object.assign({}, this.state.task, {name: value});
+    this.setState({ task: newTask });
   }
 
   handleDelete(e) {
@@ -117,14 +142,44 @@ class DetailsView extends React.Component {
           <div className="details-name">
             <DoneToggle task={this.state.task} updateTask={this.props.updateTask}/>
             <textarea
-              value={this.state.task.name || ""}
-              onChange={this.updateField("name")}
+              value={this.state.task.name}
+              onChange={this.handleNameChange}
+              rows={this.state.nameRows}
+              placeholder={"Write a task name"}
+              ref={
+                textArea => {
+                  if(textArea !== null) {
+                    console.log(`${textArea.scrollHeight} ${textArea.clientHeight}`);
+                    if(textArea.scrollHeight > textArea.clientHeight) {
+                      this.setState({nameRows: this.state.nameRows + 1});
+                    } else if (textArea.scrollHeight < textArea.clientHeight) {
+                      if (this.state.descriptionRows > 1) {
+                        this.setState({nameRows: this.state.nameRows - 1});
+                      }
+                    }
+                  }
+                }
+              }
             />
           </div>
           <textarea className="details-description"
-                    value={this.state.task.description || ""}
+                    value={this.state.task.description}
                     placeholder="Description"
-                    onChange={this.updateField("description")} />
+                    rows={this.state.descriptionRows}
+                    onChange={this.updateField("description")}
+                    ref={
+                      textArea => {
+                        if(textArea !== null) {
+                          if(textArea.scrollHeight > textArea.clientHeight) {
+                            this.setState({descriptionRows: this.state.descriptionRows + 1});
+                          } else if (textArea.scrollHeight < textArea.clientHeight) {
+                            if (this.state.descriptionRows > 2) {
+                              this.setState({descriptionRows: this.state.descriptionRows - 1});
+                            }
+                          }
+                        }
+                      }
+                    } />
           <SubtaskList taskId={this.props.taskId} />
         </div>
       );

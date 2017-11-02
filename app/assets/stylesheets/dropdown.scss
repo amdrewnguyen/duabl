@@ -4,17 +4,28 @@
   border: 1px solid #E0E6E8;
   border-radius: 4px;
   background-color: white;
-  width: 200px;
+  width: 250px;
   padding: 3px 0;
   box-shadow: 0 5px 10px 0 rgba(0,0,0,0.1);
   z-index: 1;
 }
 
-.project-menu > .dropdown-menu {
+.project-dropdown {
+  display: block;
   position: absolute;
-  z-index: 1000;
+  border: 1px solid #E0E6E8;
+  border-radius: 4px;
+  background-color: white;
+  width: 215px;
+  padding: 3px 0;
+  box-shadow: 0 5px 10px 0 rgba(0,0,0,0.1);
+  z-index: 1;
 }
 
+.project-dropdown .dropdown-menu-item {
+  padding: 10px;
+  font-size: 13px;
+}
 
 .dropdown-menu-list {
   list-style: none;
@@ -23,7 +34,7 @@
 }
 
 .dropdown-menu-item {
-  padding: 10px;
+  padding: 10px 10px 10px 30px;
   font-size: 13px;
 }
 

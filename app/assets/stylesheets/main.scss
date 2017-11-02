@@ -88,6 +88,7 @@
   border: 0;
   resize: none;
   font-size: 13px;
+  overflow: hidden;
 }
 
 .task-list-item textarea:focus {
@@ -103,6 +104,7 @@
 .details-view {
   grid-area: 3 / 4 / 4 / 5;
   background-color: white;
+  overflow: auto;
 }
 
 .details-view input[type="checkbox"] {
@@ -110,7 +112,7 @@
   margin: 0 20px;
 }
 
-.details-name textarea {
+.details-name > textarea {
   display: inline;
   font-size: 24px;
   // border: 1px solid black;
@@ -120,12 +122,18 @@
   resize: none;
   height: auto;
   outline: none;
-  width: 100%;
+  width: calc(100%);
 }
 
 .details-name {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  margin: 10px;
+  padding: 4px 0;
+}
+
+.details-name:focus-within {
+  border: 1px solid #d5dce0;
 }
 
 .details-description {
@@ -134,6 +142,7 @@
   background-color: transparent;
   resize: none;
   outline: none;
+  overflow: auto;
   border-radius: 4px;
   width: calc(100% - 80px);
   font-size: 13px;

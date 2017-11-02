@@ -43,7 +43,7 @@ class ProjectDropdown extends React.Component {
           } name="ellipsis-h" aria-hidden="true" />
         {
           this.state.dropdownOpen &&
-          <div className="dropdown-menu" >
+          <div className="project-dropdown" >
             <ul className="dropdown-menu-list">
               <li className="dropdown-menu-item" onClick={() => {
                   this.toggleDropdownMenu();

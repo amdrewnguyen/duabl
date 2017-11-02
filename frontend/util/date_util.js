@@ -65,9 +65,9 @@ export const getThirtyFive = (month, year) => {
     month === 0 ? 11 : month - 1,
     month === 0 ? year - 1 : year
   );
-  console.log(firstDay);
-  console.log(daysThisMonth);
-  console.log(daysLastMonth);
+  // console.log(firstDay);
+  // console.log(daysThisMonth);
+  // console.log(daysLastMonth);
   for(let i = 1; i <= daysThisMonth; i++) {
     dayArray.push({year, month, day: i});
   }

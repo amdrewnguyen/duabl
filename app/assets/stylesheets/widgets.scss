@@ -7,31 +7,10 @@
   color: #B8C0C5;
   border-radius: 50%;
   transition: 300ms;
-}
-
-.details-name > .toggle-done, .details-name > .toggle-not-done {
-  height: 1.5em;
-  width: 1.5em;
-  font-size: 16px;
-  margin: 0 0.5em;
-}
-
-.task-list-item > .toggle-done, .task-list-item > .toggle-not-done {
-  font-size: 13px;
-  height: 1.5em;
-  width: 1.5em;
-  margin: 0 0.5em;
-}
-
-.toggle-done:hover {
-  color: #51F7DA;
-  border-color: #51F7DA;
-  box-shadow: 0 0 0px 3px #51F7DA;
+  flex-shrink: 0;
 }
 
 .toggle-not-done {
-  height: 2em;
-  width: 2em;
   padding: 0;
   display: flex;
   align-items: center;
@@ -41,7 +20,29 @@
   color: white;
   border-radius: 50%;
   transition: 300ms;
+  flex-shrink: 0;
 }
+
+.details-name > .toggle-done, .details-name > .toggle-not-done {
+  height: 28px;
+  width: 28px;
+  font-size: 16px;
+  margin: 0 8px;
+}
+
+.task-list-item > .toggle-done, .task-list-item > .toggle-not-done {
+  font-size: 13px;
+  height: 20px;
+  width: 20px;
+  margin: 0 7px;
+}
+
+.toggle-done:hover {
+  color: #51F7DA;
+  border-color: #51F7DA;
+  box-shadow: 0 0 0px 3px #51F7DA;
+}
+
 
 .toggle-not-done:hover {
   border-color: #84F5E4;

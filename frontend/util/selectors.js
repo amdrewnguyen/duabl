@@ -4,14 +4,24 @@ export const getSubtasks = (tasks, taskId) => {
   ));
 };
 
-export const getTasks = (tasks, project) => {
-  let tasksProp = [];
-  project.taskIds.forEach((taskId) => {
-    if (tasks[taskId] && !tasks[taskId].parentId) {
-      tasksProp.push(tasks[taskId]);
+export const getProjectTasks = (projects, tasks, projectId) => {
+  let projTasks = [];
+  if (projectId && projects) {
+    let project = projects[projectId];
+    if (project) {
+      project.taskIds.forEach(
+        (taskId) => {
+          let task = tasks[taskId];
+          if (task && !task.parentId) {
+            projTasks.push(task);
+          }
+        }
+      );
     }
-  });
-  return tasksProp;
+  } else {
+    return null;
+  }
+  return projTasks;
 };
 
 export const getTeamProjects = (state, teamId) => {

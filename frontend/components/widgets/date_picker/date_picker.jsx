@@ -150,12 +150,12 @@ class DatePicker extends React.Component {
         </div>
         {
           this.state.task.dueOn ? (
-            <p className="due-date">
+            <div className="due-date">
               <p>{this.state.task.dueOn}</p>
               <p className="clear-date-btn" onClick={this.clearDueDate}>
                 <FontAwesome name="times" aria-hidden="true" />
               </p>
-            </p>
+            </div>
           ) : (
             <p className="due-date">
               Due Date
