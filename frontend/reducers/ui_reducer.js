@@ -8,6 +8,7 @@ import { OPEN_MODAL,
          UNSELECT_TASK,
          UPDATE_SELECTED_TASK,
          RECEIVE_PATH } from '../actions/ui_actions';
+import { RECEIVE_USERS } from '../actions/user_actions';
 import merge from 'lodash/merge';
 
 const modalOffState = {
@@ -21,6 +22,7 @@ const modalOffState = {
   selectedTaskId: null,
   selectedTask: null,
   selectedTaskName: "",
+  foundUsers: [],
 };
 
 const UIReducer = (state = modalOffState, action) => {
@@ -79,6 +81,8 @@ const UIReducer = (state = modalOffState, action) => {
     case UPDATE_SELECTED_TASK:
       return merge({}, state,
         { selectedTaskName: action.value });
+    case RECEIVE_USERS:
+      return merge({}, state, {foundUsers: Object.values(action.users)});
     default:
       return merge({}, state);
   }

@@ -1,4 +1,16 @@
 class Api::UsersController < ApplicationController
+  before_action :require_logged_in, only: %i(index)
+
+  def index
+    if params[:search].blank?
+      render json: ["Query can't be blank"], status: 422
+    else
+      @users = User.all.where('UPPER(name) LIKE UPPER(?) OR UPPER(email) LIKE UPPER(?)',
+                              "%#{params[:search]}%",
+                              "%#{params[:search]}%")
+    end
+  end
+
   def create
     @user = User.new(user_params)
 
