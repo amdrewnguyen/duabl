@@ -49,10 +49,16 @@
 
 .assign-btn.active > input[type='text'] {
   margin-left: 10px;
-  height: 16px;
+  padding: 0;
+  height: 20px;
   border: 0;
   resize: none;
   font-size: 13px;
+
+}
+
+.assign-btn.active > input[type='text']:focus {
+  outline: none;
 
 }
 
