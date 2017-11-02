@@ -70,12 +70,27 @@ class ProjectsSection extends React.Component {
     const { projects, loggedIn, selectedProjId } = this.state;
     if (projects) {
        const projectElems = projects.map(
-        (project) => (
-          <li onClick={this.handleClick(project.id)} key={project.id} className={parseInt(selectedProjId) === project.id ? "selected-proj" : "not-selected-proj"}>
-            <Link to={`/${project.id}/list`}>{project.name}</Link>
-            <ProjectDropdown openEditModal={this.props.openEditModal} project={project}/>
-          </li>
-        )
+        (project) => {
+          let borderStyle = {
+            "border-left-color": project.color,
+            "border-left-style": "solid",
+            "border-left-width": "3px",
+          };
+          return (
+            <li onClick={this.handleClick(project.id)}
+                key={project.id}
+                className={
+                  parseInt(selectedProjId) === project.id ?
+                    "selected-proj" :
+                    "not-selected-proj"
+                }
+                style={borderStyle}
+                >
+              <Link to={`/${project.id}/list`}>{project.name}</Link>
+              <ProjectDropdown openEditModal={this.props.openEditModal} project={project}/>
+            </li>
+          );
+        }
       );
       return (
           <ul className="project-list">

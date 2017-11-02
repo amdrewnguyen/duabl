@@ -23,7 +23,7 @@ class PageHeader extends React.Component {
   render() {
     return (
       <div className="page-header">
-        <h2>
+        <h2 style={{"color": this.state.project ? this.state.project.color : "black"}}>
           {this.state.project ? this.state.project.name : ""}
         </h2>
       </div>
