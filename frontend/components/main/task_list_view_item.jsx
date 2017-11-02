@@ -62,6 +62,8 @@ class TaskListItem extends React.Component {
     }
   }
 
+  
+
   handleClick(e) {
     const { projectId, task } = this.props;
     this.props.history.push(`/${projectId}/${task.id}`);

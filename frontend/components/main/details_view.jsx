@@ -102,7 +102,6 @@ class DetailsView extends React.Component {
   handleNameChange(e) {
       const newTask = Object.assign({}, this.state.task, {name: e.currentTarget.value});
       this.setState({ task: newTask });
-      debugger
       this.props.updateTaskListName(newTask.id, e.currentTarget.value);
       if (this.saveTimerId) clearTimeout(this.saveTimerId);
 
