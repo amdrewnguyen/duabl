@@ -5,9 +5,10 @@ import FontAwesome from 'react-fontawesome';
 
 import { fetchProjects } from '../actions/project_actions';
 import { fetchTeams } from '../actions/team_actions';
-import { closeSidebar } from '../actions/ui_actions';
+import { openModal, closeSidebar } from '../actions/ui_actions';
 
 import TeamSection from './widgets/team_section';
+import NewTeamForm from './teams/new_team_form';
 
 const mapStateToProps = (state) => (
   {
@@ -24,6 +25,7 @@ const mapDispatchToProps = dispatch => (
     fetchProjects: () => dispatch(fetchProjects()),
     fetchTeams: () => dispatch(fetchTeams()),
     closeSidebar: () => dispatch(closeSidebar()),
+    openNewTeamModal: () => dispatch(openModal(NewTeamForm))
   }
 );
 
@@ -64,6 +66,14 @@ class SideBar extends React.Component {
         <ul className="team-list">
           {teamSections}
         </ul>
+        <div className="add-team-btn-row">
+          <button className="add-team-btn"
+                  onClick={
+                    () => {
+                      this.props.openNewTeamModal();
+                    }
+                  }>Create New Team</button>
+        </div>
       </div>
     ) : (
       null

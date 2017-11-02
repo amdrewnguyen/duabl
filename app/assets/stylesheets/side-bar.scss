@@ -154,3 +154,33 @@
 .close-button:hover {
   color: white;
 }
+
+.side-bar > .add-team-btn-row {
+  width: 100%;
+  margin: 40px 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.add-team-btn-row > .add-team-btn {
+  width: 80%;
+  height: 30px;
+  text-align: center;
+  background-color: #222b37;
+  border: 1px solid white;
+  color: white;
+  border-radius: 3px;
+  font-size: 14px;
+  transition: 200ms;
+}
+
+.add-team-btn-row > .add-team-btn:hover {
+  background-color: white;
+  color: #222b37;
+  border-color: #222b37;
+}
+
+.add-team-btn-row > .add-team-btn:focus {
+  outline: none;
+}

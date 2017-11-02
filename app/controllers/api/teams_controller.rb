@@ -10,7 +10,7 @@ class Api::TeamsController < ApplicationController
   end
 
   def create
-    @team = Task.new(team_params)
+    @team = Team.new(name: team_params[:name])
     @team.owner_id = current_user.id
 
     if current_user.teams.append(@team)
@@ -41,6 +41,6 @@ class Api::TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:name)
+    params.require(:team).permit(:name, :members)
   end
 end

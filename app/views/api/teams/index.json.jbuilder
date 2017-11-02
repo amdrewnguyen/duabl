@@ -3,7 +3,7 @@ json.set! :teams do
     json.set! team.id do
       json.extract! team, :id, :name
       member_ids = team.members.map(&:id)
-      member_ids.delete(current_user.id)
+      # member_ids.delete(current_user.id)
       json.set! :memberIds, member_ids
       project_ids = team.projects.map(&:id)
       json.set! :projectIds, project_ids

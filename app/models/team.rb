@@ -20,4 +20,8 @@ class Team < ApplicationRecord
     source: :user
 
   has_many :projects
+
+  has_many :tasks,
+    through: :projects,
+    source: :tasks
 end

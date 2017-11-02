@@ -14,6 +14,7 @@
 #  updated_at   :datetime         not null
 #  owner_id     :integer          not null
 #  project_id   :integer          not null
+#  description  :text
 #
 
 class Task < ApplicationRecord

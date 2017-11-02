@@ -19,7 +19,7 @@ class ProjectsSection extends React.Component {
     return (
       <div className="members-section">
         <ul className="member-pics">
-          {userElements}
+          {userElements.slice(0,6)}
         </ul>
         <div className="add-team-member-btn">+</div>
       </div>
