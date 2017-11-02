@@ -1,6 +1,8 @@
 import React from 'react';
 import merge from 'lodash/merge';
 
+import ProfileImage from '../widgets/profile_image';
+
 class UserForm extends React.Component {
   constructor(props) {
     super(props);
@@ -57,9 +59,11 @@ class UserForm extends React.Component {
           <h2>{`My Profile Settings`}</h2>
 
           <form onSubmit={this.handleSubmit}>
-            <div>
-             <label htmlFor="file">Add a profile photo</label>
-             <input onChange={this.handleFile} type="file" id="file" name="image" />
+            <div className="add-photo-section">
+             <ProfileImage user={this.props.currentUser} size={50}/>
+             <label htmlFor="file">Add a profile photo
+               <input hidden onChange={this.handleFile} type="file" id="file" name="image" />
+             </label>
             </div>
             {
               this.state.imageFile ? (

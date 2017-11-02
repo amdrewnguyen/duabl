@@ -1,0 +1,18 @@
+.add-photo-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+}
+.add-photo-section > label {
+  margin: 0;
+  border-bottom: 1px dotted #848f99;
+  color: #848f99;
+  fill: #848f99;
+}
+.add-photo-section > label:hover {
+  border-bottom: 1px solid #32c1ff;
+  color: #32c1ff;
+  fill: #32c1ff;
+  text-decoration: none;
+}
