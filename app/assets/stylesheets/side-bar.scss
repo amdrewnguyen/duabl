@@ -18,18 +18,18 @@
 
 .side-bar h1 {
   margin-left: 45px;
-  // text-align: center;
   font-size: 30px;
 }
 
 .side-bar h1 > a {
   text-decoration: none;
   color: white;
+  transition: 200ms ease;
 }
 
 .side-bar h1 > a:hover {
-  background-color: white;
-  color: black;
+  // background-color: white;
+  color: #0DA8F2;
 }
 
 .side-bar > ul {
@@ -129,17 +129,37 @@
   margin: 0;
 }
 
+.team-section-header {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 5px 10px 5px 5px;
+}
+
+.team-menu > span {
+  color: #9ca6af;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 200ms ease;
+}
+
+.team-menu > span:hover {
+  color: white;
+}
+
 .team-section h3 {
-  margin: 5px 0 5px 5px;
+  margin: 0;
   font-size: 16px;
   color: #9ca6af;
+  cursor: pointer;
 }
 
 .team-section h3 > span {
   width: 0.75em;
-  margin: 5px 0 5px 5px;
+  margin: 0 0 0 5px;
   font-size: 16px;
-
 }
 
 .team-details {

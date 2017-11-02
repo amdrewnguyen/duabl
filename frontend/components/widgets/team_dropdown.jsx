@@ -1,25 +1,34 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import enhanceWithClickOutside from 'react-click-outside';
+import { connect } from 'react-redux';
 
+import { openModal } from '../../actions/ui_actions';
+import EditTeamForm from '../teams/edit_team_form';
 
-class ProjectDropdown extends React.Component {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    openEditModal: (team) => dispatch(openModal(EditTeamForm, {team})),
+  };
+};
+
+class TeamDropdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      project: props.project,
+      team: props.team,
       dropdownOpen: false,
     };
     this.toggleDropdownMenu = this.toggleDropdownMenu.bind(this);
   }
 
   componentDidMount() {
-    this.setState({project: this.props.project});
+    this.setState({team: this.props.team});
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.project !== this.props.project) {
-      this.setState({project: this.props.project});
+    if (newProps.team !== this.props.team) {
+      this.setState({team: this.props.team});
     }
   }
 
@@ -34,21 +43,21 @@ class ProjectDropdown extends React.Component {
   }
 
   render() {
-    let { project } = this.state;
+    let { team } = this.state;
     return (
-      <div className="project-menu">
+      <div className="team-menu">
         <FontAwesome onClick={(e) => {
               this.toggleDropdownMenu();
             }
-          } name="ellipsis-h" aria-hidden="true" />
+          } name="cog" aria-hidden="true" />
         {
           this.state.dropdownOpen &&
-          <div className="project-dropdown" >
+          <div className="team-dropdown" >
             <ul className="dropdown-menu-list">
               <li className="dropdown-menu-item" onClick={() => {
                   this.toggleDropdownMenu();
-                  this.props.openEditModal(this.props.project.id);
-                }}>Edit Project</li>
+                  this.props.openEditModal(this.props.team);
+                }}>Edit Team</li>
             </ul>
           </div>
         }
@@ -57,4 +66,4 @@ class ProjectDropdown extends React.Component {
   }
 }
 
-export default enhanceWithClickOutside(ProjectDropdown);
+export default connect(null, mapDispatchToProps)(enhanceWithClickOutside(TeamDropdown));

@@ -27,6 +27,24 @@
   font-size: 13px;
 }
 
+.team-dropdown {
+  display: block;
+  position: absolute;
+  border: 1px solid #E0E6E8;
+  border-radius: 4px;
+  background-color: white;
+  width: 215px;
+  padding: 3px 0;
+  box-shadow: 0 5px 10px 0 rgba(0,0,0,0.1);
+  z-index: 1;
+}
+
+.team-dropdown .dropdown-menu-item {
+  padding: 10px;
+  font-size: 13px;
+  color: #0DA8F2;
+}
+
 .dropdown-menu-list {
   list-style: none;
   padding: 0;

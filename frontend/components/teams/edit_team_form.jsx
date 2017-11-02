@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { createTeam } from '../../actions/team_actions';
+import { updateTeam } from '../../actions/team_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -11,14 +11,14 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    createTeam: (team) => dispatch(createTeam(team)),
+    updateTeam: (team) => dispatch(updateTeam(team)),
   };
 };
 
-class NewTeamForm extends React.Component {
+class EditTeamForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {name: "", members: ""};
+    this.state = Object.assign({}, this.props.team);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -31,7 +31,7 @@ class NewTeamForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
-    this.props.createTeam(this.state)
+    this.props.updateTeam(this.state)
       .then(
         () => this.props.closeModal(),
         () => console.log("error")
@@ -41,7 +41,7 @@ class NewTeamForm extends React.Component {
   render() {
     return (
       <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <h2>Add a New Team</h2>
+        <h2>Edit Team</h2>
         <form className="new-team-form" onSubmit={this.handleSubmit}>
           <label>TEAM NAME</label><br></br>
           <input type="text" value={this.state.name}
@@ -52,11 +52,11 @@ class NewTeamForm extends React.Component {
                  onChange={this.update("members")}/>
           <br></br>
           <p>{this.props.errors}</p>
-          <input type="submit" value={`Add New Team`}/>
+          <input type="submit" value={`Update Team`}/>
         </form>
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewTeamForm);
+export default connect(mapStateToProps, mapDispatchToProps)(EditTeamForm);

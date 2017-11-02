@@ -6,6 +6,8 @@ import ProjectsSection from './projects_section';
 import FontAwesome from 'react-fontawesome';
 import NewProjectForm from '../projects/project_form_container';
 import { openModal } from '../../actions/ui_actions';
+import TeamDropdown from './team_dropdown';
+
 
 const mapStateToProps = (state, ownProps) => {
   if (state.entities.teams[ownProps.teamId]) {
@@ -71,11 +73,13 @@ class TeamSection extends React.Component {
   render() {
       return (
         <div className="team-section">
-
-          <h3 onClick={this.toggleDetails}>
-            <FontAwesome name={this.state.expanded ? "caret-down" : "caret-right"} aria-hidden="true"/>
-            {this.props.team ? this.props.team.name : ""}
-          </h3>
+          <div className="team-section-header">
+            <h3 onClick={this.toggleDetails}>
+              <FontAwesome name={this.state.expanded ? "caret-down" : "caret-right"} aria-hidden="true"/>
+              {this.props.team ? this.props.team.name : ""}
+            </h3>
+            <TeamDropdown team={this.props.team} />
+          </div>
           {
             this.state.expanded ? (
               <div className="team-details">
