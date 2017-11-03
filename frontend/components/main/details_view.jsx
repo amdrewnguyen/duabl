@@ -83,7 +83,6 @@ class DetailsView extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log("Details unmounting!");
   }
 
   updateField(field) {
@@ -152,7 +151,6 @@ class DetailsView extends React.Component {
               ref={
                 textArea => {
                   if(textArea !== null) {
-                    console.log(`${textArea.scrollHeight} ${textArea.clientHeight}`);
                     if(textArea.scrollHeight > textArea.clientHeight) {
                       this.setState({nameRows: this.state.nameRows + 1});
                     } else if (textArea.scrollHeight < textArea.clientHeight) {

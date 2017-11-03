@@ -12,7 +12,6 @@ import {
 import merge from 'lodash/merge';
 
 const UsersReducer = (state = {}, action) => {
-  // console.log(action.type);
   Object.freeze(state);
   let newState;
   switch (action.type) {

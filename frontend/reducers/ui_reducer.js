@@ -26,7 +26,6 @@ const modalOffState = {
 };
 
 const UIReducer = (state = modalOffState, action) => {
-  console.log(action.type);
   Object.freeze(state);
   let newState;
   switch (action.type) {

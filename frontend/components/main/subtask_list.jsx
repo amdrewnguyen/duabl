@@ -24,7 +24,6 @@ class SubtaskList extends React.Component {
 
   render() {
     if(this.props.subtasks.length) {
-      // console.log("We have subtasks!");
       let subtaskElements = this.props.subtasks.map((subtask) => (
         <SubtaskListItem task={subtask}
                       key={subtask.id}

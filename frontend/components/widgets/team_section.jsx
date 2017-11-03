@@ -52,7 +52,6 @@ class TeamSection extends React.Component {
 
   componentWillReceiveProps(newProps) {
     const newIdSet = new Set(newProps.members.map(u=>u.id));
-    console.log(newIdSet);
     if ( newIdSet !== this.state.idSet) {
       this.setState({team: newProps.team, members: newProps.members, idSet: newIdSet});
     }

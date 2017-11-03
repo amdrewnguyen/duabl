@@ -37,8 +37,6 @@ class MainView extends React.Component {
   }
 
   componentDidMount() {
-    console.log("Main did mount!");
-    console.log(this.props.match.params);
 
     this.props.receivePath(this.props.match.params);
     this.props.fetchProject(this.props.match.params.projectId)
@@ -59,7 +57,6 @@ class MainView extends React.Component {
 
 
   componentWillReceiveProps(newProps) {
-    console.log(newProps.match.params.taskId);
     if (newProps.match.params.projectId !== this.props.match.params.projectId) {
       this.setState({projectId: newProps.match.params.projectId});
       this.props.receivePath(newProps.match.params);

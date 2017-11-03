@@ -18,7 +18,6 @@ const defaultState = {
 };
 
 const ProjectsReducer = (state = defaultState, action) => {
-  // console.log(action.type);
   Object.freeze(state);
   let newState;
   switch (action.type) {

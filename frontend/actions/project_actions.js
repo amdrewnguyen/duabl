@@ -50,12 +50,11 @@ export const receiveProjectErrors = (errors) => (
 );
 
 export const fetchProjects = () => dispatch => {
-  // console.log("i've received the dispatch");
   dispatch(requestProjects());
   return ProjectAPI.fetchProjects()
     .then(
       (projects) => dispatch(receiveProjects(projects)),
-      (errors) => dispatch(receiveProjectErrors(errors))
+      (errors) => dispatch(receiveProjectErrors(errors.responseJSON))
     );
 };
 
@@ -64,7 +63,7 @@ export const fetchProject = (projectId) => dispatch => {
   return ProjectAPI.fetchProject(projectId)
     .then(
       (project) => dispatch(receiveProject(project)),
-      (errors) => dispatch(receiveProjectErrors(errors))
+      (errors) => dispatch(receiveProjectErrors(errors.responseJSON))
     );
 };
 
@@ -72,7 +71,7 @@ export const createProject = (project) => dispatch => (
   ProjectAPI.createProject(project)
     .then(
       (newProject) => dispatch(receiveProject(newProject)),
-      (errors) => dispatch(receiveProjectErrors(errors))
+      (errors) => dispatch(receiveProjectErrors(errors.responseJSON))
     )
 );
 
@@ -80,7 +79,7 @@ export const updateProject = (project) => dispatch => (
   ProjectAPI.updateProject(project)
     .then(
       (newProject) => dispatch(receiveProject(newProject)),
-      (errors) => dispatch(receiveProjectErrors(errors))
+      (errors) => dispatch(receiveProjectErrors(errors.responseJSON))
     )
 );
 
@@ -88,7 +87,7 @@ export const deleteProject = (projectId) => dispatch => (
   ProjectAPI.deleteProject(projectId)
     .then(
       (project) => dispatch(removeProject(project)),
-      (errors) => dispatch(receiveProjectErrors(errors))
+      (errors) => dispatch(receiveProjectErrors(errors.responseJSON))
     )
 );
 

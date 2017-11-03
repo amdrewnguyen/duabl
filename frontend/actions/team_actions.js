@@ -63,7 +63,7 @@ export const fetchTeams = () => dispatch => {
   return TeamAPI.fetchTeams()
     .then(
       (teams) => dispatch(receiveTeams(teams)),
-      (errors) => dispatch(receiveTeamErrors(errors))
+      (errors) => dispatch(receiveTeamErrors(errors.responseJSON))
     );
 };
 
@@ -72,7 +72,7 @@ export const fetchProjectTeams = (projectId) => dispatch => {
   return TeamAPI.fetchProjectTeams(projectId)
     .then(
       (teams) => dispatch(receiveTeams(teams)),
-      (errors) => dispatch(receiveTeamErrors(errors))
+      (errors) => dispatch(receiveTeamErrors(errors.responseJSON))
     );
 };
 
@@ -80,7 +80,7 @@ export const fetchTeam = (teamId) => dispatch => (
   TeamAPI.fetchTeam(teamId)
     .then(
       (team) => dispatch(receiveTeam(team)),
-      (errors) => dispatch(receiveTeamErrors(errors))
+      (errors) => dispatch(receiveTeamErrors(errors.responseJSON))
     )
 );
 
@@ -88,7 +88,7 @@ export const createTeam = (team) => dispatch => (
   TeamAPI.createTeam(team)
     .then(
       (newTeam) => dispatch(receiveTeam(newTeam)),
-      (errors) => dispatch(receiveTeamErrors(errors))
+      (errors) => dispatch(receiveTeamErrors(errors.responseJSON))
     )
 );
 
@@ -96,7 +96,7 @@ export const updateTeam = (team) => dispatch => (
   TeamAPI.updateTeam(team)
     .then(
       (newTeam) => dispatch(receiveTeam(newTeam)),
-      (errors) => dispatch(receiveTeamErrors(errors))
+      (errors) => dispatch(receiveTeamErrors(errors.responseJSON))
     )
 );
 
@@ -104,6 +104,6 @@ export const deleteTeam = (teamId) => dispatch => (
   TeamAPI.deleteTeam(teamId)
     .then(
       (team) => dispatch(removeTeam(team)),
-      (errors) => dispatch(receiveTeamErrors(errors))
+      (errors) => dispatch(receiveTeamErrors(errors.responseJSON))
     )
 );

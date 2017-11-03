@@ -25,7 +25,6 @@ npm-debug.log
 package-lock.json
 Gemfile.lock
 
-/app/assets/images/session-background.*
 
 # Ignore application configuration
 /config/application.yml

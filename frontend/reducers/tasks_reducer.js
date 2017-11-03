@@ -7,7 +7,6 @@ import merge from 'lodash/merge';
 import uniq from 'lodash/uniq';
 
 const TasksReducer = (state = {}, action) => {
-  // console.log(action.type);
   Object.freeze(state);
   let newState;
   switch (action.type) {

@@ -2,9 +2,7 @@ import React from 'react';
 
 const ListButton = ({action, numTasks}) => {
   let numRows = 12 - numTasks;
-  console.log(`${numRows} ${numTasks}`);
   numRows = numRows < 1 ? 1 : numRows;
-  console.log(`${numRows} ${numTasks}`);
   const emptyRows = [];
 
   for(let i = 0; i < numRows; i++) {

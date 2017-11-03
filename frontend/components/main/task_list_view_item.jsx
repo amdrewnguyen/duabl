@@ -63,7 +63,6 @@ class TaskListItem extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log("ListItem unmounting!");
   }
 
   handleClick(e) {

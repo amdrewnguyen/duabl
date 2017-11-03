@@ -22,7 +22,6 @@ class ProjectForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
-    console.log(this.props.action);
     this.props.action(this.state)
       .then(
         () => this.props.closeModal(),

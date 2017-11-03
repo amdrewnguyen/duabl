@@ -61,7 +61,7 @@ export const fetchTasks = () => dispatch => {
   return TaskAPI.fetchTasks()
     .then(
       (tasks) => dispatch(receiveTasks(tasks)),
-      (errors) => dispatch(receiveTaskErrors(errors))
+      (errors) => dispatch(receiveTaskErrors(errors.responseJSON))
     );
 };
 
@@ -70,7 +70,7 @@ export const fetchProjectTasks = (projectId) => dispatch => {
   return TaskAPI.fetchProjectTasks(projectId)
     .then(
       (tasks) => dispatch(receiveTasks(tasks)),
-      (errors) => dispatch(receiveTaskErrors(errors))
+      (errors) => dispatch(receiveTaskErrors(errors.responseJSON))
     );
 };
 
@@ -78,7 +78,7 @@ export const fetchTask = (taskId) => dispatch => (
   TaskAPI.fetchTask(taskId)
     .then(
       (task) => dispatch(receiveTask(task)),
-      (errors) => dispatch(receiveTaskErrors(errors))
+      (errors) => dispatch(receiveTaskErrors(errors.responseJSON))
     )
 );
 
@@ -86,7 +86,7 @@ export const createTask = (task) => dispatch => (
   TaskAPI.createTask(task)
     .then(
       (newTask) => dispatch(receiveTask(newTask)),
-      (errors) => dispatch(receiveTaskErrors(errors))
+      (errors) => dispatch(receiveTaskErrors(errors.responseJSON))
     )
 );
 
@@ -94,7 +94,7 @@ export const updateTask = (task) => dispatch => (
   TaskAPI.updateTask(task)
     .then(
       (newTask) => dispatch(receiveTask(newTask)),
-      (errors) => dispatch(receiveTaskErrors(errors))
+      (errors) => dispatch(receiveTaskErrors(errors.responseJSON))
     )
 );
 
@@ -102,6 +102,6 @@ export const deleteTask = (taskId) => dispatch => (
   TaskAPI.deleteTask(taskId)
     .then(
       (task) => dispatch(removeTask(task)),
-      (errors) => dispatch(receiveTaskErrors(errors))
+      (errors) => dispatch(receiveTaskErrors(errors.responseJSON))
     )
 );

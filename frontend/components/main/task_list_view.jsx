@@ -53,7 +53,6 @@ class TaskListView extends React.Component {
   }
 
   componentDidMount() {
-    // console.log("Project ID is: " + this.props.projectId);
     this.props.sendUpdateTaskListName(this.updateItemName.bind(this));
 
     if(!this.props.project) {

@@ -21,6 +21,6 @@ export const searchUsers = (queryString) => (dispatch) => {
   UserAPI.searchUsers(queryString)
     .then(
       (results) => dispatch(receiveUsers(results)),
-      (errors) => dispatch(receiveUserErrors(errors))
+      (errors) => dispatch(receiveUserErrors(errors.responseJSON))
     );
 };
