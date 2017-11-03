@@ -79,7 +79,7 @@ const ProjectsReducer = (state = defaultState, action) => {
       if (action.user) {
         return merge({}, state);
       } else {
-        return {};
+        return merge({}, defaultState);
       }
     default:
       return merge({}, state);

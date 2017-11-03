@@ -13,7 +13,7 @@ import NewTeamForm from './teams/new_team_form';
 const mapStateToProps = (state) => (
   {
     projects: Object.values(state.entities.projects.items),
-    loggedIn: Boolean(state.session.currentUser),
+    loggedIn: state.session.currentUser,
     currentUser: state.session.currentUser,
     teams: Object.values(state.entities.teams),
     sidebarOpen: state.ui.sidebarOpen,
