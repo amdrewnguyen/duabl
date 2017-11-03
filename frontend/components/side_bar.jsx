@@ -43,7 +43,10 @@ class SideBar extends React.Component {
 
   handleClick(projectId) {
     return (e) => {
-      this.props.history.push(`/${projectId}/list`);
+      const projectPath = `/${projectId}/list`;
+      if (this.props.history.location.pathname !== projectPath) {
+        this.props.history.push(projectPath);
+      }
     };
   }
 

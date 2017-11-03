@@ -15,7 +15,7 @@ import { receivePath, updateSelectedTask } from '../../actions/ui_actions';
 const mapStateToProps = (state, ownProps) => {
   return {
     task: state.entities.tasks[ownProps.match.params.taskId],
-    projectId: ownProps.match.params.taskId,
+    projectId: ownProps.match.params.projectId,
     taskId: ownProps.taskId,
     selectedTaskId: state.ui.selectedTaskId,
     selectedTaskName: state.ui.selectedTaskName,

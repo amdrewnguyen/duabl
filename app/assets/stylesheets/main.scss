@@ -17,6 +17,7 @@
   grid-area: 3 / 2 / 4 / 3;
   background-color: white;
   transition: 1s;
+  overflow-y: auto;
 }
 
 .task-list-view:last-of-type {

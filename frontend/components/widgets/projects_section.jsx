@@ -62,7 +62,10 @@ class ProjectsSection extends React.Component {
   handleClick(projectId) {
     return (e) => {
       e.stopPropagation();
-      this.props.history.push(`/${projectId}/list`);
+      const projectPath = `/${projectId}/list`;
+      if (this.props.history.location.pathname !== projectPath) {
+        this.props.history.push(projectPath);
+      }
     };
   }
 

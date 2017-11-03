@@ -23,7 +23,7 @@ class DoneToggle extends React.Component {
 
   render() {
     return (
-      <div onClick={this.handleClick} className={this.props.task.completed ? "toggle-done" : "toggle-not-done"}>
+      <div onClick={this.handleClick} className={this.props.task.completed ? "toggle-not-done" : "toggle-done"}>
         <FontAwesome name="check" aria-hidden="true"/>
       </div>
     );

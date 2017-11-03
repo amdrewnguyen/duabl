@@ -15,10 +15,5 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore();
   }
 
-  // Testing START
-  window.getState = store.getState;
-  window.dispatch = store.dispatch;
-  // Testing END
-
   ReactDOM.render(<Root store={store}/>, root);
 });

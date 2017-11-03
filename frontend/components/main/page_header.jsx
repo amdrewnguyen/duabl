@@ -21,9 +21,11 @@ class PageHeader extends React.Component {
   }
 
   render() {
+    const color = (this.state.project && (this.state.project.color !== "transparent")) ?
+      this.state.project.color : "black";
     return (
       <div className="page-header">
-        <h2 style={{"color": this.state.project ? this.state.project.color : "black"}}>
+        <h2 style={{"color": color}}>
           {this.state.project ? this.state.project.name : ""}
         </h2>
       </div>

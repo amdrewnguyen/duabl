@@ -11,7 +11,11 @@ class Api::TasksController < ApplicationController
   end
 
   def show
-    @task = current_user.tasks.find(params[:id])
+    begin
+      @task = current_user.tasks.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: ["Could not find task."], status: 404
+    end
   end
 
   def create

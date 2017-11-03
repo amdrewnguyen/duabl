@@ -6,7 +6,11 @@ class Api::ProjectsController < ApplicationController
   end
 
   def show
-    @project = current_user.projects.find(params[:id])
+    begin
+      @project = current_user.projects.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: ["Could not find project."], status: 404
+    end
   end
 
   def create
