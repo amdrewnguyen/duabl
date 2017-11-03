@@ -24,12 +24,13 @@ class User < ApplicationRecord
 
   attr_reader :password
 
-  has_many :projects,
+  has_many :owned_projects,
            class_name: "Project",
            foreign_key: :owner_id
 
-  has_many :tasks,
-    foreign_key: :owner_id
+   has_many :teams_led,
+     class_name: "Team",
+     foreign_key: :owner_id
 
   has_many :memberships,
     class_name: "TeamMembership",
@@ -38,9 +39,13 @@ class User < ApplicationRecord
   has_many :teams,
     through: :memberships
 
-  has_many :teams_led,
-    class_name: "Team",
-    foreign_key: :owner_id
+  has_many :projects,
+          through: :teams,
+          source: :projects
+
+  has_many :tasks,
+    through: :projects,
+    source: :tasks
 
   has_attached_file :image, default_url: "missing.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/

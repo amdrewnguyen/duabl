@@ -31,6 +31,10 @@ goonies_members = [data, chunk, mouth, mikey, sloth]
 
 goonies = Team.create(name: "Goonies", owner_id: mikey.id)
 
+puts goonies.id
+puts goonies.name
+puts goonies.owner_id
+
 goonies.members = goonies_members
 
 goonies_project_names = ["Investigate Fratellis", "Find Gold", "Avoid Danger"]
@@ -44,16 +48,18 @@ traps_subtask_names = ["slick shoes", "bully blinders", "pinchers of peril", "st
 goonies_projects = []
 
 goonies_project_names.each do |name|
-  project = Project.create(name: name, team_id: goonies.id, color: colors.sample)
+  project = Project.create(name: name, owner_id: mikey.id, team_id: goonies.id, color: colors.sample)
+  puts "Created project: " + project.name.to_s + " : " + project.id.to_s
   goonies_projects.push(project)
 end
 
 goonies_projects.each_with_index do |proj, i|
   goonies_task_names[i].each do |task_name|
     task = Task.create(name: task_name, owner_id: mikey.id, project_id: proj.id)
-    if task_name == "set boot traps"
-      traps_subtask_names.each do |task_name|
-        task.subtasks.append(Task.create(name: task_name, owner_id: data.id, project_id: set_traps.project_id))
+    if task.name == "set booty traps"
+      traps_subtask_names.each do |subtask_name|
+        subtask = Task.create(name: subtask_name, owner_id: data.id, assignee_id: data.id, parent_id: task.id, project_id: proj.id)
+        puts subtask.id.to_s
       end
     end
     proj.tasks.append(task)
@@ -102,12 +108,10 @@ team_names.each do |team_name|
   teams << team
 end
 
-
-
 projects = []
 
 project_names.each do |name|
-  projects.push(Project.create(name: name, owner_id: drew.id, team_id: teams.sample.id))
+  projects.push(Project.create(name: name, owner_id: drew.id, team_id: teams.sample.id, color: colors.sample))
 end
 
 projects.each_with_index do |proj, i|
