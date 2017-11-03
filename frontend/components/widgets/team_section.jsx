@@ -33,20 +33,26 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 class TeamSection extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {expanded: startExpanded, members: this.props.members, idSet: new Set(this.props.members.map(u=>u.id)), projects: this.props.projects};
-    let startExpanded = this.state.projects.some((project) => project.id === this.props.selectedProjId);
+    let startExpanded = this.props.projects.some((project) => project.id === this.props.selectedProjId);
+    this.state = {expanded: false, members: this.props.members, idSet: new Set(this.props.members.map(u=>u.id)), projects: this.props.projects};
     this.toggleDetails = this.toggleDetails.bind(this);
     this.checkExpanded = this.checkExpanded.bind(this);
   }
 
   checkExpanded() {
-    if(this.state.projects.some((project) => (project && (project.id === this.props.selectedProjId)))) {
+    debugger
+    if(this.state.projects.some((project) => (project && (project.id == this.props.selectedProjId)))) {
+      console.log("expand!");
       this.setState({expanded: true});
     }
   }
 
   componentDidMount() {
-    this.setState({team: this.props.team, members: this.props.members, idSet: new Set(this.props.members.map(u=>u.id))});
+    this.setState({team: this.props.team,
+                   members: this.props.members,
+                   projects: this.props.projects,
+                   idSet: new Set(this.props.members.map(u=>u.id))}
+                 );
     this.checkExpanded();
   }
 

@@ -3,6 +3,8 @@ import { RECEIVE_TASKS,
          REMOVE_TASK,
          REQUEST_TASKS,
          REQUEST_TASK } from '../actions/task_actions';
+import { RECEIVE_CURRENT_USER } from '../actions/session_actions';
+
 import merge from 'lodash/merge';
 import uniq from 'lodash/uniq';
 
@@ -26,6 +28,12 @@ const TasksReducer = (state = {}, action) => {
       newState = merge({}, state);
       delete newState[action.taskId];
       return newState;
+    case RECEIVE_CURRENT_USER:
+      if (action.user) {
+        return merge({}, state);
+      } else {
+        return {};
+      }
     default:
       return merge({}, state);
   }

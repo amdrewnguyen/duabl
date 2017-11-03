@@ -37,6 +37,7 @@ class SideBar extends React.Component {
 
   componentWillReceiveProps(newProps) {
     if (!this.props.currentUser && newProps.currentUser) {
+      this.props.fetchTeams();
       this.props.fetchProjects();
     }
   }

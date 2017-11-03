@@ -10,6 +10,7 @@ const mapStateToProps = (state, ownProps) => {
     name: ownProps.team.name,
     errors: state.errors.team,
     selectedUsers: ownProps.team.memberIds.map((id) => state.entities.users[id]),
+    currentUser: state.session.currentUser,
   };
 };
 
@@ -62,7 +63,7 @@ class EditTeamForm extends React.Component {
                  onChange={this.update("name")}/>
           <br></br>
           <label>MEMBERS</label><br></br>
-          <UsersSelector selectedUsers={this.props.selectedUsers} sendGetSelected={(cb) => this.sendGetSelected(cb)}/>
+          <UsersSelector currentUser={this.props.currentUser} selectedUsers={this.props.selectedUsers} sendGetSelected={(cb) => this.sendGetSelected(cb)}/>
           <p>{this.props.errors}</p>
           <input type="submit" value={`Update Team`}/>
         </form>

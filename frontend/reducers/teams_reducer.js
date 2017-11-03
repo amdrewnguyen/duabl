@@ -4,6 +4,8 @@ import { RECEIVE_TEAMS,
          REQUEST_TEAMS,
          REQUEST_TEAM } from '../actions/team_actions';
 import { RECEIVE_PROJECT } from '../actions/project_actions';
+import { RECEIVE_CURRENT_USER } from '../actions/session_actions';
+
 import merge from 'lodash/merge';
 
 const TeamsReducer = (state = {}, action) => {
@@ -31,6 +33,12 @@ const TeamsReducer = (state = {}, action) => {
         }
       }
       return newState;
+    case RECEIVE_CURRENT_USER:
+      if (action.user) {
+        return merge({}, state);
+      } else {
+        return {};
+      }
     default:
       return merge({}, state);
   }

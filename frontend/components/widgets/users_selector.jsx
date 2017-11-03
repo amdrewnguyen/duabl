@@ -7,7 +7,9 @@ class UsersSelector extends React.Component {
     super(props);
 
     this.state = {
-      selectedUsers: this.props.selectedUsers ? this.props.selectedUsers : [],
+      selectedUsers: this.props.selectedUsers ?
+        this.props.selectedUsers :
+        [],
     };
 
     this.props.sendGetSelected(this.getSelectedUserIds.bind(this));
@@ -51,10 +53,15 @@ class UsersSelector extends React.Component {
     return (
       <div className="users-selector" style={this.props.style} >
         <div className="selected-users">
+          <div className="selected-user"
+               key={this.props.currentUser.id}
+               >
+            {this.props.currentUser.name}
+          </div>
           {userItems}
         </div>
         <UserFinderPicker action={this.addUserToSelected}
-          ignore={this.state.selectedUsers}/>
+          ignore={[this.props.currentUser, ...this.state.selectedUsers]}/>
       </div>
     );
   }

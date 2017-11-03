@@ -31,9 +31,14 @@
   transition: 100ms;
 }
 
-.selected-user:hover {
+.selected-user:not(:first-of-type):hover {
   background-color: black;
   color: white;
+}
+
+.selected-user:not(:first-of-type):hover::after {
+  content: ' X';
+  color: red;
 }
 
 .user-finder-picker {

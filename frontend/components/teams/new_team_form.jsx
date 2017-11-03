@@ -7,6 +7,7 @@ import UsersSelector from '../widgets/users_selector';
 const mapStateToProps = (state, ownProps) => {
   return {
     errors: state.errors.team,
+    currentUser: state.session.currentUser,
   };
 };
 
@@ -60,7 +61,7 @@ class NewTeamForm extends React.Component {
                  onChange={this.update("name")}/>
           <br></br>
           <label>MEMBERS</label><br></br>
-          <UsersSelector sendGetSelected={(cb) => this.sendGetSelected(cb)}/>
+          <UsersSelector currentUser={this.props.currentUser} sendGetSelected={(cb) => this.sendGetSelected(cb)}/>
           <p>{this.props.errors}</p>
           <input type="submit" value={`Add New Team`}/>
         </form>
