@@ -40,6 +40,9 @@ class NewTeamForm extends React.Component {
       name: this.state.name,
     };
     let memberIds = this.state.getSelectedUserIds();
+    if (!memberIds) {
+      memberIds = [];
+    }
     this.props.createTeam({team: newTeam, memberIds})
       .then(
         () => this.props.closeModal(),

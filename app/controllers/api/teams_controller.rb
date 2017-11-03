@@ -12,12 +12,12 @@ class Api::TeamsController < ApplicationController
   def create
     @team = Team.new(name: team_params[:name])
     @team.owner_id = current_user.id
-    # puts params[:memberIds]
-    puts params[:memberIds]
-    users = User.find(params[:memberIds].map(&:to_i))
 
     if current_user.teams.append(@team)
-      users.each { |u| u.teams.append(@team) }
+      if params[:memberIds]
+        users = User.find(params[:memberIds].map(&:to_i))
+        users.each { |u| u.teams.append(@team) }
+      end
       render "api/teams/show"
     else
       render json: @team.errors.full_messages, status: 422

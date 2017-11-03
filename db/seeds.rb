@@ -7,31 +7,95 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 
-team_names = %w(Design Managers Sales)
 
-only_user = User.create(email: 'a@a.com', password: 'aaaaaa', name: "Drew Nguyen")
-only_other_user = User.create(email: 'demo', password: 'demooo', name: "Demodave")
+colors = %w(#E53B53 #FB6238 #FB9927 #EDC12C #EDC12C #67D073 #40C4AB #2DABE7 #4588DD #7A73ED #A967E0 #E167E1 #E8529C #FA92AD #8DA3A5 )
 
-users = []
+pw = 'spiderman'
 
-5.times do
+data = User.create(email: 'data@goonies.org', password: pw, name: "Data Wang")
+data.update(image: File.open('app/assets/images/data.jpg'))
+
+chunk = User.create(email: 'chunk@goonies.org', password: pw, name: "Chunk Cohen")
+chunk.update(image: File.open('app/assets/images/chunk.jpg'))
+
+mouth = User.create(email: 'mouth@goonies.org', password: pw, name: "Mouth Devereaux")
+mouth.update(image: File.open('app/assets/images/mouth.jpg'))
+
+mikey = User.create(email: 'mikey@goonies.org', password: pw, name: "Mikey Walsh")
+mikey.update(image: File.open('app/assets/images/mikey.jpg'))
+
+sloth = User.create(email: 'sloth@goonies.org', password: pw, name: "Sloth Fratelli")
+sloth.update(image: File.open('app/assets/images/sloth.jpg'))
+
+goonies_members = [data, chunk, mouth, mikey, sloth]
+
+goonies = Team.create(name: "Goonies", owner_id: mikey.id)
+
+goonies.members = goonies_members
+
+goonies_project_names = ["Investigate Fratellis", "Find Gold", "Avoid Danger"]
+
+goonies_task_names[["navigate to restaurant", "distract criminals", "scream"],
+                   ["get treasure map", "find One-Eyed Willy", "go to cave"],
+                   ["run", "scream", "talk", "set booty traps", "smash"]]
+
+traps_subtask_names = ["slick shoes", "bully blinders", "pinchers of peril", "sticky dart"]
+
+goonies_projects = []
+
+goonies_project_names.each do |name|
+  project = Project.create(name: name, team_id: goonies.id, color: colors.sample)
+  goonies_projects.push(project)
+end
+
+goonies_projects.each_with_index do |proj, i|
+  goonies_task_names[i].each do |task_name|
+    proj.tasks.append(Task.create(name: task_name, owner_id: mikey.id, project_id: proj.id))
+  end
+end
+
+set_traps = Tasks.find_by(name: "set booty traps").first
+
+traps_subtask_names.each do |task_name|
+  set_traps.subtasks.append(Task.create(name: task_name, owner_id: data.id, project_id: set_traps.project_id))
+end
+
+
+team_names = %w(Design Managers Sales Frontend Backend)
+project_names = [["full stack", "test project", "build a spaceship",
+  "make my bed", "get groceries"],
+[],
+[],
+[],
+[]]
+drew = User.create(email: 'drew@duabl.io', password: 'aaaaaa', name: "Drew Nguyen")
+demo_dave = User.create(email: 'demo@duabl.io', password: 'demooo', name: "Demo Dave")
+
+other_users = []
+
+100.times do
   new_name = Faker::Name.unique.first_name + " " + Faker::Name.unique.last_name
-  users.push(User.create(email: Faker::Internet.email, 
-                         password: 'aaaaaa',
+  users.push(User.create(email: Faker::Internet.email,
+                         password: password,
                          name: new_name))
 end
 
 teams = []
 
 team_names.each do |team_name|
-  team = Team.create(owner_id: only_user.id, name: team_name)
-  only_user.teams.append(team)
-  only_other_user.teams.append(team)
+  owner = [drew, demo_dave].sample
+  team = Team.create(owner_id: owner.sample.id, name: team_name)
+  drew.teams.append(team)
+  demo_dave.teams.append(team)
+
+  10.times do
+    team.members.append(other_users.sample)
+  end
+
   teams << team
 end
 
-project_names = ["full stack", "test project", "build a spaceship",
-  "make my bed", "take over the world", "get groceries"]
+
 
 projects = []
 
