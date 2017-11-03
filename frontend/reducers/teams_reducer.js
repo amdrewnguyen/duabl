@@ -15,7 +15,7 @@ const TeamsReducer = (state = {}, action) => {
       return merge({}, state, action.teams);
     case RECEIVE_TEAM:
       if (action.team) {
-        return merge({}, state, { [action.team.id]: action.team });
+        return Object.assign({}, state, { [action.team.id]: action.team });
       }
       return merge({}, state);
     case REMOVE_TEAM:

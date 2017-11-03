@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import enhanceWithClickOutside from 'react-click-outside';
 
 import { searchUsers } from '../../actions/user_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    users: Object.values(state.entities.ui.users),
+    users: Object.values(state.entities.users),
   };
 };
 
@@ -21,13 +22,12 @@ class UserFinderPicker extends React.Component {
 
     this.state = {
       users: this.props.users,
+      ignore: this.props.ignore,
       inputVal: "",
-      dropdownOpen: false,
     };
     this.saveTimerId = null;
     this.handleChange = this.handleChange.bind(this);
     this.selectUser = this.selectUser.bind(this);
-    this.clearAssignee = this.clearAssignee.bind(this);
   }
 
   componentDidMount() {
@@ -40,6 +40,10 @@ class UserFinderPicker extends React.Component {
     if (newProps.users.length != this.props.users.length) {
       this.setState({ users: newProps.users });
     }
+
+    if (newProps.ignore !== this.props.ignore) {
+      this.setState({ignore: newProps.ignore});
+    }
   }
 
   matches() {
@@ -47,26 +51,23 @@ class UserFinderPicker extends React.Component {
     if (this.state.inputVal.length === 0) {
       return [];
     }
+    let ignoreIds = new Set(this.state.ignore.map(u => u.id));
 
     this.state.users.forEach(user => {
-      let searchArea = (`${user.name}${user.email}`).toLowerCase();
-      searchArea = searchArea.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()\s]/g,"");
-      if (searchArea.search(this.state.inputVal) > -1) {
-        matches.push(user);
+      if (!ignoreIds.has(user.id)) {
+        let searchArea = (`${user.name}${user.email}`).toLowerCase();
+        searchArea = searchArea.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()\s]/g,"");
+        if (searchArea.search(this.state.inputVal) > -1) {
+          matches.push(user);
+        }
       }
     });
 
     return matches;
   }
 
-  toggleDropdownMenu() {
-    this.setState({ dropdownOpen: !this.state.dropdownOpen });
-  }
-
   handleClickOutside() {
-    if (this.state.dropdownOpen) {
-      this.toggleDropdownMenu();
-    }
+    this.setState({inputVal: ""});
   }
 
   handleChange(e) {
@@ -75,7 +76,9 @@ class UserFinderPicker extends React.Component {
 
     this.saveTimerId = setTimeout(
       () => {
-        this.props.searchUsers(this.state.inputVal);
+        if (this.state.inputVal !== "") {
+          this.props.searchUsers(this.state.inputVal);
+        }
         this.saveTimerId = null;
       },
       1000
@@ -83,34 +86,34 @@ class UserFinderPicker extends React.Component {
   }
 
   selectUser(user) {
-    this.props.action(user);
+    return (e) => {
+      this.props.action(user);
+      this.setState({inputVal: ""});
+    };
   }
 
   render() {
     let results = this.matches().map((result, i) => {
       return (
         <li key={i} onClick={this.selectUser(result)} className="match-li">
-          <div className="match-tile">
-            <p className="match-name">
-              {result.name}
-            </p>
-            <p className="match-email">
-              {result.email}
+          <div className="ufp-match-tile">
+            <p className="ufp-match-info">
+              {result.name} ({result.email})
             </p>
           </div>
         </li>
       );
     });
 
-    let { dropdownOpen, assignee, inputVal } = this.state;
+    let { inputVal } = this.state;
     return (
       <div className="user-finder-picker">
-        <input type="text" className="user-search-bar" value={inputVal}
+        <input type="text" className="ufp-search-bar" value={inputVal}
           onChange={this.handleChange} />
         {
           results.length > 0 ? (
-            <div className="search-dropdown">
-              <ul className="search-matches">
+            <div className="ufp-dropdown">
+              <ul className="ufp-matches">
                 {results}
               </ul>
             </div>
@@ -123,4 +126,4 @@ class UserFinderPicker extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserFinderPicker);
+export default connect(mapStateToProps, mapDispatchToProps)(enhanceWithClickOutside(UserFinderPicker));

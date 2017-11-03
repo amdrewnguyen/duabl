@@ -16,22 +16,22 @@ export const fetchTeam = (teamId) => {
   );
 };
 
-export const createTeam = (team) => {
+export const createTeam = (data) => {
   return $.ajax(
     {
       url: `/api/teams/`,
       method: 'post',
-      data: { team },
+      data,
     }
   );
 };
 
-export const updateTeam = (team) => {
+export const updateTeam = (data) => {
   return $.ajax(
     {
-      url: `/api/teams/${team.id}`,
+      url: `/api/teams/${data.team.id}`,
       method: 'patch',
-      data: { team },
+      data,
     }
   );
 };

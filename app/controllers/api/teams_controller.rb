@@ -12,8 +12,12 @@ class Api::TeamsController < ApplicationController
   def create
     @team = Team.new(name: team_params[:name])
     @team.owner_id = current_user.id
+    # puts params[:memberIds]
+    puts params[:memberIds]
+    users = User.find(params[:memberIds].map(&:to_i))
 
     if current_user.teams.append(@team)
+      users.each { |u| u.teams.append(@team) }
       render "api/teams/show"
     else
       render json: @team.errors.full_messages, status: 422
@@ -23,6 +27,7 @@ class Api::TeamsController < ApplicationController
   def update
     @team = current_user.teams_led.find(params[:id])
     if @team.update(team_params)
+      @team.member_ids = params[:memberIds].map(&:to_i)
       render "api/teams/show"
     else
       render json: @team.errors.full_messages, status: 422
@@ -41,6 +46,6 @@ class Api::TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:name, :members)
+    params.require(:team).permit(:name)
   end
 end

@@ -1,0 +1,110 @@
+.users-selector {
+  grid-template-rows: 1fr 24px;
+  grid-template-columns: 1fr;
+  width: 100%;
+  height: 100px;
+}
+
+.selected-users {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 5px;
+  grid-row: 1 / 2;
+  width: 100%;
+  height: calc(100% + 5px);
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  border: 1px solid black;
+}
+
+.selected-user {
+  height: 16px;
+  font-size: 11px;
+  margin: 5px;
+  padding: 2px 5px;
+  border: 1px solid green;
+  border-radius: 8px;
+  color: black;
+  cursor: pointer;
+  transition: 100ms;
+}
+
+.selected-user:hover {
+  background-color: black;
+  color: white;
+}
+
+.user-finder-picker {
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.ufp-search-bar {
+  box-sizing: border-box;
+  border: none;
+  height: 18px;
+  padding: 3px;
+  width: 100%;
+  background: white;
+}
+
+.ufp-search-bar:focus {
+  outline: none;
+}
+
+.ufp-dropdown {
+  width: 100%;
+  position: absolute;
+  left: -1px;
+  top: 22px;
+  font-size: 11px;
+  z-index: 1020;
+  background-color: green;
+}
+
+.ufp-matches {
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.match-li {
+  background: white;
+  width: 100%;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  cursor: pointer;
+  transition: 100ms;
+}
+
+.match-li:hover {
+  background-color: black;
+  color: white;
+}
+
+.match-li:first-of-type {
+  border-top: 1px solid black;
+
+}
+
+.ufp-match-tile {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 3px;
+  width: 100%;
+  display: flex;
+}
+
+.ufp-match-info {
+  margin: 0;
+}

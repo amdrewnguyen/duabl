@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { createTeam } from '../../actions/team_actions';
+import UsersSelector from '../widgets/users_selector';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -18,7 +19,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 class NewTeamForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {name: "", members: ""};
+    this.state = {name: "", memberIds: [], getSelectedUserIds: null};
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -28,10 +29,18 @@ class NewTeamForm extends React.Component {
     };
   }
 
+  sendGetSelected(cb) {
+    this.setState({getSelectedUserIds: cb});
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
-    this.props.createTeam(this.state)
+    const newTeam = {
+      name: this.state.name,
+    };
+    let memberIds = this.state.getSelectedUserIds();
+    this.props.createTeam({team: newTeam, memberIds})
       .then(
         () => this.props.closeModal(),
         () => console.log("error")
@@ -48,9 +57,7 @@ class NewTeamForm extends React.Component {
                  onChange={this.update("name")}/>
           <br></br>
           <label>MEMBERS</label><br></br>
-          <input type="text" value={this.state.members}
-                 onChange={this.update("members")}/>
-          <br></br>
+          <UsersSelector sendGetSelected={(cb) => this.sendGetSelected(cb)}/>
           <p>{this.props.errors}</p>
           <input type="submit" value={`Add New Team`}/>
         </form>

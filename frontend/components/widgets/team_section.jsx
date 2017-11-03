@@ -10,20 +10,13 @@ import TeamDropdown from './team_dropdown';
 
 
 const mapStateToProps = (state, ownProps) => {
-  if (state.entities.teams[ownProps.teamId]) {
+  // if (state.entities.teams[ownProps.teamId]) {
     return {
       team: state.entities.teams[ownProps.teamId],
       members: state.entities.teams[ownProps.teamId].memberIds.map((memberId) => state.entities.users[memberId]),
       projects: state.entities.teams[ownProps.teamId].projectIds.map((projectId) => state.entities.projects[projectId]),
       selectedProjId: state.ui.projectId,
     };
-  } else {
-    return {
-      team: null,
-      members: [],
-      // projects: [],
-    };
-  }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -40,7 +33,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 class TeamSection extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {expanded: startExpanded, members: this.props.members, projects: this.props.projects};
+    this.state = {expanded: startExpanded, members: this.props.members, idSet: new Set(this.props.members.map(u=>u.id)), projects: this.props.projects};
     let startExpanded = this.state.projects.some((project) => project.id === this.props.selectedProjId);
     this.toggleDetails = this.toggleDetails.bind(this);
     this.checkExpanded = this.checkExpanded.bind(this);
@@ -53,12 +46,15 @@ class TeamSection extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({team: this.props.team, members: this.props.members, idSet: new Set(this.props.members.map(u=>u.id))});
     this.checkExpanded();
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.members.length !== this.props.members.length) {
-      this.setState({members: newProps.members});
+    const newIdSet = new Set(newProps.members.map(u=>u.id));
+    console.log(newIdSet);
+    if ( newIdSet !== this.state.idSet) {
+      this.setState({team: newProps.team, members: newProps.members, idSet: newIdSet});
     }
     if (newProps.projects !== this.props.projects) {
       this.setState({projects: newProps.projects});
@@ -76,9 +72,9 @@ class TeamSection extends React.Component {
           <div className="team-section-header">
             <h3 onClick={this.toggleDetails}>
               <FontAwesome name={this.state.expanded ? "caret-down" : "caret-right"} aria-hidden="true"/>
-              {this.props.team ? this.props.team.name : ""}
+              {this.state.team ? this.state.team.name : ""}
             </h3>
-            <TeamDropdown team={this.props.team} />
+            <TeamDropdown team={this.state.team} />
           </div>
           {
             this.state.expanded ? (
@@ -89,8 +85,8 @@ class TeamSection extends React.Component {
                                  openEditModal={this.props.openEditModal}
                                  loggedIn={this.props.loggedIn}
                                  selectedProjId={this.props.selectedProjId}
-                                 teamId={this.props.team.id}
-                                 team={this.props.team}/>
+                                 teamId={this.state.team.id}
+                                 team={this.state.team}/>
               </div>
             ) : (
               null

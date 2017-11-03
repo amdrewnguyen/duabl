@@ -26,12 +26,12 @@
   width: 100%;
 }
 
-.modal form input[type="text"]{
+.modal form > input[type="text"]{
   width: 100%;
   height: 3em;
 }
 
-.modal form input[type="password"]{
+.modal form > input[type="password"]{
   width: 100%;
   height: 3em;
 }

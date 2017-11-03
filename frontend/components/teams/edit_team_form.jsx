@@ -2,10 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { updateTeam } from '../../actions/team_actions';
+import UsersSelector from '../widgets/users_selector';
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    team: ownProps.team,
+    name: ownProps.team.name,
     errors: state.errors.team,
+    selectedUsers: ownProps.team.memberIds.map((id) => state.entities.users[id]),
   };
 };
 
@@ -18,7 +22,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 class EditTeamForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = Object.assign({}, this.props.team);
+    this.state = {name: props.team.name, memberIds: props.team.memberIds, getSelectedUserIds: null};
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -28,10 +32,20 @@ class EditTeamForm extends React.Component {
     };
   }
 
+  sendGetSelected(cb) {
+    this.setState({getSelectedUserIds: cb});
+  }
+
+
   handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
-    this.props.updateTeam(this.state)
+    const newTeam = {
+      id: this.props.team.id,
+      name: this.state.name,
+    };
+    let memberIds = this.state.getSelectedUserIds();
+    this.props.updateTeam({team: newTeam, memberIds})
       .then(
         () => this.props.closeModal(),
         () => console.log("error")
@@ -48,9 +62,7 @@ class EditTeamForm extends React.Component {
                  onChange={this.update("name")}/>
           <br></br>
           <label>MEMBERS</label><br></br>
-          <input type="text" value={this.state.members}
-                 onChange={this.update("members")}/>
-          <br></br>
+          <UsersSelector selectedUsers={this.props.selectedUsers} sendGetSelected={(cb) => this.sendGetSelected(cb)}/>
           <p>{this.props.errors}</p>
           <input type="submit" value={`Update Team`}/>
         </form>
