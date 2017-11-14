@@ -14,6 +14,14 @@ export const login = user => (
   })
 );
 
+export const demoLogin = () => (
+  $.ajax({
+    url: '/api/session',
+    method: 'post',
+    data: { user: { email: 'demo@duabl.io', password: 'demooo' }, },
+  })
+);
+
 export const logout = () => (
   $.ajax({
     url: '/api/session',

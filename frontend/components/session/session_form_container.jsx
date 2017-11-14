@@ -26,6 +26,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const action = (ownProps.location.pathname === "/login") ? login : signup;
   return {
     action: (user) => dispatch(action(user)),
+    login: (user) => dispatch(login(user)),
   };
 };
 

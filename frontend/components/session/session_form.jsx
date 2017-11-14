@@ -7,6 +7,7 @@ class SessionForm extends React.Component {
 
     this.state = { email: "", password: "" };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.demoLogin = this.demoLogin.bind(this);
     // this.update = this.update.bind(this);
   }
 
@@ -20,6 +21,12 @@ class SessionForm extends React.Component {
     e.preventDefault();
     const user = Object.assign({}, this.state);
     this.props.action(user);
+  }
+
+  demoLogin(e) {
+    e.preventDefault();
+    const user = Object.assign({}, { email: 'demo@duabl.io', password: 'demooo' });
+    this.props.login(user);
   }
 
   render() {
@@ -37,7 +44,10 @@ class SessionForm extends React.Component {
             <input type="password" value={this.state.password}
                    onChange={this.update("password")}/>
             <br></br>
-            <input type="submit" value={this.props.formTitle}/>
+            <div className="login-btn-group">
+              <input type="submit" className="demo-login-btn" value="Demo Login" onClick={this.demoLogin}/>
+              <input type="submit" value={this.props.formTitle}/>
+            </div>
             {this.props.errors.length > 0 ? (
               <p>{this.props.errors}</p>
             ) : (
@@ -45,6 +55,7 @@ class SessionForm extends React.Component {
             )
             }
           </form>
+          <br></br>
           <Link to={this.props.otherPath}>{this.props.otherTitle}</Link>
         </div>
       </div>
