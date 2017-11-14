@@ -18,7 +18,8 @@
     "webpack": "^3.8.1"
   },
   "devDependencies": {
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "uglifyjs-webpack-plugin": "^1.0.1"
   },
   "description": "This README would normally document whatever steps are necessary to get the application up and running.",
   "version": "1.0.0",
