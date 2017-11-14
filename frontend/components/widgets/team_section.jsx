@@ -41,7 +41,6 @@ class TeamSection extends React.Component {
 
   checkExpanded() {
     if(this.state.projects.some((project) => (project && (project.id == this.props.selectedProjId)))) {
-      console.log("expand!");
       this.setState({expanded: true});
     }
   }

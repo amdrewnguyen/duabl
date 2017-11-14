@@ -79,8 +79,8 @@ task_names = [
   ["create API", "design database", "solve N+1", "make bed", "get groceries"],
 ]
 
-drew = User.create(email: 'drew@duabl.io', password: 'aaaaaa', name: "Drew Nguyen")
-demo_dave = User.create(email: 'demo@duabl.io', password: 'demooo', name: "Demo Dave")
+drew = User.create(email: 'drew@duabl.com', password: 'aaaaaa', name: "Drew Nguyen")
+demo_dave = User.create(email: 'demo@duabl.com', password: 'demooo', name: "Demo Dave")
 
 other_users = []
 

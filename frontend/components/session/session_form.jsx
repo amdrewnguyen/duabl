@@ -26,7 +26,7 @@ class SessionForm extends React.Component {
 
   demoLogin(e) {
     e.preventDefault();
-    const user = Object.assign({}, { email: 'demo@duabl.io', password: 'demooo' });
+    const user = Object.assign({}, { email: 'demo@duabl.com', password: 'demooo' });
     this.props.login(user);
   }
 

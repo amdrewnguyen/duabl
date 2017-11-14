@@ -26,7 +26,6 @@ class UserForm extends React.Component {
     formData.append("user[name]", this.state.name);
     // our backend can't handle a null image, so why even
     if (file) formData.append("user[image]", file);
-    console.log(formData.getAll("user"));
 
     this.props.updateUser(formData)
       .then(
