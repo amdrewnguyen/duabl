@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import FontAwesome from 'react-fontawesome';
 
 class SessionForm extends React.Component {
   constructor(props) {
@@ -33,7 +34,8 @@ class SessionForm extends React.Component {
     return (
       <div className="modal-session-overlay">
         <div className="modal">
-          <h2>{this.props.formTitle}</h2>
+          <h1><FontAwesome name="list-alt" aria-hidden="true" /> duabl.com</h1>
+          <h3>{this.props.formTitle}</h3>
 
           <form onSubmit={this.handleSubmit}>
             <label>EMAIL ADDRESS</label><br></br>
