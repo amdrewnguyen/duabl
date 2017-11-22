@@ -31,7 +31,9 @@ const mapDispatchToProps = dispatch => (
 
 class SideBar extends React.Component {
   componentDidMount() {
-    this.props.fetchTeams();
+    if (this.props.currentUser) {
+      this.props.fetchTeams();
+    }
     // this.props.fetchProjects();
   }
 

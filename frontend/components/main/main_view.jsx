@@ -14,11 +14,12 @@ const mapStateToProps = (state, ownProps) => {
   const projectId = ownProps.match.params.projectId;
   const taskId = ownProps.match.params.taskId;
   const project = state.entities.projects.items[projectId];
-
+  const currentUser = state.session.currentUser;
   return {
     projectId,
     taskId,
     project,
+    currentUser,
   };
 };
 
@@ -37,22 +38,23 @@ class MainView extends React.Component {
   }
 
   componentDidMount() {
-
     this.props.receivePath(this.props.match.params);
-    this.props.fetchProject(this.props.match.params.projectId)
+    if (this.props.currentUser) {
+      this.props.fetchProject(this.props.match.params.projectId)
       .then(
         () => {
           this.props.fetchTasks()
-            .then(
-              () => this.setState(
-                {taskId: this.props.taskId,
-                 projectId: this.props.projectId,
-                 project: this.props.project,
-                 loaded: true}
-               )
+          .then(
+            () => this.setState(
+              {taskId: this.props.taskId,
+                projectId: this.props.projectId,
+                project: this.props.project,
+                loaded: true}
+              )
             );
           }
         );
+    }
   }
 
 
@@ -62,6 +64,22 @@ class MainView extends React.Component {
       this.props.receivePath(newProps.match.params);
     }
 
+    if (!this.props.currentUser && newProps.currentUser) {
+      this.props.fetchProject(this.props.match.params.projectId)
+      .then(
+        () => {
+          this.props.fetchTasks()
+          .then(
+            () => this.setState(
+              {taskId: this.props.taskId,
+                projectId: this.props.projectId,
+                project: this.props.project,
+                loaded: true}
+              )
+            );
+          }
+        );
+    }
 
     if (newProps.match.params.taskId !== this.props.match.params.taskId) {
       this.setState({taskId: newProps.match.params.taskId});

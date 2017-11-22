@@ -8,7 +8,7 @@ import TopBar from './header';
 import SideBar from './side_bar';
 import Modal from './modal';
 import MainView from './main/main_view';
-import { AuthRoute } from './route/route_util';
+import { AuthRoute, ProtectedRoute } from './route/route_util';
 import { receivePath } from '../actions/ui_actions';
 
 
@@ -73,7 +73,7 @@ class App extends React.Component {
         <AuthRoute path="/signup" component={SessionFormContainer} />
         <TopBar />
         <SideBar />
-        <Route path="/:projectId/:taskId" component={MainView} />
+        <ProtectedRoute path="/:projectId/:taskId" component={MainView} />
         <Modal />
       </div>
     );
